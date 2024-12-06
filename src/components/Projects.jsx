@@ -1,20 +1,20 @@
 import { motion } from "framer-motion";
 import { PROJECTS } from "../constants";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const Projects = () => {
   return (
-    <div className="border-b  border-neutral-900 pb-4">
+    <div className="border-b border-neutral-900 pb-4">
       <motion.h2
         whileInView={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -100 }}
         transition={{ duration: 0.5 }}
-        className="
-     my-20  text-center text-4xl "
+        className="my-20 text-center text-4xl"
       >
         Projects
       </motion.h2>
       {PROJECTS.map((project, index) => (
-        <div className="mb-8  flex flex-wrap lg:justify-center" key={index}>
+        <div className="mb-8 flex flex-wrap lg:justify-center" key={index}>
           <motion.div
             whileInView={{ opacity: 1, x: 0 }}
             initial={{ opacity: 0, x: -100 }}
@@ -37,6 +37,20 @@ const Projects = () => {
           >
             <h6 className="mb-2 font-semibold">{project.title}</h6>
             <p className="mb-4 text-neutral-400">{project.description}</p>
+            <div className="mb-4 flex space-x-4">
+              {project.githubLink && (
+                <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-neutral-400 hover:text-white">
+                  <FaGithub className="mr-2" />
+                  GitHub
+                </a>
+              )}
+              {project.liveLink && (
+                <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-neutral-400 hover:text-white">
+                  <FaExternalLinkAlt className="mr-2" />
+                  Live Demo
+                </a>
+              )}
+            </div>
             {project.technologies.map((tech, index) => (
               <span
                 key={index}
