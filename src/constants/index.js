@@ -36,15 +36,7 @@ export const PROJECTS = [
     githubLink: "https://github.com/sheikhmuhammadzain/uolgpacalculator",
     liveLink: "https://uolgpacalculator.netlify.app/",
   },
-  {
-    title: "Modern Todo App",
-    image: todoimg,
-    description:
-      "A modern and responsive todo app built with react typescript for efficient task management.",
-    technologies: ["React", "TypeScript", "Tailwind CSS"],
-    githubLink: "https://github.com/sheikhmuhammadzain/modernTodo",
-    liveLink: "https://wondrous-begonia-10b6f9.netlify.app/",
-  },
+  
   {
     title: "Studdy Buddy ChatBot",
     image: chatbotimg,
