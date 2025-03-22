@@ -50,7 +50,7 @@ export const PROJECTS = [
     title: "Sheikh Study Hub",
     image: sheikhstudy,
     description:
-      "Full Stack Web Application for a study hub that allows students to access a wide range of study materials and resources. The application includes features such as a quiz section, a notes section, and a discussion forum.",
+      "Full Stack Web Application for a study hub that allows students to access a wide range of study materials and resources. All subject notes are available in one place.",
     technologies: ["React", "TypeScript", "Tailwind CSS", "Supabase", "NLP", "AI",'Gemeni AI'],
     githubLink: "https://github.com/sheikhmuhammadzain",
     liveLink: "https://sheikh-study-hub.vercel.app/",
