@@ -11,14 +11,14 @@ export const ABOUT_TEXT = `I am a dedicated and versatile AI Engineer and Full S
 
 export const EXPERIENCES = [
   {
-    year: "2023 - Present",
+    year: "2025 - Present",
     role: "AI Engineer",
     company: "Cybergen",
     description: `Developed and deployed machine learning models and NLP solutions for various business applications. Created and optimized neural networks using TensorFlow and PyTorch. Integrated AI solutions with web applications using RESTful APIs. Collaborated with cross-functional teams to implement AI-driven features that enhanced user experience and business outcomes.`,
     technologies: ["Python", "TensorFlow", "PyTorch", "NLP", "RESTful APIs", "Docker"],
   },
   {
-    year: "2022 - 2023",
+    year: "2024 - 2025",
     role: "Full Stack Developer",
     company: "Tech Wizardz",
     description: `Led a team in developing and maintaining web applications using JavaScript, React.js, and Node.js. Implemented RESTful APIs and integrated with MongoDB databases. Collaborated with stakeholders to define project requirements and timelines.`,
