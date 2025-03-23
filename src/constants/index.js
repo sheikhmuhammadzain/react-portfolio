@@ -47,13 +47,13 @@ export const PROJECTS = [
     liveLink: "https://studybuddyai.netlify.app/",
   },
   {
-    title: "Sheikh Study Hub",
+    title: "IET Study Hub",
     image: sheikhstudy,
     description:
       "Full Stack Web Application for a study hub that allows students to access a wide range of study materials and resources. All subject notes are available in one place.",
     technologies: ["React", "TypeScript", "Tailwind CSS", "Supabase", "NLP", "AI",'Gemeni AI'],
     githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://sheikh-study-hub.vercel.app/",
+    liveLink: "https://ietstudyhub.vercel.app/",
   },
   {
     title: "Drawing Math Solver",
