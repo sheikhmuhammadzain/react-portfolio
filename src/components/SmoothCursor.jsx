@@ -85,6 +85,8 @@ export function SmoothCursor({
   const [cursorY, setCursorY] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [scale, setScale] = useState(1);
+  const [glowScale, setGlowScale] = useState(1);
+  const [glowOpacity, setGlowOpacity] = useState(0.6);
 
   useEffect(() => {
     const updateVelocity = (currentPos) => {
@@ -126,10 +128,14 @@ export function SmoothCursor({
         previousAngle.current = currentAngle;
 
         setScale(0.95);
+        setGlowScale(1.5);
+        setGlowOpacity(0.8);
         setIsMoving(true);
 
         const timeout = setTimeout(() => {
           setScale(1);
+          setGlowScale(1);
+          setGlowOpacity(0.6);
           setIsMoving(false);
         }, 150);
 
@@ -152,37 +158,69 @@ export function SmoothCursor({
 
     return () => {
       window.removeEventListener("mousemove", throttledMouseMove);
-      document.body.style.cursor = "auto";
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
   return (
-    <motion.div
-      style={{
-        position: "fixed",
-        left: cursorX,
-        top: cursorY,
-        translateX: "-50%",
-        translateY: "-50%",
-        zIndex: 100,
-        pointerEvents: "none",
-        willChange: "transform",
-      }}
-      initial={{ scale: 0 }}
-      animate={{ 
-        scale: scale,
-        rotate: rotation 
-      }}
-      transition={{
-        type: "spring",
-        stiffness: springConfig.stiffness,
-        damping: springConfig.damping,
-        mass: springConfig.mass,
-      }}
-    >
-      {cursor}
-    </motion.div>
+    <>
+      {/* Glow effect */}
+      <motion.div
+        style={{
+          position: "fixed",
+          left: cursorX,
+          top: cursorY,
+          translateX: "-50%",
+          translateY: "-50%",
+          zIndex: 99,
+          pointerEvents: "none",
+          willChange: "transform",
+          width: 50,
+          height: 50,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(116, 66, 255, 0.8) 0%, rgba(120, 119, 198, 0.4) 50%, rgba(0, 0, 0, 0) 70%)",
+          filter: "blur(8px)",
+        }}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ 
+          scale: glowScale,
+          opacity: glowOpacity
+        }}
+        transition={{
+          type: "spring",
+          stiffness: springConfig.stiffness,
+          damping: springConfig.damping,
+          mass: springConfig.mass,
+        }}
+      />
+      
+      {/* Cursor */}
+      <motion.div
+        style={{
+          position: "fixed",
+          left: cursorX,
+          top: cursorY,
+          translateX: "-50%",
+          translateY: "-50%",
+          zIndex: 100,
+          pointerEvents: "none",
+          willChange: "transform",
+        }}
+        initial={{ scale: 0 }}
+        animate={{ 
+          scale: scale,
+          rotate: rotation 
+        }}
+        transition={{
+          type: "spring",
+          stiffness: springConfig.stiffness,
+          damping: springConfig.damping,
+          mass: springConfig.mass,
+        }}
+      >
+        {cursor}
+      </motion.div>
+    </>
   );
 }
 
