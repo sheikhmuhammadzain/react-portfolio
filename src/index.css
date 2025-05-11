@@ -7,6 +7,15 @@
   font-family: 'Inter', sans-serif;
 }
 
+html, body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 /* Disable default cursor */
 html, body, * {
   cursor: none !important;
