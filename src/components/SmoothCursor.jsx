@@ -178,8 +178,8 @@ export function SmoothCursor({
           width: 50,
           height: 50,
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(116, 66, 255, 0.8) 0%, rgba(120, 119, 198, 0.4) 50%, rgba(0, 0, 0, 0) 70%)",
-          filter: "blur(8px)",
+          background: "radial-gradient(circle, rgba(94, 35, 255, 0.8) 0%, rgba(120, 119, 198, 0.4) 50%, rgba(0, 0, 0, 0) 70%)",
+          filter: "blur(10px)",
         }}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ 

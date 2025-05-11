@@ -87,5 +87,5 @@ export const PROJECTS = [
 export const CONTACT = {
   address: "Green Town Lahore ",
   phoneNo: "+92 303 2224501 ",
-  email: "zainsheikh3462@gmail.com",
+  email: "zain.afzal@cybergen.com",
 };
