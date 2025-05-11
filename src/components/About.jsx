@@ -3,8 +3,8 @@ import aboutImg from "../assets/about.jpg";
 import { ABOUT_TEXT } from "../constants";
 const About = () => {
   return (
-    <div className="border-b border-neutral-900 pb-4">
-      <h2 className="text-4xl text-center mb-8">
+    <div className="border-b border-neutral-900 pb-16 pt-8">
+      <h2 className="text-4xl text-center mb-12">
         About <span className="text-neutral-500">Me</span>
       </h2>
       <div className="flex flex-wrap">

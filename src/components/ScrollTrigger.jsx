@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { useSmoothScroll } from '../hooks/useSmoothScroll';
 
 const ScrollTrigger = ({ 
   children, 
@@ -8,7 +7,6 @@ const ScrollTrigger = ({
   delay = 0,
   threshold = 0.2
 }) => {
-  const { scroll } = useSmoothScroll();
   const ref = useRef(null);
   
   // Available animations: fade-up, fade-down, fade-left, fade-right, zoom-in
@@ -30,7 +28,7 @@ const ScrollTrigger = ({
   };
 
   useEffect(() => {
-    if (!scroll || !ref.current) return;
+    if (!ref.current) return;
     
     const element = ref.current;
     
@@ -42,27 +40,29 @@ const ScrollTrigger = ({
       element.style.transitionDelay = `${delay}ms`;
     }
     
-    // Update callback when the element comes into view
-    scroll.on('call', (value, way, obj) => {
-      if (value === 'reveal' && way === 'enter') {
-        setTimeout(() => {
-          obj.el.classList.remove(...getAnimationClass().split(' '));
-        }, 50);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              element.classList.remove(...getAnimationClass().split(' '));
+            }, 50);
+            observer.unobserve(element);
+          }
+        });
+      },
+      {
+        threshold: threshold,
+        rootMargin: '0px',
       }
-    });
+    );
     
-    // Add data attributes to the element for locomotive-scroll
-    element.setAttribute('data-scroll', '');
-    element.setAttribute('data-scroll-call', 'reveal');
-    element.setAttribute('data-scroll-offset', `${threshold * 100}%`);
-    
-    // Re-update scroll to detect the new elements
-    scroll.update();
+    observer.observe(element);
     
     return () => {
-      scroll.off('call');
+      if (element) observer.unobserve(element);
     };
-  }, [scroll, animation, delay, threshold]);
+  }, [animation, delay, threshold]);
   
   return (
     <div ref={ref} className={className}>

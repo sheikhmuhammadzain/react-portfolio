@@ -12,38 +12,6 @@ html, body, * {
   cursor: none !important;
 }
 
-/* Locomotive Scroll styles */
-html.has-scroll-smooth {
-  overflow: hidden;
-}
-
-html.has-scroll-dragging {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-#smooth-wrapper {
-  min-height: 100vh;
-}
-
-#smooth-content {
-  position: relative;
-  overflow: visible;
-}
-
-/* Remove default scrollbar styles for browsers since locomotive will handle scrolling */
-body {
-  overflow: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-body::-webkit-scrollbar {
-  display: none;
-}
-
 /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
 ::-webkit-scrollbar {
   width: 6px;
@@ -71,11 +39,6 @@ body::-webkit-scrollbar {
 /* For Internet Explorer and Edge */
 body {
   -ms-overflow-style: none;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-body::-webkit-scrollbar {
-  display: none;
 }
 
 /* Optional: Show scrollbar on hover */
