@@ -5,6 +5,7 @@ import sheikhstudy from '../assets/projects/sheikhsutdy.png'
 import drawmath from '../assets/projects/drawmath.png'
 import aitask from '../assets/projects/aitask.png'
 import aiimage from '../assets/projects/aiimage.png'
+import zainco from '../assets/projects/zainco.png'
 export const HERO_CONTENT = `I am a passionate AI Engineer and Full Stack Developer with 3+ years of hands-on experience. I have honed my skills in AI technologies like TensorFlow, PyTorch, and NLP, along with front-end technologies like React and Next.js, as well as back-end technologies like Node.js, MySQL, PostgreSQL, and MongoDB. My goal is to leverage my expertise to create innovative AI-powered solutions that drive business growth and deliver exceptional user experiences.`;
 
 export const ABOUT_TEXT = `I am a dedicated and versatile AI Engineer and Full Stack Developer with a passion for creating intelligent and user-friendly applications. With 3+ years of professional experience, I have worked with a variety of technologies, including machine learning frameworks like TensorFlow and PyTorch, as well as web technologies such as React, Next.js, Node.js, MySQL, PostgreSQL, and MongoDB. My journey began with a deep curiosity for AI and software development, which has evolved into a career where I continuously strive to learn and adapt to new challenges in the rapidly evolving field of artificial intelligence. I thrive in collaborative environments and enjoy solving complex problems to deliver high-quality, AI-driven solutions. Outside of coding, I enjoy staying active, exploring new technologies, and contributing to open-source projects.`;
@@ -35,6 +36,15 @@ export const PROJECTS = [
     technologies: ["React", "TypeScript", "Vite", "Tailwind CSS"],
     githubLink: "https://github.com/sheikhmuhammadzain/uolgpacalculator",
     liveLink: "https://uolgpacalculator.netlify.app/",
+  },
+  {
+    title: "Zain & CO",
+    image: zainco,
+    description:
+      "Zain & CO is a Luxury Ecommerce Website for a Luxury Brand. It is a full responsive website that is built using React, TypeScript, Vite, Tailwind CSS, and Framer Motion. ",
+    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
+    githubLink: "https://github.com/sheikhmuhammadzain",
+    liveLink: "https://afzal-elegance-commerce.vercel.app/",
   },
   
   {
