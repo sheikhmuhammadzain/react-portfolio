@@ -1,15 +1,23 @@
 import uolgpa from "../assets/projects/uolgpacal.png";
 import todoimg from "../assets/projects/todomodern.png";
 import chatbotimg from "../assets/projects/chatbot.png";
+import leetcode from '../assets/projects/leetcode.png'
 import sheikhstudy from '../assets/projects/sheikhsutdy.png'
 import drawmath from '../assets/projects/drawmath.png'
 import aitask from '../assets/projects/aitask.png'
 import aiimage from '../assets/projects/aiimage.png'
 import zainco from '../assets/projects/zainco.png'
 import chatgptclone from '../assets/projects/chatgptclone.png'
-export const HERO_CONTENT = `I am a passionate AI Engineer and Full Stack Developer with 3+ years of hands-on experience. I have honed my skills in AI technologies like TensorFlow, PyTorch, and NLP, along with front-end technologies like React and Next.js, as well as back-end technologies like Node.js, MySQL, PostgreSQL, and MongoDB. My goal is to leverage my expertise to create innovative AI-powered solutions that drive business growth and deliver exceptional user experiences.`;
+export const HERO_CONTENT = `I’m a Gen-AI Engineer and full-stack MERN developer who turns complex ideas into profitable, human-centric products. From fine-tuning 7-to-70 B models to shipping React/Node apps on serverless infra, I’ve spent 3+ years closing the gap between cutting-edge research and real-world ROI.`;
 
-export const ABOUT_TEXT = `I am a dedicated and versatile AI Engineer and Full Stack Developer with a passion for creating intelligent and user-friendly applications. With 3+ years of professional experience, I have worked with a variety of technologies, including machine learning frameworks like TensorFlow and PyTorch, as well as web technologies such as React, Next.js, Node.js, MySQL, PostgreSQL, and MongoDB. My journey began with a deep curiosity for AI and software development, which has evolved into a career where I continuously strive to learn and adapt to new challenges in the rapidly evolving field of artificial intelligence. I thrive in collaborative environments and enjoy solving complex problems to deliver high-quality, AI-driven solutions. Outside of coding, I enjoy staying active, exploring new technologies, and contributing to open-source projects.`;
+export const ABOUT_TEXT = `My day starts with coffee and a GPU cluster, and ends with clean commits and a dashboard full of happier users.  
+Over the past three years I’ve:
+
+• Designed and deployed RAG pipelines, autonomous agents, and diffusion tools that serve 1 M+ requests per week.  
+• Married transformer magic (LoRA/RLHF, vector DBs, Triton inference) to bullet-proof web services (TypeScript, Next.js SSR, Node micro-services, PostgreSQL/Mongo, K8s, Terraform).  
+• Led cross-functional squads in two-week sprints, turning white-board sketches into revenue-generating features while keeping latency <200 ms and SLAs >99.9 %.  
+
+Beyond code, I open-source prompt-engineering utilities, mentor junior devs, and stay sharp through papers and hackathons. If you’re ready to ship AI that works as beautifully as it looks, let’s talk.`;
 
 export const EXPERIENCES = [
   {
@@ -29,6 +37,15 @@ export const EXPERIENCES = [
 ];
 
 export const PROJECTS = [
+   {
+    title: "UOL AI Powered CHAT APP",
+    image: aitask,
+    description:
+      "A modern AI-powered chat application that allows users to communicate with each other in real-time. The application uses AI to enhance the user experience by providing features like Slide to AI Reply, UOL GPT, and more.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", 'Vite', 'Stable Diffusion','framer motion'],
+    githubLink: "https://github.com/sheikhmuhammadzain",
+    liveLink: "https://uol-chat-app.vercel.app/",
+  },
   {
     title: "University of Lahore GPA Calculator",
     image: uolgpa,
@@ -94,14 +111,15 @@ export const PROJECTS = [
     liveLink: "https://zainimage.netlify.app/",
   },
   {
-    title: "AI Task Manager",
-    image: aitask,
+    title: "LeetCoders Gang",
+    image: leetcode,
     description:
-      "AI Task Manager is a web application that allows users to manage their tasks using AI. The application uses a custom model to generate tasks based on the user's prompt.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", 'Vite', 'Stable Diffusion','framer motion'],
+      "LeetCoders Gang is an ai powered platform that allows users to create ai powered posts about leetcode problems. The application uses a custom model to generate posts based on the user's prompt.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", 'Vite', 'Gemini','framer motion'],
     githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://aitodozain.netlify.app/",
-  },
+    liveLink: "https://leetcodersgang.vercel.app/",
+  }
+ 
 ];
 
 export const CONTACT = {
