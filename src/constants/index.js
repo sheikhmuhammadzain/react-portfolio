@@ -1,11 +1,10 @@
 import uolgpa from "../assets/projects/uolgpacal.png";
-import todoimg from "../assets/projects/todomodern.png";
 import chatbotimg from "../assets/projects/chatbot.png";
 import leetcode from '../assets/projects/leetcode.png'
 import sheikhstudy from '../assets/projects/sheikhsutdy.png'
 import drawmath from '../assets/projects/drawmath.png'
-import aitask from '../assets/projects/aitask.png'
 import aiimage from '../assets/projects/aiimage.png'
+import uolchat from '../assets/projects/uolchat.png'
 import zainco from '../assets/projects/zainco.png'
 import chatgptclone from '../assets/projects/chatgptclone.png'
 export const HERO_CONTENT = `I’m a Gen-AI Engineer and full-stack MERN developer who turns complex ideas into profitable, human-centric products. From fine-tuning 7-to-70 B models to shipping React/Node apps on serverless infra, I’ve spent 3+ years closing the gap between cutting-edge research and real-world ROI.`;
@@ -39,7 +38,7 @@ export const EXPERIENCES = [
 export const PROJECTS = [
    {
     title: "UOL AI Powered CHAT APP",
-    image: aitask,
+    image: uolchat,
     description:
       "A modern AI-powered chat application that allows users to communicate with each other in real-time. The application uses AI to enhance the user experience by providing features like Slide to AI Reply, UOL GPT, and more.",
     technologies: ["React", "TypeScript", "Tailwind CSS", 'Vite', 'Stable Diffusion','framer motion'],
