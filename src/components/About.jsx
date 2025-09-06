@@ -15,7 +15,7 @@ const About = () => {
           className="w-full lg:w-1/2 lg:p-8"
         >
           <div className="flex items-center justify-center ">
-            <img className="rounded-2xl lg:w-96" src={aboutImg} alt="" />
+            <img className="rounded-2xl lg:w-96" src={aboutImg} alt="Muhammad Zain - Professional profile photo showing Gen-AI Engineer" />
           </div>
         </motion.div>
         <motion.div
