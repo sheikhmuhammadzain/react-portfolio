@@ -48,7 +48,7 @@ const cardVariants = {
 
 // Animation variants for the heading
 const headingVariants = {
-    hidden: { opacity: 0, y: -50 },
+    hidden: { opacity: 0, y: -100 },
     visible: {
         opacity: 1,
         y: 0,
@@ -67,7 +67,7 @@ const Projects = () => {
         variants={headingVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }} // Trigger when 50% visible for heading
+        viewport={{ once: false, amount: 0.3 }} // Trigger when 30% visible for heading
         className="my-20 text-center text-4xl font-thin tracking-tight text-neutral-100"
       >
         Projects
@@ -82,7 +82,7 @@ const Projects = () => {
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }} // Trigger animation when 20% is visible
+            viewport={{ once: false, amount: 0.3 }} // Trigger animation when 30% is visible
             // Hover effect using Framer Motion spring for smooth, physical feel
             whileHover={{ scale: 1.03, y: -6 }} // Subtle lift and scale
             transition={{ type: "spring", stiffness: 300, damping: 20 }} // Fine-tuned spring params
@@ -118,9 +118,9 @@ const Projects = () => {
 
             {/* Content Section */}
             <div className="flex flex-1 flex-col p-6">
-              <h6 className="mb-2 text-xl font-semibold text-neutral-100">
+              <h3 className="mb-2 text-xl font-semibold text-neutral-100">
                 {project.title}
-              </h6>
+              </h3>
               <p className="mb-4 flex-grow text-sm text-neutral-400">
                 {project.description}
               </p>

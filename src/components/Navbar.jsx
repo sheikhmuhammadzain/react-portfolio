@@ -20,13 +20,22 @@ const Navbar = () => {
         <a
           target="_blank"
           href="https://www.linkedin.com/in/muhammad-zain-afzal-649209227/"
+          aria-label="Visit Muhammad Zain's LinkedIn profile"
         >
           <FaLinkedin />
         </a>
-        <a href="https://github.com/sheikhmuhammadzain" target="_blank">
+        <a 
+          href="https://github.com/sheikhmuhammadzain" 
+          target="_blank"
+          aria-label="Visit Muhammad Zain's GitHub profile"
+        >
           <FaGithub />
         </a>
-        <a href="https://www.instagram.com/zainshayykh/" target="_blank">
+        <a 
+          href="https://www.instagram.com/zainshayykh/" 
+          target="_blank"
+          aria-label="Visit Muhammad Zain's Instagram profile"
+        >
           <FaInstagram />
         </a>
       </div>

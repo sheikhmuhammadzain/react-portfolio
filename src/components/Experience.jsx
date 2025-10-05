@@ -41,7 +41,7 @@ const Experience = () => {
             variants={listItemVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% is visible
+            viewport={{ once: false, amount: 0.3 }} // Trigger animation when 30% is visible
             className="mb-10 flex flex-wrap lg:flex-nowrap justify-start" // Use flex for layout, allow wrapping on small screens
           >
             {/* Left Column: Year */}
@@ -53,12 +53,12 @@ const Experience = () => {
 
             {/* Right Column: Details */}
             <div className="w-full lg:w-3/4 lg:pl-4 border-l border-neutral-700/50 lg:border-l-0 lg:pl-0"> {/* Optional: Add border only on small screens */}
-                <h6 className="mb-1 text-lg font-semibold text-neutral-100">
+                <h3 className="mb-1 text-lg font-semibold text-neutral-100">
                     {experience.role} -{" "}
                     <span className="text-base font-medium text-purple-300/90"> {/* Slightly dimmed purple */}
                     {experience.company}
                     </span>
-                </h6>
+                </h3>
                 <p className="mb-4 text-sm leading-relaxed text-neutral-300">
                     {experience.description}
                 </p>
