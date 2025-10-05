@@ -7,16 +7,17 @@ import aiimage from '../assets/projects/aiimage.png'
 import uolchat from '../assets/projects/uolchat.png'
 import zainco from '../assets/projects/zainco.png'
 import chatgptclone from '../assets/projects/chatgptclone.png'
-export const HERO_CONTENT = `I’m a Gen-AI Engineer and full-stack MERN developer who turns complex ideas into profitable, human-centric products. From fine-tuning 7-to-70 B models to shipping React/Node apps on serverless infra, I’ve spent 3+ years closing the gap between cutting-edge research and real-world ROI.`;
+export const HERO_CONTENT = `I'm a Gen-AI Engineer and full-stack MERN developer specializing in production-grade LLM pipelines, RAG systems, and scalable web applications. With 3+ years of experience fine-tuning transformer models (7B-70B parameters) and deploying React/Node.js applications on serverless infrastructure, I bridge the gap between cutting-edge AI research and real-world business solutions.`;
 
-export const ABOUT_TEXT = `My day starts with coffee and a GPU cluster, and ends with clean commits and a dashboard full of happier users.  
-Over the past three years I’ve:
+export const ABOUT_TEXT = `I'm a Gen-AI Engineer and full-stack MERN developer building production-grade AI systems that deliver real business value. With 3+ years of experience in LLM pipelines, RAG systems, and modern web development, I help companies transform AI research into scalable applications.
 
-• Designed and deployed RAG pipelines, autonomous agents, and diffusion tools that serve 1 M+ requests per week.  
-• Married transformer magic (LoRA/RLHF, vector DBs, Triton inference) to bullet-proof web services (TypeScript, Next.js SSR, Node micro-services, PostgreSQL/Mongo, K8s, Terraform).  
-• Led cross-functional squads in two-week sprints, turning white-board sketches into revenue-generating features while keeping latency <200 ms and SLAs >99.9 %.  
+Key Expertise:
+• RAG pipelines & AI agents serving 1M+ requests with 99.9% uptime
+• Advanced AI techniques: LoRA fine-tuning, RLHF, vector databases, Triton inference
+• Enterprise web services: TypeScript, Next.js SSR, Node.js microservices, Kubernetes
+• Team leadership delivering AI features with sub-200ms latency
 
-Beyond code, I open-source prompt-engineering utilities, mentor junior devs, and stay sharp through papers and hackathons. If you’re ready to ship AI that works as beautifully as it looks, let’s talk.`;
+I contribute to the AI community through open-source tools and mentoring. Ready to turn your AI vision into production reality? Let's collaborate.`;
 
 export const EXPERIENCES = [
   {

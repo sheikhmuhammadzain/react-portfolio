@@ -1,17 +1,22 @@
+import { lazy, Suspense } from "react";
+import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Technologies from "./components/Technologies";
-import Experience from "./components/Experience";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
 import SmoothCursor from "./components/SmoothCursor";
-import Certificates from "./components/Certificates";
-import { Helmet } from "react-helmet";
+import PerformanceMonitor from "./components/PerformanceMonitor";
+
+// Lazy load components below the fold
+const About = lazy(() => import("./components/About"));
+const Technologies = lazy(() => import("./components/Technologies"));
+const Experience = lazy(() => import("./components/Experience"));
+const Projects = lazy(() => import("./components/Projects"));
+const Certificates = lazy(() => import("./components/Certificates"));
+const Contact = lazy(() => import("./components/Contact"));
 
 const App = () => {
   return (
     <>
+      <PerformanceMonitor />
      <Helmet>
   {/* Primary Meta */}
   <title>Muhammad Zain | Gen-AI Engineer & Full-Stack MERN Developer</title>
@@ -51,12 +56,24 @@ const App = () => {
         <div className="container mx-auto px-4 sm:px-8 max-w-full">
           <Navbar />
           <Hero />
-          <About />
-          <Technologies />
-          <Experience />
-          <Projects />
-          <Certificates />
-          <Contact />
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+            <About />
+          </Suspense>
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+            <Technologies />
+          </Suspense>
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+            <Experience />
+          </Suspense>
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+            <Certificates />
+          </Suspense>
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+            <Contact />
+          </Suspense>
         </div>
       </div>
     </>

@@ -35,6 +35,8 @@ const Hero = () => {
                 className="rounded mix-blend-difference"
                 src={profilePic}
                 alt="Muhammad Zain"
+                loading="lazy"
+                decoding="async"
               />
             </ScrollTrigger>
           </div>

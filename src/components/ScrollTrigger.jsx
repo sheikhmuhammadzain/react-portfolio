@@ -1,4 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
+
+// Shared observer instance to reduce overhead
+let sharedObserver = null;
 
 const ScrollTrigger = ({ 
   children, 
@@ -40,27 +43,36 @@ const ScrollTrigger = ({
       element.style.transitionDelay = `${delay}ms`;
     }
     
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              element.classList.remove(...getAnimationClass().split(' '));
-            }, 50);
-            observer.unobserve(element);
-          }
-        });
-      },
-      {
-        threshold: threshold,
-        rootMargin: '0px',
-      }
-    );
+    // Use shared observer to reduce overhead
+    if (!sharedObserver) {
+      sharedObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const targetElement = entry.target;
+              const animationClasses = targetElement.dataset.animationClasses?.split(' ') || [];
+              setTimeout(() => {
+                targetElement.classList.remove(...animationClasses);
+              }, 50);
+              sharedObserver.unobserve(targetElement);
+            }
+          });
+        },
+        {
+          threshold: threshold,
+          rootMargin: '0px',
+        }
+      );
+    }
     
-    observer.observe(element);
+    // Store animation classes for cleanup
+    element.dataset.animationClasses = getAnimationClass();
+    sharedObserver.observe(element);
     
     return () => {
-      if (element) observer.unobserve(element);
+      if (element && sharedObserver) {
+        sharedObserver.unobserve(element);
+      }
     };
   }, [animation, delay, threshold]);
   

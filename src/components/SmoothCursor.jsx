@@ -144,7 +144,12 @@ export function SmoothCursor({
     };
 
     let rafId;
+    let lastTime = 0;
     const throttledMouseMove = (e) => {
+      const now = Date.now();
+      if (now - lastTime < 16) return; // ~60fps throttling
+      lastTime = now;
+
       if (rafId) return;
 
       rafId = requestAnimationFrame(() => {
