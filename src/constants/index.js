@@ -14,6 +14,8 @@ export const ABOUT_TEXT = `I'm a Gen-AI Engineer and full-stack MERN developer b
 Key Expertise:
 • RAG pipelines & AI agents serving 1M+ requests with 99.9% uptime
 • Advanced AI techniques: LoRA fine-tuning, RLHF, vector databases, Triton inference
+• Data analysis agent expert & chatbot expert specializing in conversational AI
+• n8n workflow automation & agent orchestration for enterprise solutions
 • Enterprise web services: TypeScript, Next.js SSR, Node.js microservices, Kubernetes
 • Team leadership delivering AI features with sub-200ms latency
 

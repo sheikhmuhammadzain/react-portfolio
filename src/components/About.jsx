@@ -25,44 +25,56 @@ const About = () => {
           className="w-full lg:w-1/2"
         >
           <div className="flex justify-center lg:justify-start">
-            <div className="my-2 max-w-xl py-6 space-y-4">
-              <p className="text-lg leading-relaxed">
-                I'm a <span className="text-purple-400 font-semibold">Gen-AI Engineer</span> and <span className="text-purple-400 font-semibold">full-stack MERN developer</span> building production-grade AI systems that deliver real business value. With 3+ years of experience in LLM pipelines, RAG systems, and modern web development, I help companies transform AI research into scalable applications.
+            <div className="my-2 max-w-xl py-6 space-y-2">
+              <p className="text-sm font-light leading-tight">
+                I'm a <span className="text-purple-400 font-medium">Gen-AI Engineer</span> and <span className="text-purple-400 font-medium">full-stack MERN developer</span> building production-grade AI systems that deliver real business value. With 3+ years of experience in LLM pipelines, RAG systems, and modern web development, I help companies transform AI research into scalable applications.
               </p>
               
-              <h3 className="text-xl font-semibold text-neutral-200 mt-6 mb-3">
+              <h3 className="text-base font-medium text-neutral-200 mt-4 mb-2">
                 Key Expertise:
               </h3>
               
-              <ul className="space-y-3 ml-4">
+              <ul className="space-y-1 ml-4">
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-3 mt-1">•</span>
-                  <span className="text-lg leading-relaxed">
-                    <span className="text-purple-400 font-semibold">RAG pipelines</span> & AI agents serving <span className="text-purple-400 font-semibold">1M+ requests</span> with <span className="text-purple-400 font-semibold">99.9% uptime</span>
+                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                  <span className="text-sm font-light leading-tight">
+                    <span className="text-purple-400 font-medium">RAG pipelines</span> & AI agents serving <span className="text-purple-400 font-medium">1M+ requests</span> with <span className="text-purple-400 font-medium">99.9% uptime</span>
                   </span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-3 mt-1">•</span>
-                  <span className="text-lg leading-relaxed">
-                    Advanced AI techniques: <span className="text-purple-400 font-semibold">LoRA fine-tuning</span>, <span className="text-purple-400 font-semibold">RLHF</span>, vector databases, Triton inference
+                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                  <span className="text-sm font-light leading-tight">
+                    Advanced AI techniques: <span className="text-purple-400 font-medium">LoRA fine-tuning</span>, <span className="text-purple-400 font-medium">RLHF</span>, vector databases, Triton inference
                   </span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-3 mt-1">•</span>
-                  <span className="text-lg leading-relaxed">
-                    Enterprise web services: <span className="text-purple-400 font-semibold">TypeScript</span>, <span className="text-purple-400 font-semibold">Next.js SSR</span>, <span className="text-purple-400 font-semibold">Node.js microservices</span>, Kubernetes
+                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                  <span className="text-sm font-light leading-tight">
+                    <span className="text-purple-400 font-medium">Data analysis agent expert</span> & <span className="text-purple-400 font-medium">chatbot expert</span> specializing in conversational AI
                   </span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-400 mr-3 mt-1">•</span>
-                  <span className="text-lg leading-relaxed">
-                    Team leadership delivering AI features with <span className="text-purple-400 font-semibold">sub-200ms latency</span>
+                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                  <span className="text-sm font-light leading-tight">
+                    <span className="text-purple-400 font-medium">n8n workflow automation</span> & agent orchestration for enterprise solutions
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                  <span className="text-sm font-light leading-tight">
+                    Enterprise web services: <span className="text-purple-400 font-medium">TypeScript</span>, <span className="text-purple-400 font-medium">Next.js SSR</span>, <span className="text-purple-400 font-medium">Node.js microservices</span>, Kubernetes
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                  <span className="text-sm font-light leading-tight">
+                    Team leadership delivering AI features with <span className="text-purple-400 font-medium">sub-200ms latency</span>
                   </span>
                 </li>
               </ul>
               
-              <p className="text-lg leading-relaxed mt-6">
-                I contribute to the AI community through open-source tools and mentoring. Ready to turn your AI vision into production reality? <span className="text-purple-400 font-semibold">Let's collaborate</span>.
+              <p className="text-sm font-light leading-tight mt-4">
+                I contribute to the AI community through open-source tools and mentoring. Ready to turn your AI vision into production reality? <span className="text-purple-400 font-medium">Let's collaborate</span>.
               </p>
             </div>
           </div>
