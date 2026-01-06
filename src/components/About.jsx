@@ -2,6 +2,11 @@ import { motion } from "framer-motion";
 import aboutImg from "../assets/about.jpg";
 import { ABOUT_TEXT } from "../constants";
 const About = () => {
+  const aboutLines = ABOUT_TEXT.split("\n").map((line) => line.trim()).filter(Boolean);
+
+  const summaryLine = aboutLines[0] ?? "";
+  const bulletLines = aboutLines.filter((line) => line.startsWith("• ")).map((line) => line.slice(2).trim());
+
   return (
     <div className="border-b border-neutral-900 pb-16 pt-8">
       <motion.h2
@@ -34,55 +39,21 @@ const About = () => {
           <div className="flex justify-center lg:justify-start">
             <div className="my-2 max-w-xl py-6 space-y-2">
               <p className="text-sm font-light leading-tight">
-                I'm a <span className="text-purple-400 font-medium">Gen-AI Engineer</span> and <span className="text-purple-400 font-medium">full-stack MERN developer</span> building production-grade AI systems that deliver real business value. With 3+ years of experience in LLM pipelines, RAG systems, and modern web development, I help companies transform AI research into scalable applications.
+                {summaryLine}
               </p>
               
               <h3 className="text-base font-medium text-neutral-200 mt-4 mb-2">
-                Key Expertise:
+                Core Strengths:
               </h3>
               
               <ul className="space-y-1 ml-4">
-                <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
-                  <span className="text-sm font-light leading-tight">
-                    <span className="text-purple-400 font-medium">RAG pipelines</span> & AI agents serving <span className="text-purple-400 font-medium">1M+ requests</span> with <span className="text-purple-400 font-medium">99.9% uptime</span>
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
-                  <span className="text-sm font-light leading-tight">
-                    Advanced AI techniques: <span className="text-purple-400 font-medium">LoRA fine-tuning</span>, <span className="text-purple-400 font-medium">RLHF</span>, vector databases, Triton inference
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
-                  <span className="text-sm font-light leading-tight">
-                    <span className="text-purple-400 font-medium">Data analysis agent expert</span> & <span className="text-purple-400 font-medium">chatbot expert</span> specializing in conversational AI
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
-                  <span className="text-sm font-light leading-tight">
-                    <span className="text-purple-400 font-medium">n8n workflow automation</span> & agent orchestration for enterprise solutions
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
-                  <span className="text-sm font-light leading-tight">
-                    Enterprise web services: <span className="text-purple-400 font-medium">TypeScript</span>, <span className="text-purple-400 font-medium">Next.js SSR</span>, <span className="text-purple-400 font-medium">Node.js microservices</span>, Kubernetes
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
-                  <span className="text-sm font-light leading-tight">
-                    Team leadership delivering AI features with <span className="text-purple-400 font-medium">sub-200ms latency</span>
-                  </span>
-                </li>
+                {bulletLines.map((bullet, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                    <span className="text-sm font-light leading-tight">{bullet}</span>
+                  </li>
+                ))}
               </ul>
-              
-              <p className="text-sm font-light leading-tight mt-4">
-                I contribute to the AI community through open-source tools and mentoring. Ready to turn your AI vision into production reality? <span className="text-purple-400 font-medium">Let's collaborate</span>.
-              </p>
             </div>
           </div>
         </motion.div>

@@ -62,6 +62,13 @@ const Experience = () => {
                 <p className="mb-4 text-sm leading-relaxed text-neutral-300">
                     {experience.description}
                 </p>
+                {Array.isArray(experience.highlights) && experience.highlights.length > 0 && (
+                  <ul className="mb-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-neutral-300">
+                    {experience.highlights.map((highlight, highlightIndex) => (
+                      <li key={highlightIndex}>{highlight}</li>
+                    ))}
+                  </ul>
+                )}
                 <div className="flex flex-wrap gap-2">
                     {experience.technologies.map((tech, techIndex) => (
                     <span

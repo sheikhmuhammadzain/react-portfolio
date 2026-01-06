@@ -3,10 +3,10 @@ import { BiLogoPostgresql } from "react-icons/bi";
 import { DiRedis, DiPython } from "react-icons/di";
 import { FaNodeJs } from "react-icons/fa";
 import { RiReactjsLine } from "react-icons/ri";
-import { SiMongodb, SiTensorflow, SiPytorch, SiOpenai, SiFastapi } from "react-icons/si";
+import { SiMongodb, SiOpenai, SiFastapi } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
 const iconVariants = (duration) => ({
-  inital: { y: -10 },
+  initial: { y: -10 },
   animate: {
     y: [10, -10],
     transition: {
@@ -35,7 +35,7 @@ const Technologies = () => {
         initial={{ opacity: 0, x: -100 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: false, amount: 0.3 }}
-        className="flex flex-wrap item-center justify-center gap-4"
+        className="flex flex-wrap items-center justify-center gap-4"
       >
         <motion.div
           variants={iconVariants(2.5)}
@@ -43,7 +43,7 @@ const Technologies = () => {
           animate="animate"
           className="rounded-2xl border-4 border-neutral-800 p-4 "
         >
-          <SiTensorflow className="text-6xl text-orange-500" />
+          <RiReactjsLine className="text-6xl text-cyan-400" />
         </motion.div>
         <motion.div
           variants={iconVariants(3)}
@@ -51,7 +51,7 @@ const Technologies = () => {
           animate="animate"
           className="rounded-2xl border-4 border-neutral-800 p-4 "
         >
-          <SiPytorch className="text-6xl text-red-500" />
+          <TbBrandNextjs className="text-6xl " />
         </motion.div>
         <motion.div
           variants={iconVariants(4)}
@@ -75,7 +75,7 @@ const Technologies = () => {
           animate="animate"
           className="rounded-2xl border-4 border-neutral-800 p-4 "
         >
-          <RiReactjsLine className="text-6xl text-cyan-400" />
+          <SiMongodb className="text-6xl text-green-500" />
         </motion.div>
         <motion.div
           variants={iconVariants(3)}
@@ -83,7 +83,7 @@ const Technologies = () => {
           animate="animate"
           className="rounded-2xl border-4 border-neutral-800 p-4 "
         >
-          <TbBrandNextjs className="text-6xl " />
+          <FaNodeJs className="text-6xl text-green-500" />
         </motion.div>
       
        
@@ -102,6 +102,14 @@ const Technologies = () => {
           className="rounded-2xl border-4 border-neutral-800 p-4 "
         >
           <BiLogoPostgresql className="text-6xl text-sky-700" />
+        </motion.div>
+        <motion.div
+          variants={iconVariants(2.8)}
+          initial="initial"
+          animate="animate"
+          className="rounded-2xl border-4 border-neutral-800 p-4 "
+        >
+          <DiRedis className="text-6xl text-red-500" />
         </motion.div>
       </motion.div>
     </div>

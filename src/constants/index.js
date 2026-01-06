@@ -7,34 +7,89 @@ import aiimage from '../assets/projects/aiimage.png'
 import uolchat from '../assets/projects/uolchat.png'
 import zainco from '../assets/projects/zainco.png'
 import chatgptclone from '../assets/projects/chatgptclone.png'
-export const HERO_CONTENT = `I'm a Gen-AI Engineer and full-stack MERN developer specializing in production-grade LLM pipelines, RAG systems, and scalable web applications. With 3+ years of experience fine-tuning transformer models (7B-70B parameters) and deploying React/Node.js applications on serverless infrastructure, I bridge the gap between cutting-edge AI research and real-world business solutions.`;
+export const HERO_CONTENT = `Full Stack Gen AI Developer specializing in production-ready AI SaaS products from concept to deployment. I build intelligent data analysis tools, AI-powered web applications, and enterprise solutions using Next.js, MongoDB, and modern AI APIs, with strong focus on UX, performance, and rapid iteration.`;
 
-export const ABOUT_TEXT = `I'm a Gen-AI Engineer and full-stack MERN developer building production-grade AI systems that deliver real business value. With 3+ years of experience in LLM pipelines, RAG systems, and modern web development, I help companies transform AI research into scalable applications.
+export const ABOUT_TEXT = `Full Stack Gen AI Developer specializing in building production-ready AI SaaS products from concept to deployment. I focus on intelligent data analysis tools, AI-powered web applications, and enterprise solutions using Next.js, MongoDB, and modern AI APIs.
 
-Key Expertise:
-• RAG pipelines & AI agents serving 1M+ requests with 99.9% uptime
-• Advanced AI techniques: LoRA fine-tuning, RLHF, vector databases, Triton inference
-• Data analysis agent expert & chatbot expert specializing in conversational AI
-• n8n workflow automation & agent orchestration for enterprise solutions
-• Enterprise web services: TypeScript, Next.js SSR, Node.js microservices, Kubernetes
-• Team leadership delivering AI features with sub-200ms latency
-
-I contribute to the AI community through open-source tools and mentoring. Ready to turn your AI vision into production reality? Let's collaborate.`;
+Core Strengths:
+• RAG pipelines with LangChain + ChromaDB for document intelligence and semantic search
+• ReAct agent architectures with Gemini and OpenAI APIs for reasoning + code generation
+• AI chat interfaces, PDF Q&A systems, and real-time data visualization dashboards
+• Scalable backends with Next.js API routes and FastAPI, with persistent storage in MongoDB
+• Auth, payments, and subscriptions for AI SaaS monetization (NextAuth.js)
+• Streaming, caching, and prompt engineering for low-latency inference pipelines`;
 
 export const EXPERIENCES = [
   {
-    year: "2025 - Present",
-    role: "AI Engineer",
-    company: "Cybergen",
-    description: `Developed and deployed machine learning models and NLP solutions for various business applications. Created and optimized neural networks using TensorFlow and PyTorch. Integrated AI solutions with web applications using RESTful APIs. Collaborated with cross-functional teams to implement AI-driven features that enhanced user experience and business outcomes.`,
-    technologies: ["Python", "TensorFlow", "PyTorch", "NLP", "RESTful APIs", "Docker"],
+    year: "Oct 2025 - Present",
+    role: "Full Stack Gen AI Developer",
+    company: "Qubit Dynamics",
+    description: `Architect and develop end-to-end AI SaaS products from concept to deployment with focus on UX, optimization, and rapid iteration.`,
+    highlights: [
+      "Architect and develop end-to-end AI SaaS products using Next.js, MongoDB, and TypeScript, delivering production-ready applications from concept to deployment.",
+      "Built AI-powered data analysis tools enabling users to query CSV, Excel, and PDF files using natural language, featuring in-browser Python execution and auto-visualization.",
+      "Implement ReAct agent architectures with Gemini AI and OpenAI APIs for intelligent reasoning, automatic code generation, and iterative problem-solving in production applications.",
+      "Design and develop RAG pipelines using LangChain and ChromaDB for document intelligence, enabling semantic search and context-aware AI responses.",
+      "Build scalable backend services with Next.js API routes and FastAPI, integrating AI endpoints with MongoDB for persistent storage and user management.",
+      "Implement authentication flows with NextAuth.js, payment integrations, and subscription management for AI SaaS monetization.",
+      "Optimize AI inference pipelines achieving sub-100ms response times through streaming responses, caching strategies, and efficient prompt engineering."
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "MongoDB",
+      "FastAPI",
+      "LangChain",
+      "ChromaDB",
+      "Gemini API",
+      "OpenAI API",
+      "RAG",
+      "ReAct Agents",
+      "NextAuth.js"
+    ],
   },
   {
-    year: "2024 - 2025",
+    year: "Jan 2025 - Oct 2025",
+    role: "Junior AI Engineer",
+    company: "Cybergen",
+    description: `Designed, fine-tuned, and deployed LLM and multimodal solutions with low-latency inference and reliable production integrations.`,
+    highlights: [
+      "Designed, fine-tuned, and deployed LLMs and multimodal models for enterprise use cases including customer support automation.",
+      "Built scalable FastAPI backends to serve AI/ML models with low-latency inference and high availability.",
+      "Developed RAG pipelines using LangChain and ChromaDB for domain-specific intelligent chatbots.",
+      "Integrated AI endpoints into production systems via secure REST and WebSocket APIs with comprehensive error handling.",
+      "Optimized model performance through quantization, batching, and asynchronous request handling techniques.",
+      "Collaborated with product teams to ship AI-driven features improving user engagement and decision-making workflows."
+    ],
+    technologies: [
+      "Python",
+      "FastAPI",
+      "LangChain",
+      "ChromaDB",
+      "RAG",
+      "WebSocket",
+      "REST APIs",
+      "LLMs"
+    ],
+  },
+  {
+    year: "Mar 2024 - Dec 2024",
     role: "Full Stack Developer",
     company: "Tech Wizardz",
-    description: `Led a team in developing and maintaining web applications using JavaScript, React.js, and Node.js. Implemented RESTful APIs and integrated with MongoDB databases. Collaborated with stakeholders to define project requirements and timelines.`,
-    technologies: ["Javascript", "React.js", "Next.js", "Node.js", "MongoDB"],
+    description: `Led development and maintenance of multiple web applications and backend APIs with a strong focus on performance and delivery.`,
+    highlights: [
+      "Led development and maintenance of 5+ web applications using React.js, Node.js, and MongoDB.",
+      "Designed and implemented RESTful APIs with optimized database queries reducing response time by 30%.",
+      "Collaborated with stakeholders for requirement gathering, sprint planning, and timely project delivery using Agile methodologies.",
+      "Implemented responsive UI components and integrated third-party services for enhanced functionality."
+    ],
+    technologies: [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "REST APIs",
+      "JavaScript"
+    ],
   },
 ];
 
@@ -127,5 +182,5 @@ export const PROJECTS = [
 export const CONTACT = {
   address: "Green Town Lahore ",
   phoneNo: "+92 303 2224501 ",
-  email: "zain.afzal@cybergen.com",
+  email: "zain@zainafzal.dev",
 };

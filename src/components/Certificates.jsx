@@ -133,7 +133,7 @@ const Certificates = () => {
               )}
 
                 {/* Credential ID (display only if no link) */}
-                {certificate.credentialId && !getCredentialUrl(certificate.credentialId, certificate.organization) !== '#' && (
+                {certificate.credentialId && getCredentialUrl(certificate.credentialId, certificate.organization) === '#' && (
                      <p className="mb-4 text-xs text-neutral-500">
                         Credential ID: {certificate.credentialId}
                      </p>
