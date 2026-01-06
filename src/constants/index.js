@@ -3,6 +3,7 @@ import chatbotimg from "../assets/projects/chatbot.png";
 import leetcode from '../assets/projects/leetcode.png'
 import sheikhstudy from '../assets/projects/sheikhsutdy.png'
 import drawmath from '../assets/projects/drawmath.png'
+import paperpilot from '../assets/projects/paperpilot.png'
 import aiimage from '../assets/projects/aiimage.png'
 import uolchat from '../assets/projects/uolchat.png'
 import zainco from '../assets/projects/zainco.png'
@@ -94,6 +95,22 @@ export const EXPERIENCES = [
 ];
 
 export const PROJECTS = [
+  {
+    title: "PaperPilot - AI Data Analysis SaaS",
+    image: paperpilot,
+    description:
+      "Production AI SaaS platform that lets users upload CSV, Excel, or PDF files and analyze them using natural language. Includes ReAct agent reasoning, automatic Python code generation, in-browser execution via Pyodide, auto-visualization, and privacy-focused PDF chat.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Python",
+      "Gemini API",
+      "Pyodide",
+      "WebAssembly"
+    ],
+    githubLink: "https://github.com/sheikhmuhammadzain",
+    liveLink: "https://www.paperpilot.site",
+  },
    {
     title: "UOL AI Powered CHAT APP",
     image: uolchat,
