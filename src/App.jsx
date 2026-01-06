@@ -19,11 +19,17 @@ const App = () => {
       <PerformanceMonitor />
      <Helmet>
   {/* Primary Meta */}
-  <title>Muhammad Zain | Gen-AI Engineer & Full-Stack MERN Developer</title>
-  <meta name="description" content="Muhammad Zain is a Gen-AI Engineer who builds production-grade LLM pipelines, RAG systems, and MERN stack apps. See case studies, open-source work, and contact info." />
+  <title>Muhammad Zain Afzal | Full Stack Gen AI Developer</title>
+  <meta
+    name="description"
+    content="Muhammad Zain Afzal is a Full Stack Gen AI Developer building production-ready AI SaaS products, RAG pipelines, and agentic applications using Next.js, TypeScript, MongoDB, LangChain, ChromaDB, and modern AI APIs."
+  />
 
   {/* Keywords that rank in 2025 */}
-  <meta name="keywords" content="Muhammad Zain, Gen-AI Engineer, Full-Stack MERN Developer, RAG pipeline, LLM fine-tuning, LoRA, RLHF, Next.js SSR, Vector DB, Triton inference, serverless AI, TypeScript Node micro-services, AI portfolio Lahore, open-source AI utilities" />
+  <meta
+    name="keywords"
+    content="Muhammad Zain Afzal, Full Stack Gen AI Developer, AI SaaS, Next.js, TypeScript, MongoDB, FastAPI, LangChain, ChromaDB, RAG pipeline, ReAct agents, Gemini API, OpenAI API, document Q&A, AI data analysis, Lahore Pakistan"
+  />
 
 
   <meta name="author" content="Muhammad Zain" />
@@ -34,17 +40,17 @@ const App = () => {
 
 
   {/* Open Graph */}
-  <meta property="og:title" content="Muhammad Zain | Gen-AI Engineer & Full-Stack Developer" />
-  <meta property="og:description" content="Portfolio of Muhammad Zain, Gen-AI Engineer and full-stack MERN developer. Explore AI projects, web apps, and more." />
-  <meta property="og:image" content="https://zainafzal.dev/assets/zain-VC8MXPkY.jpeg" /> {/* use the actual hero image */}
+  <meta property="og:title" content="Muhammad Zain Afzal | Full Stack Gen AI Developer" />
+  <meta property="og:description" content="Full Stack Gen AI Developer building AI SaaS products, RAG pipelines, and agentic applications with Next.js, MongoDB, LangChain, and modern AI APIs." />
+  <meta property="og:image" content="https://zainafzal.dev/favicon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://zainafzal.dev/" />
 
   {/* Twitter Card */}
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Muhammad Zain | Gen-AI Engineer & Full-Stack Developer" />
-  <meta name="twitter:description" content="Portfolio of Muhammad Zain, Gen-AI Engineer and full-stack MERN developer. Explore AI projects, web apps, and more." />
-  <meta name="twitter:image" content="https://zainafzal.dev/assets/zain-VC8MXPkY.jpeg" />
+  <meta name="twitter:title" content="Muhammad Zain Afzal | Full Stack Gen AI Developer" />
+  <meta name="twitter:description" content="Full Stack Gen AI Developer building AI SaaS products, RAG pipelines, and agentic applications with Next.js, MongoDB, LangChain, and modern AI APIs." />
+  <meta name="twitter:image" content="https://zainafzal.dev/favicon.png" />
 </Helmet>
       <div className="text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900 min-h-screen overflow-hidden">
         <div className="fixed top-0 -z-10 h-full w-full">
