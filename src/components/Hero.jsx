@@ -1,5 +1,7 @@
 import { HERO_CONTENT } from "../constants";
 import profilePic from "../assets/winterdp.jpg";
+import resume from "../assets/resume/my_resume-zain.pdf";
+import { FaDownload } from "react-icons/fa";
 import ScrollTrigger from "./ScrollTrigger";
 
 const Hero = () => {
@@ -25,6 +27,13 @@ const Hero = () => {
               <p className="my-2 max-w-xl py-6 font-light tracking-tighter">
                 {HERO_CONTENT}
               </p>
+              <a
+                href={resume}
+                download="Muhammad_Zain_Resume.pdf"
+                className="inline-flex items-center gap-2 rounded-full bg-purple-900/30 px-6 py-3 text-sm font-medium text-purple-200 transition-all hover:bg-purple-800/50 hover:text-white hover:scale-105 border border-purple-800/50 shadow-[0_0_15px_rgba(168,85,247,0.15)] hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+              >
+                <FaDownload /> Download Resume
+              </a>
             </ScrollTrigger>
           </div>
         </div>

@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaRobot, FaPaperPlane, FaTimes, FaCommentDots } from "react-icons/fa";
+import { FaPaperPlane, FaTimes, FaDownload } from "react-icons/fa";
+import chatIcon from "../assets/chat_icon.png";
+import resume from "../assets/resume/my_resume-zain.pdf";
 import OpenAI from "openai";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -26,6 +28,19 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Load messages from localStorage on mount
+  useEffect(() => {
+    const savedMessages = localStorage.getItem("chatMessages");
+    if (savedMessages) {
+      setMessages(JSON.parse(savedMessages));
+    }
+  }, []);
+
+  // Save messages to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, [messages]);
+
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleSubmit = async (e) => {
@@ -33,7 +48,10 @@ const Chatbot = () => {
     if (!input.trim() || isLoading) return;
 
     const userMessage = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => {
+      const newMessages = [...prev, userMessage];
+      return newMessages;
+    });
     setInput("");
     setIsLoading(true);
 
@@ -57,17 +75,18 @@ const Chatbot = () => {
 
         Guidelines:
         - Be friendly, professional, and concise.
-        - Only answer questions related to Zain's professional work, skills, and portfolio.
-        - If you don't know the answer based on the context, strictly say you don't know and suggest contacting him directly.
-        - Do not halluciante information not present in the context.
+        - Answer questions related to Zain's professional work, skills, and portfolio accurately based on the context.
+        - If a user asks something not in the context but relevant to AI or tech, you can answer generally, but pivot back to Zain's expertise.
+        - If you don't know the answer and it's personal or unrelated, politely say you don't know.
         - Keep responses short (under 3-4 sentences) unless asked for details.
+        - Use Markdown for formatting (bold, italics, lists, links).
       `;
 
       const stream = await client.chat.completions.create({
         model: "mistralai/devstral-2512:free", // Using a free/high-quality model on OpenRouter
         messages: [
           { role: "system", content: systemPrompt },
-          ...messages,
+          ...messages, // Include previous conversation context
           userMessage,
         ],
         stream: true,
@@ -116,17 +135,27 @@ const Chatbot = () => {
               {/* Header */}
               <div className="flex items-center justify-between border-b border-neutral-800 p-4 bg-neutral-900">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-900/30 text-cyan-400">
-                    <FaRobot />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden">
+                    <img src={chatIcon} alt="Chat" className="w-full h-full object-contain" />
                   </div>
                   <h3 className="font-semibold text-neutral-200">Zain&apos;s Assistant</h3>
                 </div>
-                <button
-                  onClick={toggleChat}
-                  className="rounded-full p-1 text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors"
-                >
-                  <FaTimes />
-                </button>
+                <div className="flex items-center gap-1">
+                  <a
+                    href={resume}
+                    download="Muhammad_Zain_Resume.pdf"
+                    className="rounded-full p-2 text-neutral-400 hover:bg-neutral-800 hover:text-purple-400 transition-colors"
+                    title="Download Resume"
+                  >
+                    <FaDownload className="text-sm" />
+                  </a>
+                  <button
+                    onClick={toggleChat}
+                    className="rounded-full p-2 text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors"
+                  >
+                    <FaTimes />
+                  </button>
+                </div>
               </div>
 
               {/* Messages */}
@@ -141,7 +170,7 @@ const Chatbot = () => {
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-cyan-900/50 text-cyan-50 rounded-br-none"
+                          ? "bg-purple-900/50 text-purple-50 rounded-br-none"
                           : "bg-neutral-800 text-neutral-200 rounded-bl-none"
                       }`}
                     >
@@ -151,13 +180,13 @@ const Chatbot = () => {
                             remarkPlugins={[remarkGfm]}
                             components={{
                               a: ({node, ...props}) => (
-                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 underline" />
+                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline" />
                               ),
                               p: ({node, ...props}) => <p {...props} className="mb-2 last:mb-0" />,
                               ul: ({node, ...props}) => <ul {...props} className="list-disc ml-4 mb-2" />,
                               ol: ({node, ...props}) => <ol {...props} className="list-decimal ml-4 mb-2" />,
                               li: ({node, ...props}) => <li {...props} className="mb-1" />,
-                              strong: ({node, ...props}) => <strong {...props} className="font-semibold text-cyan-200" />
+                              strong: ({node, ...props}) => <strong {...props} className="font-semibold text-purple-200" />
                             }}
                           >
                             {msg.content}
@@ -191,12 +220,12 @@ const Chatbot = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask about my projects..."
-                    className="flex-1 rounded-full bg-neutral-800 px-4 py-2 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                    className="flex-1 rounded-full bg-neutral-800 px-4 py-2 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                   />
                   <button
                     type="submit"
                     disabled={isLoading || !input.trim()}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-600 text-white shadow-lg transition-transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-600 text-white shadow-lg transition-transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
                   >
                     <FaPaperPlane className="text-sm" />
                   </button>
@@ -208,13 +237,20 @@ const Chatbot = () => {
 
         <button
           onClick={toggleChat}
-          className="group flex h-14 w-14 items-center justify-center rounded-full bg-cyan-600 text-white shadow-lg transition-all hover:scale-110 hover:bg-cyan-500"
+          className="group flex h-14 w-14 items-center justify-center rounded-full bg-transparent shadow-lg transition-all hover:scale-110"
         >
           <motion.div
             animate={{ rotate: isOpen ? 90 : 0 }}
             transition={{ duration: 0.2 }}
+            className="w-full h-full"
           >
-            {isOpen ? <FaTimes className="text-xl" /> : <FaCommentDots className="text-2xl" />}
+            {isOpen ? (
+              <div className="flex h-full w-full items-center justify-center bg-purple-600 rounded-full">
+                <FaTimes className="text-xl text-white" />
+              </div>
+            ) : (
+                <img src={chatIcon} alt="Chat" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]" />
+            )}
           </motion.div>
         </button>
       </div>
