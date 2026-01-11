@@ -1,0 +1,16 @@
+{
+  "name": "Muhammad Zain Afzal | Full Stack Gen AI Developer",
+  "short_name": "Zain",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

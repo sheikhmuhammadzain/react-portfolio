@@ -74,6 +74,7 @@ export function SmoothCursor({
     restDelta: 0.001,
   },
 }) {
+  // eslint-disable-next-line no-unused-vars
   const [isMoving, setIsMoving] = useState(false);
   const lastMousePos = useRef({ x: 0, y: 0 });
   const velocity = useRef({ x: 0, y: 0 });
@@ -228,5 +229,17 @@ export function SmoothCursor({
     </>
   );
 }
+
+import PropTypes from "prop-types";
+
+SmoothCursor.propTypes = {
+  cursor: PropTypes.node,
+  springConfig: PropTypes.shape({
+    damping: PropTypes.number,
+    stiffness: PropTypes.number,
+    mass: PropTypes.number,
+    restDelta: PropTypes.number,
+  }),
+};
 
 export default SmoothCursor; 
