@@ -24,16 +24,18 @@ const Hero = () => {
             </ScrollTrigger>
             
             <ScrollTrigger animation="fade-up" delay={400}>
-              <p className="my-2 max-w-xl py-6 font-light tracking-tighter">
-                {HERO_CONTENT}
-              </p>
-              <a
-                href={resume}
-                download="Muhammad_Zain_Resume.pdf"
-                className="inline-flex items-center gap-2 rounded-full bg-purple-900/30 px-6 py-3 text-sm font-medium text-purple-200 transition-all hover:bg-purple-800/50 hover:text-white hover:scale-105 border border-purple-800/50 shadow-[0_0_15px_rgba(168,85,247,0.15)] hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
-              >
-                <FaDownload /> Download Resume
-              </a>
+              <div className="flex flex-col items-center lg:items-start gap-8">
+                <p className="my-2 max-w-xl py-6 font-light tracking-tighter">
+                  {HERO_CONTENT}
+                </p>
+                <a
+                  href={resume}
+                  download="Muhammad_Zain_Resume.pdf"
+                  className="flex w-fit items-center gap-2 rounded-full bg-purple-900/30 px-6 py-3 text-sm mb-8 md:mb-0 font-medium text-purple-200 transition-all hover:bg-purple-800/50 hover:text-white hover:scale-105 border border-purple-800/50 shadow-[0_0_15px_rgba(168,85,247,0.15)] hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+                >
+                  <FaDownload /> Download Resume
+                </a>
+              </div>
             </ScrollTrigger>
           </div>
         </div>
