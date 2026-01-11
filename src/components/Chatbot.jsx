@@ -179,14 +179,14 @@ const Chatbot = () => {
                           <ReactMarkdown 
                             remarkPlugins={[remarkGfm]}
                             components={{
-                              a: ({_node, ...props}) => (
+                              a: (props) => (
                                 <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline" />
                               ),
-                              p: ({_node, ...props}) => <p {...props} className="mb-2 last:mb-0" />,
-                              ul: ({_node, ...props}) => <ul {...props} className="list-disc ml-4 mb-2" />,
-                              ol: ({_node, ...props}) => <ol {...props} className="list-decimal ml-4 mb-2" />,
-                              li: ({_node, ...props}) => <li {...props} className="mb-1" />,
-                              strong: ({_node, ...props}) => <strong {...props} className="font-semibold text-purple-200" />
+                              p: (props) => <p {...props} className="mb-2 last:mb-0" />,
+                              ul: (props) => <ul {...props} className="list-disc ml-4 mb-2" />,
+                              ol: (props) => <ol {...props} className="list-decimal ml-4 mb-2" />,
+                              li: (props) => <li {...props} className="mb-1" />,
+                              strong: (props) => <strong {...props} className="font-semibold text-purple-200" />
                             }}
                           >
                             {msg.content}
