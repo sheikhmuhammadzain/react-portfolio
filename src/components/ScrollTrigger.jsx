@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Shared observer instance to reduce overhead
 let sharedObserver = null;
@@ -11,27 +11,27 @@ const ScrollTrigger = ({
   threshold = 0.2
 }) => {
   const ref = useRef(null);
-  
-  // Available animations: fade-up, fade-down, fade-left, fade-right, zoom-in
-  const getAnimationClass = () => {
-    switch (animation) {
-      case 'fade-up':
-        return 'opacity-0 translate-y-8';
-      case 'fade-down':
-        return 'opacity-0 -translate-y-8';
-      case 'fade-left':
-        return 'opacity-0 translate-x-8';
-      case 'fade-right':
-        return 'opacity-0 -translate-x-8';
-      case 'zoom-in':
-        return 'opacity-0 scale-95';
-      default:
-        return 'opacity-0';
-    }
-  };
 
   useEffect(() => {
     if (!ref.current) return;
+    
+    // Available animations: fade-up, fade-down, fade-left, fade-right, zoom-in
+    const getAnimationClass = () => {
+      switch (animation) {
+        case 'fade-up':
+          return 'opacity-0 translate-y-8';
+        case 'fade-down':
+          return 'opacity-0 -translate-y-8';
+        case 'fade-left':
+          return 'opacity-0 translate-x-8';
+        case 'fade-right':
+          return 'opacity-0 -translate-x-8';
+        case 'zoom-in':
+          return 'opacity-0 scale-95';
+        default:
+          return 'opacity-0';
+      }
+    };
     
     const element = ref.current;
     
