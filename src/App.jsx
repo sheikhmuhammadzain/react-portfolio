@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import PerformanceMonitor from "./components/PerformanceMonitor";
 import Chatbot from "./components/Chatbot";
+import CommandPalette from "./components/CommandPalette";
 import Blogs from "./pages/Blogs";
 import BlogDetail from "./pages/BlogDetail";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -70,6 +71,7 @@ const App = () => {
 
 
         <Chatbot />
+        <CommandPalette />
         
         <div className="container mx-auto px-4 sm:px-8 max-w-full">
           <Navbar />

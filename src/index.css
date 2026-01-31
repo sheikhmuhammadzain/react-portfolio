@@ -7,6 +7,30 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* Matrix Theme Overrides */
+.matrix-theme {
+  --tw-ring-color: #00ff41 !important;
+}
+.matrix-theme ::selection {
+  background-color: #008f11 !important;
+  color: black !important;
+}
+.matrix-theme .text-purple-400, 
+.matrix-theme .text-purple-500,
+.matrix-theme .text-cyan-400 {
+  color: #00ff41 !important;
+  text-shadow: 0 0 5px #00ff41;
+}
+.matrix-theme .bg-purple-600, 
+.matrix-theme .bg-cyan-500 {
+  background-color: #003b00 !important;
+  border-color: #00ff41 !important;
+  color: #00ff41 !important;
+}
+.matrix-theme .border-purple-500 {
+    border-color: #00ff41 !important;
+}
+
 html, body {
   overflow-x: hidden;
   position: relative;
@@ -103,4 +127,35 @@ body {
 /* Optional: Show scrollbar on hover */
 body:hover::-webkit-scrollbar {
   display: block;
+}
+
+/* Hyper-realistic MacBook Keycap */
+.mac-key {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #333333 0%, #242424 100%);
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.8);
+  border-top: 1px solid rgba(255,255,255,0.15); 
+  border-bottom: 3px solid #0a0a0a; /* Simulates physical height */
+  box-shadow: 
+    0 1px 3px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.08); /* Top highlight */
+  color: #e5e5e5;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px; /* Larger, readable text */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  transition: all 0.1s ease-out;
+}
+
+.mac-key:active {
+  border-bottom-width: 1px;
+  transform: translateY(2px);
+  background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+  box-shadow: 
+    0 0 1px rgba(0,0,0,0.5),
+    inset 0 2px 4px rgba(0,0,0,0.3);
 }
