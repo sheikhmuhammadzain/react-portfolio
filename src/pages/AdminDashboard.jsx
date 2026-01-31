@@ -12,16 +12,21 @@ const AdminDashboard = () => {
     tags: '',
   });
   const [editingId, setEditingId] = useState(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
-    const isAdmin = localStorage.getItem('isAdmin');
-    if (!isAdmin) {
-      navigate('/login');
-    } else {
-      fetchBlogs();
-    }
+    const checkAuth = () => {
+      const isAdmin = localStorage.getItem('isAdmin');
+      if (!isAdmin) {
+        navigate('/login');
+      } else {
+        setIsAuthorized(true);
+        fetchBlogs();
+      }
+    };
+    checkAuth();
   }, [navigate]);
 
   const fetchBlogs = async () => {
@@ -37,9 +42,14 @@ const AdminDashboard = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('isAdmin');
+    navigate('/login');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const tagsArray = formData.tags.split(',').map(tag => tag.trim());
+    const tagsArray = formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : [];
     const blogData = { ...formData, tags: tagsArray };
 
     try {
@@ -78,9 +88,21 @@ const AdminDashboard = () => {
     }
   };
 
+  if (!isAuthorized) {
+    return null; // Or a loading spinner
+  }
+
   return (
     <div className="max-w-4xl mx-auto my-20">
-      <h1 className="text-3xl text-center mb-8">Admin Dashboard</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl">Admin Dashboard</h1>
+        <button 
+          onClick={handleLogout}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500"
+        >
+          Logout
+        </button>
+      </div>
       
       <form onSubmit={handleSubmit} className="bg-neutral-900 p-8 rounded mb-12 border border-neutral-800">
         <div className="mb-4">
