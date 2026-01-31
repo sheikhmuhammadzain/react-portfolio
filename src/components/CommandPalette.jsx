@@ -26,10 +26,14 @@ const CommandPalette = () => {
   };
 
   const handleMatrixTheme = () => {
-    document.documentElement.classList.add('matrix-theme');
-    setTimeout(() => {
-      alert("Wake up, Neo... (Matrix Theme Activated)");
-    }, 500);
+    if (document.documentElement.classList.contains('matrix-theme')) {
+        document.documentElement.classList.remove('matrix-theme');
+    } else {
+        document.documentElement.classList.add('matrix-theme');
+        setTimeout(() => {
+          alert("Wake up, Neo... (Matrix Theme Activated)");
+        }, 500);
+    }
   };
 
   return (
