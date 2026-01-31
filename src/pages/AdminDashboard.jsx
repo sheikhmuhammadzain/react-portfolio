@@ -23,7 +23,12 @@ const AdminDashboard = () => {
   const [showAIModal, setShowAIModal] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isImgGenerating, setIsImgGenerating] = useState(false); // separate state for image
+  
+  // Image Gen State
+  const [showImgModal, setShowImgModal] = useState(false);
+  const [imgPrompt, setImgPrompt] = useState('');
+  const [generatedImage, setGeneratedImage] = useState(null);
+  const [isImgGenerating, setIsImgGenerating] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -168,44 +173,47 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleGenerateImage = async () => {
-    // 1. Get Prompt
-    const imagePrompt = window.prompt("Describe the cover image you want:", formData.title || "A futuristic cyberpunk developer workspace");
-    if (!imagePrompt) return;
+  const handleGenerateImage = async (e) => {
+      e.preventDefault();
+      if (!imgPrompt) return;
 
-    setIsImgGenerating(true);
+      setIsImgGenerating(true);
+      setGeneratedImage(null);
 
-    try {
-        // 2. Call Puter.js
-        // Using Flux Schnell for speed/quality balance
-        // global 'puter' is available from the index.html script
-        if (!window.puter) {
-             alert("Puter.js not loaded. Please refresh the page.");
-             return;
-        }
+      try {
+          if (!window.puter) {
+             throw new Error("Puter.js not loaded");
+          }
 
-        const imageElement = await window.puter.ai.txt2img(imagePrompt, { 
-            model: "gpt-image-1.5" 
-        });
+          const imageElement = await window.puter.ai.txt2img(imgPrompt, { 
+              model: "gpt-image-1.5" 
+          });
 
-        // 3. Convert IMG element to Base64
-        const canvas = document.createElement("canvas");
-        canvas.width = imageElement.width;
-        canvas.height = imageElement.height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(imageElement, 0, 0);
-        
-        const base64Image = canvas.toDataURL("image/jpeg", 0.8); // Compress slightly to save DB space
+          // Convert to Base64
+          const canvas = document.createElement("canvas");
+          canvas.width = imageElement.width;
+          canvas.height = imageElement.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(imageElement, 0, 0);
+          
+          const base64Image = canvas.toDataURL("image/jpeg", 0.8);
+          setGeneratedImage(base64Image);
 
-        // 4. Update Form
-        setFormData(prev => ({ ...prev, image: base64Image }));
+      } catch (error) {
+          console.error("Image Gen Error:", error);
+          alert(`Failed to generate image: ${error.message}`);
+      } finally {
+          setIsImgGenerating(false);
+      }
+  };
 
-    } catch (error) {
-        console.error("Image Gen Error Details:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
-        alert(`Failed to generate image: ${error.message || JSON.stringify(error)}`);
-    } finally {
-        setIsImgGenerating(false);
-    }
+  const confirmImage = () => {
+      if (generatedImage) {
+          setFormData(prev => ({ ...prev, image: generatedImage }));
+          setShowImgModal(false);
+          setGeneratedImage(null);
+          setImgPrompt('');
+      }
   };
 
   const handleEdit = (blog) => {
@@ -348,7 +356,68 @@ const AdminDashboard = () => {
             </div>
         </div>
       )}
-      
+      {/* AI Image Modal */}
+      {showImgModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+            <div className="bg-neutral-900 border border-neutral-700 p-6 rounded-xl w-full max-w-lg shadow-2xl relative">
+                <button 
+                    onClick={() => setShowImgModal(false)}
+                    className="absolute top-4 right-4 text-neutral-500 hover:text-white"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <h3 className="text-xl font-semibold text-white mb-2">AI Image Generator</h3>
+                <p className="text-neutral-400 mb-6 text-sm">Create unique cover art for your post.</p>
+                
+                <form onSubmit={handleGenerateImage}>
+                    <textarea 
+                        value={imgPrompt}
+                        onChange={(e) => setImgPrompt(e.target.value)}
+                        placeholder="Describe your image (e.g., 'Retro cyberpunk city with neon lights')..."
+                        className="w-full bg-neutral-950 border border-neutral-800 rounded p-4 text-white focus:border-purple-500 focus:outline-none h-24 mb-4 resize-none"
+                    />
+                    
+                    {generatedImage && (
+                        <div className="mb-4 rounded-lg overflow-hidden border border-neutral-800 relative group">
+                            <img src={generatedImage} alt="Generated" className="w-full h-auto object-cover max-h-60" />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors pointer-events-none"></div>
+                        </div>
+                    )}
+
+                    <div className="flex gap-3">
+                        <button 
+                            type="submit" 
+                            disabled={isImgGenerating}
+                            className="flex-1 bg-neutral-800 text-white font-medium py-3 rounded hover:bg-neutral-700 transition-colors disabled:opacity-50 flex justify-center items-center gap-2"
+                        >
+                            {isImgGenerating ? (
+                                <>
+                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Generating...
+                                </>
+                            ) : (
+                                <>{generatedImage ? 'Regenerate' : 'Generate Image'}</>
+                            )}
+                        </button>
+                        
+                        {generatedImage && (
+                            <button 
+                                type="button"
+                                onClick={confirmImage}
+                                className="flex-1 bg-purple-600 text-white font-medium py-3 rounded hover:bg-purple-500 transition-colors"
+                            >
+                                Use This Image
+                            </button>
+                        )}
+                    </div>
+                </form>
+            </div>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Metadata Column */}
@@ -378,7 +447,10 @@ const AdminDashboard = () => {
               />
               <button 
                 type="button"
-                onClick={handleGenerateImage}
+                onClick={() => {
+                    setImgPrompt(formData.title || "");
+                    setShowImgModal(true);
+                }}
                 disabled={isImgGenerating}
                 className="mt-2 text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1"
               >
