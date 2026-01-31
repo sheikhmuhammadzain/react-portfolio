@@ -14,17 +14,12 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  cursor: auto !important; /* Force default cursor */
+  cursor: auto;
 }
 
-/* Ensure all elements inherit this or use auto */
-* {
-  cursor: auto !important;
-}
-
-/* Restore pointer for clickable elements */
-a, button, input, textarea, select, [role="button"] {
-  cursor: pointer !important;
+/* Allow standard cursor behavior */
+a, button, input, textarea, select, [role="button"], .cursor-pointer {
+  cursor: pointer;
 }
 
 /* Performance optimizations */
