@@ -1,5 +1,10 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import ReactGA from "react-ga4";
+
+// Initialize Google Analytics
+// TODO: Replace "G-XXXXXXXXXX" with your actual Measurement ID from Google Analytics
+ReactGA.initialize("G-E3CMSHL3CZ");
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import PerformanceMonitor from "./components/PerformanceMonitor";
@@ -44,6 +49,13 @@ const Home = () => {
 };
 
 const App = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Track page views
+    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+  }, [location]);
+
   return (
     <>
       <PerformanceMonitor />
