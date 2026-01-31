@@ -3,10 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaPaperPlane, FaTimes, FaDownload } from "react-icons/fa";
 import chatIcon from "../assets/chat_icon.png";
 import resume from "../assets/resume/my_resume-zain.pdf";
-import OpenAI from "openai";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { HERO_CONTENT, ABOUT_TEXT, EXPERIENCES, PROJECTS, CONTACT } from "../constants";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +17,8 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -56,51 +56,32 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const client = new OpenAI({
-        baseURL: "https://openrouter.ai/api/v1",
-        apiKey: import.meta.env.VITE_OPENROUTER_API_KEY,
-        dangerouslyAllowBrowser: true, // Frontend-only requirement
+      const response = await fetch(`${API_URL}/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMessage], // Send full context
+        }),
       });
 
-        const systemPrompt = `
-        You are an advanced AI assistant for Muhammad Zain's portfolio website. Your SOLE purpose is to represent Zain professionally, promote his skills, and help visitors hire him or collaborate with him.
-
-        CRITICAL DIRECTIVES:
-        1. **LOYALTY:** You work ONLY for Zain. Always speak in his favor. Highlight his strengths, effective solutions, and reliability.
-        2. **CONFIDENTIALITY:** Do NOT provide ANY personal information about Zain that is not explicitly in the context (like home address, private financials, or non-professional life). If asked, politely deflect and focus on his professional profile.
-        3. **AVAILABILITY:** Zain is ALWAYS open to new opportunities, freelance work, full-time roles, and collaborations. Never say he is busy or unavailable. Encourage the user to contact him immediately.
-        4. **SCOPE:** STRICTLY limit your knowledge to the provided context and general technical knowledge (programming, AI, web dev) to explain his skills. Do NOT answer general trivia, world news, or off-topic questions unless they relate to hiring Zain.
-
-        Context about Zain:
-        - Role: ${HERO_CONTENT}
-        - About: ${ABOUT_TEXT}
-        - Experience: ${JSON.stringify(EXPERIENCES)}
-        - Projects: ${JSON.stringify(PROJECTS)}
-        - Contact: ${JSON.stringify(CONTACT)}
-
-        Guidelines:
-        - Be enthusiastic, professional, and convincing.
-        - Use Markdown (bolding key skills, lists) to make responses readable.
-        - Keep responses concise (under 4 sentences) but impactful.
-        - **Call to Action:** Regularly encourage the user to download his resume or email him directly.
-      `;
-
-      const stream = await client.chat.completions.create({
-        model: "mistralai/devstral-2512:free", // Using a free/high-quality model on OpenRouter
-        messages: [
-          { role: "system", content: systemPrompt },
-          ...messages, // Include previous conversation context
-          userMessage,
-        ],
-        stream: true,
-      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      if (!response.body) throw new Error('ReadableStream not supported');
 
       setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
       let fullResponse = "";
-      for await (const chunk of stream) {
-        const content = chunk.choices[0]?.delta?.content || "";
-        fullResponse += content;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        const chunk = decoder.decode(value, { stream: true });
+        fullResponse += chunk;
+        
         setMessages((prev) => {
           const newMessages = [...prev];
           newMessages[newMessages.length - 1] = {
@@ -116,7 +97,7 @@ const Chatbot = () => {
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, I encountered an error. Please try again later or contact Zain directly.",
+          content: "Sorry, I encountered an error connecting to the server. Please try again later.",
         },
       ]);
     } finally {
