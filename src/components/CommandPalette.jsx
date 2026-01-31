@@ -3,10 +3,12 @@ import { Command } from "cmdk";
 import { useNavigate } from "react-router-dom";
 import { FiCommand, FiHome, FiFileText, FiGithub, FiMail, FiDownload, FiMessageSquare } from "react-icons/fi";
 import { SiMatrix } from "react-icons/si";
+import { motion, AnimatePresence } from "framer-motion";
 import resume from "../assets/resume/my_resume-zain.pdf";
 
 const CommandPalette = ({ openChat }) => {
   const [open, setOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,26 +42,57 @@ const CommandPalette = ({ openChat }) => {
   return (
     <>
         <div className="fixed bottom-6 left-6 z-50 md:block hidden">
-            <button 
+            <motion.button 
                 onClick={() => setOpen(true)}
-                className="group flex items-center gap-3 pl-4 pr-4 py-3 bg-[#111] border border-[#222] rounded-2xl shadow-2xl hover:bg-[#151515] transition-all duration-200 cursor-pointer"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                initial={{ width: "64px" }}
+                animate={{ 
+                    width: isHovered ? "auto" : "64px",
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="group relative flex items-center justify-center h-[68px] bg-[#111] border border-[#222] rounded-2xl shadow-2xl hover:bg-[#151515] text-neutral-300 overflow-hidden cursor-pointer"
             >
-                <div className="flex items-center gap-2">
-                    <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
-                       
-                        <span className="text-[9px] leading-none font-sans opacity-80 font-normal mt-4 mr-4">ctrl</span>
-                    </kbd>
-                    
-                    <span className="text-neutral-600 text-[10px] font-medium uppercase tracking-wider px-1">or</span>
+                {/* Collapsed State: Command Logo */}
+                <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    animate={{ 
+                        opacity: isHovered ? 0 : 1,
+                        scale: isHovered ? 0.8 : 1,
+                        rotate: isHovered ? -90 : 0
+                    }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <FiCommand className="text-2xl text-neutral-400" />
+                </motion.div>
 
-                    <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
-                        <FiCommand className="text-lg" />
-                        <span className="text-[9px] leading-none font-sans opacity-80 font-normal">command</span>
-                    </kbd>
-                    <span className="text-neutral-600 font-medium pl-1">+</span>
-                    <kbd className="mac-key h-12 w-12 text-lg">K</kbd>
-                </div>
-            </button>
+                {/* Expanded State: Full Keys */}
+                <motion.div
+                    className="flex items-center gap-3 px-5 whitespace-nowrap"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ 
+                        opacity: isHovered ? 1 : 0,
+                        x: isHovered ? 0 : 20
+                    }}
+                    transition={{ duration: 0.2, delay: isHovered ? 0.1 : 0 }}
+                >
+                     <div className="flex items-center gap-2">
+                        <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
+                            {/* Empty space/placeholder to mimic original design structure if needed, or just specific text pos */}
+                            <span className="text-[9px] leading-none font-sans opacity-80 font-normal mt-4 mr-4">ctrl</span>
+                        </kbd>
+                        
+                        <span className="text-neutral-600 text-[10px] font-medium uppercase tracking-wider px-1">or</span>
+
+                        <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
+                            <FiCommand className="text-lg" />
+                            <span className="text-[9px] leading-none font-sans opacity-80 font-normal">command</span>
+                        </kbd>
+                        <span className="text-neutral-600 font-medium pl-1">+</span>
+                        <kbd className="mac-key h-12 w-12 text-lg">K</kbd>
+                    </div>
+                </motion.div>
+            </motion.button>
         </div>
 
       <Command.Dialog

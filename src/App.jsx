@@ -14,6 +14,7 @@ import Blogs from "./pages/Blogs";
 import BlogDetail from "./pages/BlogDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import Login from "./pages/Login";
+import CustomContextMenu from "./components/CustomContextMenu";
 
 // Lazy load components below the fold
 const About = lazy(() => import("./components/About"));
@@ -73,6 +74,7 @@ const App = () => {
 
         <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
         <CommandPalette openChat={() => setIsChatOpen(true)} />
+        <CustomContextMenu openChat={() => setIsChatOpen(true)} />
         
         <div className="container mx-auto px-4 sm:px-8 max-w-full">
           <Navbar />
