@@ -186,7 +186,7 @@ const Chatbot = () => {
                               a: (props) => (
                                 <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-white underline" />
                               ),
-                              p: (props) => <p {...props} className="mb-2 last:mb-0 leading-relaxed" />,
+                              p: (props) => <p {...props} className="mb-2 leading-relaxed" />,
                               ul: (props) => <ul {...props} className="list-disc ml-4 mb-2" />,
                               ol: (props) => <ol {...props} className="list-decimal ml-4 mb-2" />,
                               li: (props) => <li {...props} className="mb-1" />,

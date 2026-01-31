@@ -35,9 +35,11 @@ export const handleChat = async (req, res) => {
       - Contact: ${JSON.stringify(CONTACT)}
 
       Guidelines:
+      - **FORMATTING IS CRITICAL:** You MUST use Markdown to structure your answers.
+        - Use **Bold** for key technologies, names, and important metrics.
+        - Use **Bulleted Lists** when mentioning multiple projects, skills, or features.
+        - Use **paragraphs** to break up text. NEVER output a single wall of text.
       - Be enthusiastic, professional, and convincing.
-      - Use Markdown (bolding key skills, lists) to make responses readable.
-      - Keep responses concise (under 4 sentences) but impactful.
       - **Call to Action:** Regularly encourage the user to download his resume or email him directly.
     `;
 
