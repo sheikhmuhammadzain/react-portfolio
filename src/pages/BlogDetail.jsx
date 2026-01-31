@@ -37,7 +37,7 @@ const BlogDetail = () => {
     return (
       <div className="text-center mt-20">
         <p className="text-neutral-400">Blog not found.</p>
-        <Link to="/blogs" className="text-cyan-500 hover:underline">Back to Blogs</Link>
+        <Link to="/blogs" className="text-purple-400 hover:underline">Back to Blogs</Link>
       </div>
     );
   }
@@ -56,7 +56,7 @@ const BlogDetail = () => {
           {String(children).replace(/\n$/, '')}
         </SyntaxHighlighter>
       ) : (
-        <code className={`${className} bg-neutral-800 px-1 py-0.5 rounded text-sm text-cyan-300`} {...props}>
+        <code className={`${className} bg-neutral-800 px-1 py-0.5 rounded text-sm text-purple-300`} {...props}>
           {children}
         </code>
       );
@@ -64,20 +64,20 @@ const BlogDetail = () => {
     img: (props) => (
         <img {...props} className="rounded-lg shadow-lg my-6 max-h-[500px] w-auto mx-auto border border-neutral-800" />
     ),
-    h1: (props) => <h1 {...props} className="text-3xl font-bold mt-8 mb-4 text-cyan-50" />,
-    h2: (props) => <h2 {...props} className="text-2xl font-semibold mt-6 mb-3 text-cyan-100" />,
-    h3: (props) => <h3 {...props} className="text-xl font-medium mt-4 mb-2 text-cyan-200" />,
+    h1: (props) => <h1 {...props} className="text-3xl font-bold mt-8 mb-4 text-purple-100" />,
+    h2: (props) => <h2 {...props} className="text-2xl font-semibold mt-6 mb-3 text-purple-200" />,
+    h3: (props) => <h3 {...props} className="text-xl font-medium mt-4 mb-2 text-purple-300" />,
     p: (props) => <p {...props} className="mb-4 text-neutral-300 leading-relaxed" />,
     ul: (props) => <ul {...props} className="list-disc ml-6 mb-4 text-neutral-300" />,
     ol: (props) => <ol {...props} className="list-decimal ml-6 mb-4 text-neutral-300" />,
     li: (props) => <li {...props} className="mb-1" />,
-    a: (props) => <a {...props} className="text-cyan-400 hover:text-cyan-300 underline" target="_blank" rel="noopener noreferrer" />,
-    blockquote: (props) => <blockquote {...props} className="border-l-4 border-cyan-500 pl-4 italic my-4 text-neutral-400 bg-neutral-900/50 p-2 rounded-r" />,
+    a: (props) => <a {...props} className="text-purple-400 hover:text-purple-300 underline" target="_blank" rel="noopener noreferrer" />,
+    blockquote: (props) => <blockquote {...props} className="border-l-4 border-purple-500 pl-4 italic my-4 text-neutral-400 bg-neutral-900/50 p-2 rounded-r" />,
   };
 
   return (
     <div className="border-b border-neutral-900 pb-4 max-w-4xl mx-auto px-4">
-      <Link to="/blogs" className="text-cyan-500 hover:underline mb-8 inline-block">&larr; Back to Blogs</Link>
+      <Link to="/blogs" className="text-purple-400 hover:underline mb-8 inline-block">&larr; Back to Blogs</Link>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

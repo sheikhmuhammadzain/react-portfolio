@@ -135,7 +135,7 @@ const AdminDashboard = () => {
   return (
     <div className="max-w-[95%] mx-auto my-10">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-light">Admin <span className='text-cyan-400 font-semibold'>Console</span></h1>
+        <h1 className="text-3xl font-light">Admin <span className='text-purple-400 font-semibold'>Console</span></h1>
         <button 
           onClick={handleLogout}
           className="bg-red-900/50 text-red-200 border border-red-900 px-4 py-2 rounded hover:bg-red-900 transition-colors"
@@ -156,7 +156,7 @@ const AdminDashboard = () => {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Enter an engaging title..."
-                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-cyan-500 transition-colors"
+                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-purple-500 transition-colors"
                 required
               />
             </div>
@@ -168,7 +168,7 @@ const AdminDashboard = () => {
                 value={formData.image}
                 onChange={handleChange}
                 placeholder="https://..."
-                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-cyan-500 transition-colors"
+                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-purple-500 transition-colors"
               />
             </div>
             <div>
@@ -179,7 +179,7 @@ const AdminDashboard = () => {
                     value={formData.tags}
                     onChange={handleChange}
                     placeholder="react, ai, tutorial"
-                    className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-cyan-500 transition-colors"
+                    className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-purple-500 transition-colors"
                 />
             </div>
           </div>
@@ -196,7 +196,7 @@ const AdminDashboard = () => {
                         Cancel Edit
                     </button>
                 )}
-                <button type="submit" className="bg-cyan-600 text-white px-8 py-3 rounded font-semibold hover:bg-cyan-500 shadow-lg shadow-cyan-900/20 transition-all hover:scale-105">
+                <button type="submit" className="bg-purple-600 text-white px-8 py-3 rounded font-semibold hover:bg-purple-500 shadow-lg shadow-purple-900/20 transition-all hover:scale-105">
                   {editingId ? 'Update Post' : 'Publish Post'}
                 </button>
              </div>
@@ -253,9 +253,9 @@ const AdminDashboard = () => {
         <h2 className="text-2xl font-light mb-6 border-b border-neutral-800 pb-2">Recent <span className="text-neutral-500">Posts</span></h2>
         <div className="grid grid-cols-1 gap-4">
             {blogs.map(blog => (
-            <div key={blog._id} className="bg-neutral-900 p-6 rounded-lg border border-neutral-800 flex justify-between items-center group hover:border-cyan-900/50 transition-colors">
+            <div key={blog._id} className="bg-neutral-900 p-6 rounded-lg border border-neutral-800 flex justify-between items-center group hover:border-purple-900/50 transition-colors">
                 <div>
-                <h3 className="text-xl font-bold text-neutral-200 group-hover:text-cyan-400 transition-colors">{blog.title}</h3>
+                <h3 className="text-xl font-bold text-neutral-200 group-hover:text-purple-400 transition-colors">{blog.title}</h3>
                 <span className="text-sm text-neutral-500 font-mono">{new Date(blog.createdAt).toLocaleDateString()} &mdash; {blog.tags ? blog.tags.join(', ') : 'No tags'}</span>
                 </div>
                 <div className="flex gap-3">

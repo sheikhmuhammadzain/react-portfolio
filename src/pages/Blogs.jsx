@@ -46,7 +46,7 @@ const Blogs = () => {
             whileInView={{ opacity: 1, x: 0 }}
             initial={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5 }}
-            className="bg-neutral-900 rounded-lg overflow-hidden shadow-lg border border-neutral-800 hover:border-cyan-500 transition-colors"
+            className="bg-neutral-900 rounded-lg overflow-hidden shadow-lg border border-neutral-800 hover:border-purple-500 transition-colors"
           >
             {blog.image && (
               <img
@@ -56,7 +56,7 @@ const Blogs = () => {
               />
             )}
             <div className="p-6">
-              <h2 className="text-2xl font-semibold mb-2 text-cyan-400">
+              <h2 className="text-2xl font-semibold mb-2 text-purple-400">
                 {blog.title}
               </h2>
               <p className="text-neutral-400 text-sm mb-4">
@@ -67,7 +67,7 @@ const Blogs = () => {
               </p>
               <Link
                 to={`/blogs/${blog._id}`}
-                className="inline-block bg-cyan-900 text-white px-4 py-2 rounded hover:bg-cyan-700 transition"
+                className="inline-block bg-purple-900 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
               >
                 Read More
               </Link>
