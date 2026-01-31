@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
   const [formData, setFormData] = useState({
     title: '',
@@ -14,8 +16,13 @@ const AdminDashboard = () => {
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
-    fetchBlogs();
-  }, []);
+    const isAdmin = localStorage.getItem('isAdmin');
+    if (!isAdmin) {
+      navigate('/login');
+    } else {
+      fetchBlogs();
+    }
+  }, [navigate]);
 
   const fetchBlogs = async () => {
      try {

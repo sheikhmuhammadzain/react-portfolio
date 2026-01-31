@@ -7,6 +7,7 @@ import Chatbot from "./components/Chatbot";
 import Blogs from "./pages/Blogs";
 import BlogDetail from "./pages/BlogDetail";
 import AdminDashboard from "./pages/AdminDashboard";
+import Login from "./pages/Login";
 
 // Lazy load components below the fold
 const About = lazy(() => import("./components/About"));
@@ -64,6 +65,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/:id" element={<BlogDetail />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </div>
