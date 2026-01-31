@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { FiSearch } from 'react-icons/fi';
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Determine API base URL
   const API_URL = import.meta.env.VITE_API_URL || '/api';
@@ -25,58 +27,104 @@ const Blogs = () => {
     fetchBlogs();
   }, []);
 
+  const filteredBlogs = blogs.filter((blog) =>
+    blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    blog.content.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (loading) {
     return <div className="text-center mt-20 text-neutral-400">Loading blogs...</div>;
   }
 
   return (
-    <div className="border-b border-neutral-900 pb-4">
+    <div className="border-b border-neutral-900 pb-4 min-h-screen">
       <motion.h1
         whileInView={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -100 }}
         transition={{ duration: 0.5 }}
-        className="my-20 text-center text-4xl"
+        className="my-16 text-center text-5xl font-bold tracking-tight"
       >
         My <span className="text-neutral-500">Blogs</span>
       </motion.h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {blogs.map((blog) => (
+
+      {/* Professional Search Bar */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="flex justify-center mb-16 px-4"
+      >
+        <div className="relative w-full max-w-2xl group">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+            <FiSearch className="text-neutral-500 text-xl group-focus-within:text-purple-500 transition-colors" />
+          </div>
+          <input
+            type="text"
+            className="block w-full pl-12 pr-4 py-4 border border-neutral-800 rounded-full leading-5 bg-neutral-900/50 backdrop-blur-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:bg-neutral-900 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 sm:text-lg transition-all shadow-xl hover:border-neutral-700 hover:bg-neutral-900"
+            placeholder="Search topics, tutorials, and insights..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <div className="absolute inset-0 rounded-full bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none blur-xl -z-10"></div>
+        </div>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-8">
+        {filteredBlogs.map((blog) => (
           <motion.div
             key={blog._id}
-            whileInView={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
-            className="bg-neutral-900 rounded-lg overflow-hidden shadow-lg border border-neutral-800 hover:border-purple-500 transition-colors"
+            className="bg-neutral-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-neutral-800 hover:border-purple-500/50 hover:shadow-purple-900/20 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full"
           >
             {blog.image && (
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="w-full h-48 object-cover"
-              />
+              <div className="relative overflow-hidden h-56">
+                 <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent opacity-60"></div>
+              </div>
             )}
-            <div className="p-6">
-              <h2 className="text-2xl font-semibold mb-2 text-purple-400">
+            <div className={`p-8 flex flex-col flex-grow ${!blog.image ? 'pt-8' : ''}`}>
+              <div className="flex items-center gap-2 mb-4 text-xs font-medium text-purple-400 uppercase tracking-wider">
+                  <span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+              <h2 className="text-2xl font-bold mb-3 text-neutral-100 group-hover:text-purple-400 transition-colors line-clamp-2">
                 {blog.title}
               </h2>
-              <p className="text-neutral-400 text-sm mb-4">
-                {new Date(blog.createdAt).toLocaleDateString()}
-              </p>
-              <p className="text-neutral-300 mb-4 line-clamp-3">
-                {blog.content.substring(0, 150)}...
+              <p className="text-neutral-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">
+                {
+                   blog.content
+                   .replace(/([#*`])/g, '') // Basic markdown strip
+                   .substring(0, 120)
+                }...
               </p>
               <Link
                 to={`/blogs/${blog._id}`}
-                className="inline-block bg-purple-900 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
+                className="inline-flex items-center justify-center w-full bg-neutral-800 text-neutral-300 border border-neutral-700 px-6 py-3 rounded-xl hover:bg-purple-600 hover:text-white hover:border-purple-500 transition-all duration-300 font-medium group-hover/btn"
               >
-                Read More
+                Read Article
               </Link>
             </div>
           </motion.div>
         ))}
       </div>
-      {blogs.length === 0 && (
-        <p className="text-center text-neutral-500">No blogs found.</p>
+      
+      {!loading && filteredBlogs.length === 0 && (
+        <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }}
+            className="text-center py-20"
+        >
+            <div className="inline-block p-4 rounded-full bg-neutral-800/50 mb-4">
+                <FiSearch className="text-4xl text-neutral-600" />
+            </div>
+            <h3 className="text-xl font-medium text-neutral-300 mb-2">No results found</h3>
+            <p className="text-neutral-500">Try adjusting your search terms</p>
+        </motion.div>
       )}
     </div>
   );
