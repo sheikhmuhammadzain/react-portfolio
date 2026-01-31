@@ -14,6 +14,17 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  cursor: auto !important; /* Force default cursor */
+}
+
+/* Ensure all elements inherit this or use auto */
+* {
+  cursor: auto !important;
+}
+
+/* Restore pointer for clickable elements */
+a, button, input, textarea, select, [role="button"] {
+  cursor: pointer !important;
 }
 
 /* Performance optimizations */
@@ -38,10 +49,7 @@ img {
   }
 }
 
-/* Disable default cursor */
-html, body, * {
-  cursor: none !important;
-}
+
 
 /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
 ::-webkit-scrollbar {
