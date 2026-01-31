@@ -41,15 +41,21 @@ const CommandPalette = () => {
         <div className="fixed bottom-6 left-6 z-50 md:block hidden">
             <button 
                 onClick={() => setOpen(true)}
-                className="group flex items-center gap-3 pl-5 pr-5 py-3 bg-[#111] border border-[#222] rounded-2xl shadow-2xl hover:bg-[#151515] transition-all duration-200 cursor-pointer"
+                className="group flex items-center gap-3 pl-4 pr-4 py-3 bg-[#111] border border-[#222] rounded-2xl shadow-2xl hover:bg-[#151515] transition-all duration-200 cursor-pointer"
             >
-                <span className="text-neutral-500 text-sm font-medium pr-2 group-hover:text-neutral-300 transition-colors">Start</span>
                 <div className="flex items-center gap-2">
+                    <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
+                       
+                        <span className="text-[9px] leading-none font-sans opacity-80 font-normal mt-4 mr-4">ctrl</span>
+                    </kbd>
+                    
+                    <span className="text-neutral-600 text-[10px] font-medium uppercase tracking-wider px-1">or</span>
+
                     <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
                         <FiCommand className="text-lg" />
                         <span className="text-[9px] leading-none font-sans opacity-80 font-normal">command</span>
                     </kbd>
-                    <span className="text-neutral-600 font-medium">+</span>
+                    <span className="text-neutral-600 font-medium pl-1">+</span>
                     <kbd className="mac-key h-12 w-12 text-lg">K</kbd>
                 </div>
             </button>
