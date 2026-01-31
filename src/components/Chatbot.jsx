@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPaperPlane, FaTimes, FaDownload } from "react-icons/fa";
+import { FaPaperPlane, FaTimes, FaDownload, FaTrash } from "react-icons/fa";
 import chatIcon from "../assets/chat_icon.png";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import ReactMarkdown from "react-markdown";
@@ -8,12 +8,11 @@ import remarkGfm from "remark-gfm";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content: "Hi! I'm Zain's AI assistant. Ask me anything about his projects, experience, or skills.",
-    },
-  ]);
+  const INITIAL_MESSAGE = {
+    role: "assistant",
+    content: "Hi! I'm Zain's AI assistant. Ask me anything about his projects, experience, or skills.",
+  };
+  const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -42,6 +41,11 @@ const Chatbot = () => {
   }, [messages]);
 
   const toggleChat = () => setIsOpen(!isOpen);
+
+  const handleClearChat = () => {
+    setMessages([INITIAL_MESSAGE]);
+    localStorage.removeItem("chatMessages");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,17 +118,33 @@ const Chatbot = () => {
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
-              className="mb-4 w-80 sm:w-96 rounded-2xl border border-neutral-800 bg-neutral-900/90 backdrop-blur-md shadow-2xl overflow-hidden"
+              className="mb-4 w-96 sm:w-[28rem] rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden flex flex-col"
             >
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-neutral-800 p-4 bg-neutral-900">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden">
-                    <img src={chatIcon} alt="Chat" className="w-full h-full object-contain" />
+              <div className="flex items-center justify-between border-b border-neutral-800 p-4 bg-neutral-950">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden border border-purple-500/20">
+                        <img src={chatIcon} alt="Chat" className="w-full h-full object-contain p-1" />
+                    </div>
+                    <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-neutral-950"></span>
                   </div>
-                  <h3 className="font-semibold text-neutral-200">Zain&apos;s Assistant</h3>
+                  <div>
+                    <h3 className="font-semibold text-neutral-100 text-base">Zain&apos;s Assistant</h3>
+                    <p className="text-xs text-neutral-400 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                        Online
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-1">
+                  <button
+                    onClick={handleClearChat}
+                    className="rounded-full p-2 text-neutral-400 hover:bg-neutral-800 hover:text-red-400 transition-colors"
+                    title="Clear Chat History"
+                  >
+                    <FaTrash className="text-xs" />
+                  </button>
                   <a
                     href={resume}
                     download="Muhammad_Zain_Resume.pdf"
@@ -143,7 +163,7 @@ const Chatbot = () => {
               </div>
 
               {/* Messages */}
-              <div className="h-80 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+              <div className="h-96 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900/50">
                 {messages.map((msg, index) => (
                   <div
                     key={index}
@@ -152,10 +172,10 @@ const Chatbot = () => {
                     }`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                      className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
                         msg.role === "user"
-                          ? "bg-purple-900/50 text-purple-50 rounded-br-none"
-                          : "bg-neutral-800 text-neutral-200 rounded-bl-none"
+                          ? "bg-purple-600 text-white rounded-br-none"
+                          : "bg-neutral-800 text-neutral-200 rounded-bl-none border border-neutral-700"
                       }`}
                     >
                       {msg.role === "assistant" ? (
@@ -164,13 +184,13 @@ const Chatbot = () => {
                             remarkPlugins={[remarkGfm]}
                             components={{
                               a: (props) => (
-                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline" />
+                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-white underline" />
                               ),
-                              p: (props) => <p {...props} className="mb-2 last:mb-0" />,
+                              p: (props) => <p {...props} className="mb-2 last:mb-0 leading-relaxed" />,
                               ul: (props) => <ul {...props} className="list-disc ml-4 mb-2" />,
                               ol: (props) => <ol {...props} className="list-decimal ml-4 mb-2" />,
                               li: (props) => <li {...props} className="mb-1" />,
-                              strong: (props) => <strong {...props} className="font-semibold text-purple-200" />
+                              strong: (props) => <strong {...props} className="font-semibold text-white" />
                             }}
                           >
                             {msg.content}
@@ -184,11 +204,11 @@ const Chatbot = () => {
                 ))}
                 {isLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-neutral-800 rounded-2xl rounded-bl-none px-4 py-3">
+                    <div className="bg-neutral-800 rounded-2xl rounded-bl-none px-4 py-3 border border-neutral-700">
                       <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></span>
-                        <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></span>
-                        <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                        <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></span>
+                        <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></span>
+                        <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></span>
                       </div>
                     </div>
                   </div>
@@ -197,21 +217,21 @@ const Chatbot = () => {
               </div>
 
               {/* Input */}
-              <form onSubmit={handleSubmit} className="border-t border-neutral-800 p-4 bg-neutral-900">
-                <div className="flex gap-2">
+              <form onSubmit={handleSubmit} className="border-t border-neutral-800 p-4 bg-neutral-950">
+                <div className="flex gap-2 items-center">
                   <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask about my projects..."
-                    className="flex-1 rounded-full bg-neutral-800 px-4 py-2 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                    placeholder="Type your question..."
+                    className="flex-1 rounded-full bg-neutral-900 border border-neutral-800 px-4 py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
                   />
                   <button
                     type="submit"
                     disabled={isLoading || !input.trim()}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-600 text-white shadow-lg transition-transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-600 text-white shadow-lg shadow-purple-900/20 transition-all hover:bg-purple-500 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:bg-purple-600"
                   >
-                    <FaPaperPlane className="text-sm" />
+                    <FaPaperPlane className="text-xs" />
                   </button>
                 </div>
               </form>
@@ -229,7 +249,7 @@ const Chatbot = () => {
             className="w-full h-full"
           >
             {isOpen ? (
-              <div className="flex h-full w-full items-center justify-center bg-purple-600 rounded-full">
+              <div className="flex h-full w-full items-center justify-center bg-purple-600 rounded-full shadow-[0_0_15px_rgba(147,51,234,0.5)]">
                 <FaTimes className="text-xl text-white" />
               </div>
             ) : (
