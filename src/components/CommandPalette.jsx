@@ -46,8 +46,8 @@ const CommandPalette = ({ openChat }) => {
             >
                 <div className="flex items-center gap-2">
                     <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
-                        <span className="text-base font-sans font-medium">⌃</span>
-                        <span className="text-[9px] leading-none font-sans opacity-80 font-normal">control</span>
+                       
+                        <span className="text-[9px] leading-none font-sans opacity-80 font-normal mt-4 mr-4">ctrl</span>
                     </kbd>
                     
                     <span className="text-neutral-600 text-[10px] font-medium uppercase tracking-wider px-1">or</span>
