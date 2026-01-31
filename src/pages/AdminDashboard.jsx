@@ -136,8 +136,18 @@ const AdminDashboard = () => {
             fullText += part?.text || '';
         }
 
-        // Clean up markdown code blocks if present
-        const jsonStr = fullText.replace(/```json\n?|\n?```/g, '').trim();
+
+        console.log("Raw AI Response:", fullText);
+        
+        // Robust JSON Extraction
+        const start = fullText.indexOf('{');
+        const end = fullText.lastIndexOf('}');
+        
+        if (start === -1 || end === -1) {
+            throw new Error("No JSON object found in response");
+        }
+
+        const jsonStr = fullText.substring(start, end + 1);
         const data = JSON.parse(jsonStr);
         
         const { title, content, tags } = data;
