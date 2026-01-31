@@ -8,17 +8,19 @@ const Navbar = () => {
   return (
     <nav className="mb-20 flex items-center justify-between py-6">
       <div className="flex flex-shrink-0 items-center">
-        <img 
-          src={logo} 
-          alt="Muhammad Zain - Gen-AI Engineer Logo" 
-          className="mx-2 w-16 rounded-full" 
-          loading="eager"
-          decoding="async"
-        />
+        <Link to="/">
+          <img 
+            src={logo} 
+            alt="Muhammad Zain - Gen-AI Engineer Logo" 
+            className="mx-2 w-16 rounded-full cursor-pointer hover:scale-110 transition-transform" 
+            loading="eager"
+            decoding="async"
+          />
+        </Link>
       </div>
 
       <div className="m-8 flex items-center justify-center gap-4 text-2xl">
-        <Link to="/blogs" className="text-lg font-medium hover:text-cyan-400 transition-colors mr-4">
+        <Link to="/blogs" className="text-lg font-medium hover:text-purple-400 transition-colors mr-4">
           Blogs
         </Link>
         <a
