@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPaperPlane, FaTimes, FaDownload, FaTrash } from "react-icons/fa";
+import { FaPaperPlane, FaTimes, FaDownload, FaTrash, FaSearch } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 import chatIcon from "../assets/chat_icon.png";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import ReactMarkdown from "react-markdown";
@@ -8,12 +9,14 @@ import remarkGfm from "remark-gfm";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
   const INITIAL_MESSAGE = {
     role: "assistant",
     content: "Hi! I'm Zain's AI assistant. Ask me anything about his projects, experience, or skills.",
   };
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
+  const [floatingInput, setFloatingInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
@@ -25,7 +28,7 @@ const Chatbot = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isOpen]);
 
   // Load messages from localStorage on mount
   useEffect(() => {
@@ -47,17 +50,17 @@ const Chatbot = () => {
     localStorage.removeItem("chatMessages");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  // Helper to process sending a message
+  const sendMessage = async (messageContent) => {
+    if (!messageContent.trim() || isLoading) return;
 
-    const userMessage = { role: "user", content: input };
-    setMessages((prev) => {
-      const newMessages = [...prev, userMessage];
-      return newMessages;
-    });
+    const userMessage = { role: "user", content: messageContent };
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setFloatingInput("");
     setIsLoading(true);
+
+    if (!isOpen) setIsOpen(true);
 
     try {
       const response = await fetch(`${API_URL}/chat`, {
@@ -66,7 +69,7 @@ const Chatbot = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          messages: [...messages, userMessage], // Send full context
+          messages: [...messages, userMessage], 
         }),
       });
 
@@ -109,8 +112,47 @@ const Chatbot = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendMessage(input);
+  };
+
+  const handleFloatingSubmit = (e) => {
+    e.preventDefault();
+    sendMessage(floatingInput);
+  };
+
   return (
     <>
+      {/* Floating Glassmorphism Input Bar - Only on Home Page */}
+      {location.pathname === "/" && !isOpen && (
+        <motion.div
+           initial={{ opacity: 0, y: 50 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 1, duration: 0.8 }}
+           className="fixed bottom-8 left-0 z-50 w-full flex justify-center px-4"
+        >
+            <form onSubmit={handleFloatingSubmit} className="w-full flex justify-center px-4">
+                <div className="relative flex items-center w-full max-w-2xl glass-ios-16 rounded-full p-2 transition-all duration-300">
+                    <input 
+                        type="text" 
+                        value={floatingInput}
+                        onChange={(e) => setFloatingInput(e.target.value)}
+                        placeholder="Ask anything about Zain..."
+                        className="w-full bg-transparent border-none text-neutral-200 placeholder-neutral-500 px-6 py-3 text-lg focus:outline-none focus:ring-0"
+                    />
+                    <button 
+                        type="submit"
+                        disabled={!floatingInput.trim()}
+                        className="p-3 rounded-full bg-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <FaPaperPlane size={16} />
+                    </button>
+                </div>
+            </form>
+        </motion.div>
+      )}
+
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
         <AnimatePresence>
           {isOpen && (
@@ -123,9 +165,11 @@ const Chatbot = () => {
               {/* Header */}
               <div className="flex items-center justify-between border-b border-neutral-800 p-4 bg-neutral-950">
                 <div className="flex items-center gap-3">
+                  <div className="relative">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden border border-purple-500/20">
                         <img src={chatIcon} alt="Chat" className="w-full h-full object-contain p-1" />
                     </div>
+                  </div>
                   <div>
                     <h3 className="font-semibold text-neutral-100 text-base">Zain&apos;s Assistant</h3>
                     <p className="text-xs text-neutral-400 flex items-center gap-1">
