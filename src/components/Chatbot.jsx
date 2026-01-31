@@ -123,12 +123,9 @@ const Chatbot = () => {
               {/* Header */}
               <div className="flex items-center justify-between border-b border-neutral-800 p-4 bg-neutral-950">
                 <div className="flex items-center gap-3">
-                  <div className="relative">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden border border-purple-500/20">
                         <img src={chatIcon} alt="Chat" className="w-full h-full object-contain p-1" />
                     </div>
-                    <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-neutral-950"></span>
-                  </div>
                   <div>
                     <h3 className="font-semibold text-neutral-100 text-base">Zain&apos;s Assistant</h3>
                     <p className="text-xs text-neutral-400 flex items-center gap-1">
