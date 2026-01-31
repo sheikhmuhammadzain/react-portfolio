@@ -60,6 +60,15 @@ export default defineConfig({
       cacheLocation: 'node_modules/.cache/vite-image-optimizer',
     }),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   build: {
     rollupOptions: {
       output: {

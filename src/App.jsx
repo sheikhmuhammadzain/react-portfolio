@@ -1,9 +1,13 @@
 import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import SmoothCursor from "./components/SmoothCursor";
 import PerformanceMonitor from "./components/PerformanceMonitor";
 import Chatbot from "./components/Chatbot";
+import Blogs from "./pages/Blogs";
+import BlogDetail from "./pages/BlogDetail";
+import AdminDashboard from "./pages/AdminDashboard";
 
 // Lazy load components below the fold
 const About = lazy(() => import("./components/About"));
@@ -12,6 +16,32 @@ const Experience = lazy(() => import("./components/Experience"));
 const Projects = lazy(() => import("./components/Projects"));
 const Certificates = lazy(() => import("./components/Certificates"));
 const Contact = lazy(() => import("./components/Contact"));
+
+const Home = () => {
+  return (
+    <>
+      <Hero />
+      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+        <About />
+      </Suspense>
+      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+        <Technologies />
+      </Suspense>
+      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+        <Experience />
+      </Suspense>
+      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+        <Projects />
+      </Suspense>
+      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+        <Certificates />
+      </Suspense>
+      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
+        <Contact />
+      </Suspense>
+    </>
+  );
+};
 
 const App = () => {
   return (
@@ -31,25 +61,12 @@ const App = () => {
         
         <div className="container mx-auto px-4 sm:px-8 max-w-full">
           <Navbar />
-          <Hero />
-          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-            <About />
-          </Suspense>
-          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-            <Technologies />
-          </Suspense>
-          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-            <Experience />
-          </Suspense>
-          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-            <Projects />
-          </Suspense>
-          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-            <Certificates />
-          </Suspense>
-          <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-            <Contact />
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<BlogDetail />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Routes>
         </div>
       </div>
     </>

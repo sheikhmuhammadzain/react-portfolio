@@ -2,6 +2,7 @@ import logo from "../assets/zain.jpeg";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -17,6 +18,9 @@ const Navbar = () => {
       </div>
 
       <div className="m-8 flex items-center justify-center gap-4 text-2xl">
+        <Link to="/blogs" className="text-lg font-medium hover:text-cyan-400 transition-colors mr-4">
+          Blogs
+        </Link>
         <a
           target="_blank"
           href="https://www.linkedin.com/in/muhammad-zain-afzal-649209227/"
