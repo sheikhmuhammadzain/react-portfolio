@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Command } from "cmdk";
 import { useNavigate } from "react-router-dom";
-import { FiCommand, FiHome, FiFileText, FiGithub, FiMail, FiDownload, FiTerminal, FiSun, FiMoon } from "react-icons/fi";
+import { FiCommand, FiHome, FiFileText, FiGithub, FiMail, FiDownload, FiMessageSquare } from "react-icons/fi";
 import { SiMatrix } from "react-icons/si";
+import resume from "../assets/resume/my_resume-zain.pdf";
 
-const CommandPalette = () => {
+const CommandPalette = ({ openChat }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -45,8 +46,8 @@ const CommandPalette = () => {
             >
                 <div className="flex items-center gap-2">
                     <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
-                       
-                        <span className="text-[9px] leading-none font-sans opacity-80 font-normal mt-4 mr-4">ctrl</span>
+                        <span className="text-base font-sans font-medium">⌃</span>
+                        <span className="text-[9px] leading-none font-sans opacity-80 font-normal">control</span>
                     </kbd>
                     
                     <span className="text-neutral-600 text-[10px] font-medium uppercase tracking-wider px-1">or</span>
@@ -98,6 +99,14 @@ const CommandPalette = () => {
               <FiFileText className="mr-3 h-4 w-4 text-neutral-500" />
               <span>Go to Blogs</span>
             </Command.Item>
+             <Command.Item
+               value="chat"
+              onSelect={() => runCommand(() => openChat && openChat())}
+              className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
+            >
+              <FiMessageSquare className="mr-3 h-4 w-4 text-neutral-500" />
+              <span>Chat with Zain</span>
+            </Command.Item>
             <Command.Item
                value="contact"
               onSelect={() => runCommand(() => document.getElementById("contact")?.scrollIntoView({ behavior: 'smooth' }))}
@@ -112,20 +121,20 @@ const CommandPalette = () => {
 
           <Command.Group heading="Utility" className="text-[11px] font-medium text-neutral-500 px-2 py-1.5 mb-2 mt-2 uppercase tracking-wider">
              <Command.Item
+                value="resume"
+                onSelect={() => runCommand(() => window.open(resume, '_blank'))}
+                className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
+            >
+                <FiDownload className="mr-3 h-4 w-4 text-neutral-500" />
+                <span>Download Resume</span>
+            </Command.Item>
+             <Command.Item
                 value="github"
                 onSelect={() => runCommand(() => window.open('https://github.com/sheikhmuhammadzain', '_blank'))}
                 className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
                 <FiGithub className="mr-3 h-4 w-4 text-neutral-500" />
                 <span>Open Github</span>
-            </Command.Item>
-             <Command.Item
-              value="admin"
-              onSelect={() => runCommand(() => navigate("/login"))}
-              className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
-            >
-              <FiTerminal className="mr-3 h-4 w-4 text-neutral-500" />
-              <span>Admin Login</span>
             </Command.Item>
              <Command.Item
               value="matrix"

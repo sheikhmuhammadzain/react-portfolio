@@ -7,8 +7,8 @@ import resume from "../assets/resume/my_resume-zain.pdf";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Chatbot = ({ isOpen, setIsOpen }) => {
+  // const [isOpen, setIsOpen] = useState(false); // State lifted to App.jsx
   const location = useLocation();
   const INITIAL_MESSAGE = {
     role: "assistant",

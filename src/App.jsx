@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ReactGA from "react-ga4";
 
@@ -51,6 +51,7 @@ const Home = () => {
 
 const App = () => {
   const location = useLocation();
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     // Track page views
@@ -70,8 +71,8 @@ const App = () => {
         </div>
 
 
-        <Chatbot />
-        <CommandPalette />
+        <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+        <CommandPalette openChat={() => setIsChatOpen(true)} />
         
         <div className="container mx-auto px-4 sm:px-8 max-w-full">
           <Navbar />
