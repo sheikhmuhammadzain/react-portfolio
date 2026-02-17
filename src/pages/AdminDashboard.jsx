@@ -29,6 +29,7 @@ const AdminDashboard = () => {
   const [imgPrompt, setImgPrompt] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
   const [isImgGenerating, setIsImgGenerating] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -86,6 +87,14 @@ const AdminDashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (!formData.title || !formData.content) {
+        alert("Please fill in both Title and Content fields.");
+        return;
+    }
+
+    setIsPublishing(true);
     const tagsArray = formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : [];
     const blogData = { ...formData, tags: tagsArray };
 
@@ -100,9 +109,15 @@ const AdminDashboard = () => {
       localStorage.removeItem('blog_draft'); // Clear draft after successful save
       setEditingId(null);
       fetchBlogs();
+      alert(editingId ? "Blog updated successfully!" : "Blog published successfully!");
     } catch (error) {
       console.error('Error saving blog', error);
-      alert('Error saving blog');
+      const errorMsg = error.response && error.response.data && error.response.data.message 
+        ? error.response.data.message 
+        : error.message || "Unknown error occurred";
+      alert(`Error saving blog: ${errorMsg}`);
+    } finally {
+        setIsPublishing(false);
     }
   };
 
@@ -516,8 +531,18 @@ const AdminDashboard = () => {
                         Cancel Edit
                     </button>
                 )}
-                <button type="submit" className="bg-purple-600 text-white px-8 py-3 rounded font-medium hover:bg-purple-500 transition-colors">
-                  {editingId ? 'Update Post' : 'Publish Post'}
+                <button 
+                  type="submit" 
+                  disabled={isPublishing}
+                  className="bg-purple-600 text-white px-8 py-3 rounded font-medium hover:bg-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {isPublishing && (
+                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  )}
+                  {isPublishing ? (editingId ? 'Updating...' : 'Publishing...') : (editingId ? 'Update Post' : 'Publish Post')}
                 </button>
              </div>
           </div>
