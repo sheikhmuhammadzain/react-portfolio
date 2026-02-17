@@ -1,22 +1,28 @@
-import OpenAI from 'openai';
-import { HERO_CONTENT, ABOUT_TEXT, EXPERIENCES, PROJECTS, CONTACT } from '../config/chatContext.js';
+import OpenAI from "openai"
+import {
+  HERO_CONTENT,
+  ABOUT_TEXT,
+  EXPERIENCES,
+  PROJECTS,
+  CONTACT,
+} from "../config/chatContext.js"
 
 // @desc    Handle chat interaction
 // @route   POST /api/chat
 // @access  Public
 export const handleChat = async (req, res) => {
-  const { messages } = req.body;
+  const {messages} = req.body
 
   if (!messages) {
-    res.status(400).json({ message: 'Messages are required' });
-    return;
+    res.status(400).json({message: "Messages are required"})
+    return
   }
 
   try {
     const client = new OpenAI({
       baseURL: "https://openrouter.ai/api/v1",
       apiKey: process.env.VITE_OPENROUTER_API_KEY,
-    });
+    })
 
     const systemPrompt = `
       You are an advanced AI assistant for Muhammad Zain's portfolio website. Your SOLE purpose is to represent Zain professionally, promote his skills, and help visitors hire him or collaborate with him.
@@ -41,32 +47,29 @@ export const handleChat = async (req, res) => {
         - Use **paragraphs** to break up text. NEVER output a single wall of text.
       - Be enthusiastic, professional, and convincing.
       - **Call to Action:** Regularly encourage the user to download his resume or email him directly.
-    `;
+    `
 
     const completion = await client.chat.completions.create({
-      model: "arcee-ai/trinity-large-preview:free",
-      messages: [
-        { role: "system", content: systemPrompt },
-        ...messages,
-      ],
+      model: "stepfun/step-3.5-flash:free",
+      messages: [{role: "system", content: systemPrompt}, ...messages],
       stream: true,
-    });
+    })
 
     // Set headers for SSE (Server-Sent Events)
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
+    res.setHeader("Content-Type", "text/event-stream")
+    res.setHeader("Cache-Control", "no-cache")
+    res.setHeader("Connection", "keep-alive")
 
     for await (const chunk of completion) {
-      const content = chunk.choices[0]?.delta?.content || "";
+      const content = chunk.choices[0]?.delta?.content || ""
       if (content) {
-        res.write(content);
+        res.write(content)
       }
     }
 
-    res.end();
+    res.end()
   } catch (error) {
-    console.error('Chat error:', error);
-    res.status(500).json({ message: 'Error processing chat request' });
+    console.error("Chat error:", error)
+    res.status(500).json({message: "Error processing chat request"})
   }
-};
+}
