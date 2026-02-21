@@ -96,6 +96,22 @@ export const EXPERIENCES = [
 
 export const PROJECTS = [
   {
+    title: "favicli",
+    image: "/favicli.png",
+    description:
+      "One command to set up favicons for React and Next.js projects. Detects project type, lets you choose a source image, generates all required favicon assets, and injects references automatically.",
+    technologies: [
+      "Node.js",
+      "JavaScript",
+      "CLI",
+      "React",
+      "Next.js",
+      "Favicon Automation"
+    ],
+    githubLink: "https://github.com/sheikhmuhammadzain/favicli",
+    liveLink: null,
+  },
+  {
     title: "PaperPilot - AI Data Analysis SaaS",
     image: paperpilot,
     description:
