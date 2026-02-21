@@ -8,6 +8,7 @@ import aiimage from '../assets/projects/aiimage.png'
 import uolchat from '../assets/projects/uolchat.png'
 import zainco from '../assets/projects/zainco.png'
 import chatgptclone from '../assets/projects/chatgptclone.png'
+const favicliImage = `${import.meta.env.BASE_URL}favicli.png`;
 export const HERO_CONTENT = `Full Stack Gen AI Developer specializing in production-ready AI SaaS products from concept to deployment. I build intelligent data analysis tools, AI-powered web applications, and enterprise solutions using Next.js, MongoDB, and modern AI APIs, with strong focus on UX, performance, and rapid iteration.`;
 
 export const ABOUT_TEXT = `Full Stack Gen AI Developer specializing in building production-ready AI SaaS products from concept to deployment. I focus on intelligent data analysis tools, AI-powered web applications, and enterprise solutions using Next.js, MongoDB, and modern AI APIs.
@@ -97,7 +98,8 @@ export const EXPERIENCES = [
 export const PROJECTS = [
   {
     title: "favicli",
-    image: "/favicli.png",
+    image: favicliImage,
+    imageFit: "contain",
     description:
       "One command to set up favicons for React and Next.js projects. Detects project type, lets you choose a source image, generates all required favicon assets, and injects references automatically.",
     technologies: [
@@ -223,7 +225,8 @@ export const STATIC_BLOGS = [
   {
     _id: "favicli",
     title: "favicli",
-    image: "/favicli.png",
+    image: favicliImage,
+    imageFit: "contain",
     createdAt: "2026-02-21T00:00:00.000Z",
     tags: ["cli", "react", "nextjs", "tooling", "favicon"],
     content: `# favicli

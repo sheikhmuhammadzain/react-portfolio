@@ -97,7 +97,11 @@ const BlogDetail = () => {
           <img
             src={blog.image}
             alt={blog.title}
-            className="w-full h-64 md:h-96 object-cover rounded-xl mb-8 shadow-2xl border border-neutral-800"
+            className={`w-full rounded-xl mb-8 shadow-2xl border border-neutral-800 ${
+              blog.imageFit === 'contain'
+                ? 'h-auto max-h-[32rem] object-contain bg-neutral-950 p-2'
+                : 'h-64 md:h-96 object-cover'
+            }`}
           />
         )}
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">{blog.title}</h1>

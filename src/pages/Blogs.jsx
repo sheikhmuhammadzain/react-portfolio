@@ -91,9 +91,15 @@ const Blogs = () => {
                  <img
                   src={blog.image}
                   alt={blog.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  className={`w-full h-full transform group-hover:scale-110 transition-transform duration-500 ${
+                    blog.imageFit === 'contain'
+                      ? 'object-contain bg-neutral-950 p-2'
+                      : 'object-cover'
+                  }`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent opacity-60"></div>
+                {blog.imageFit !== 'contain' && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent opacity-60"></div>
+                )}
               </div>
             )}
             <div className={`p-8 flex flex-col flex-grow ${!blog.image ? 'pt-8' : ''}`}>

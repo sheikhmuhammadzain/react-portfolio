@@ -100,7 +100,11 @@ const Projects = () => {
             {/* Image Section */}
             <div className="relative h-48 w-full overflow-hidden">
               <motion.img // Animate image scale slightly differently if needed, or stick to CSS
-                className="h-full w-full object-cover"
+                className={`h-full w-full ${
+                  project.imageFit === "contain"
+                    ? "object-contain bg-neutral-950 p-2"
+                    : "object-cover"
+                }`}
                 src={project.image}
                 alt={project.title}
                 // --- CSS driven scale on group hover ---
@@ -114,7 +118,9 @@ const Projects = () => {
                 // className="h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
               />
                {/* Subtle overlay on hover */}
-               <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-20"></div>
+               {project.imageFit !== "contain" && (
+                 <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-20"></div>
+               )}
             </div>
 
             {/* Content Section */}
