@@ -3,6 +3,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
+import { STATIC_BLOGS } from '../constants';
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -13,13 +14,20 @@ const Blogs = () => {
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
+    const mergeBlogs = (apiBlogs = []) => {
+      const apiIds = new Set(apiBlogs.map((blog) => blog._id));
+      const merged = [...apiBlogs, ...STATIC_BLOGS.filter((blog) => !apiIds.has(blog._id))];
+      return merged.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    };
+
     const fetchBlogs = async () => {
       try {
         const res = await axios.get(`${API_URL}/blogs`);
-        setBlogs(res.data);
+        setBlogs(mergeBlogs(res.data || []));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching blogs:', error);
+        setBlogs(mergeBlogs([]));
         setLoading(false);
       }
     };

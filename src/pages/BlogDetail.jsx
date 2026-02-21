@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { STATIC_BLOGS } from '../constants';
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -15,6 +16,8 @@ const BlogDetail = () => {
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
+    const fallbackBlog = STATIC_BLOGS.find((item) => item._id === id);
+
     const fetchBlog = async () => {
       try {
         const res = await axios.get(`${API_URL}/blogs/${id}`);
@@ -22,9 +25,16 @@ const BlogDetail = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching blog:', error);
+        setBlog(fallbackBlog || null);
         setLoading(false);
       }
     };
+
+    if (fallbackBlog) {
+      setBlog(fallbackBlog);
+      setLoading(false);
+      return;
+    }
 
     fetchBlog();
   }, [id]);

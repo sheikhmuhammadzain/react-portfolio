@@ -110,6 +110,7 @@ export const PROJECTS = [
     ],
     githubLink: "https://github.com/sheikhmuhammadzain/favicli",
     liveLink: null,
+    blogLink: "/blogs/favicli",
   },
   {
     title: "PaperPilot - AI Data Analysis SaaS",
@@ -217,3 +218,145 @@ export const CONTACT = {
   phoneNo: "+92 303 2224501 ",
   email: "zain@zainafzal.dev",
 };
+
+export const STATIC_BLOGS = [
+  {
+    _id: "favicli",
+    title: "favicli",
+    image: "/favicli.png",
+    createdAt: "2026-02-21T00:00:00.000Z",
+    tags: ["cli", "react", "nextjs", "tooling", "favicon"],
+    content: `# favicli
+
+One command to set up favicons for React and Next.js projects.
+
+**Detect -> Choose -> Generate -> Inject**
+
+---
+
+## Author
+
+- **Name:** Zain Afzal
+- **Website:** https://zainafzal.dev
+- **Email:** zainsheikh3462@gmail.com
+
+---
+
+## Installation
+
+~~~bash
+npm install -g favicli
+~~~
+
+Or run without global install:
+
+~~~bash
+npx favicli
+~~~
+
+---
+
+## Quick Usage
+
+~~~bash
+# Home menu
+favicli
+
+# Interactive setup
+favicli set
+
+# Set from a specific image
+favicli set logo.png
+
+# Detect project type
+favicli detect
+
+# Remove generated favicon files
+favicli remove
+~~~
+
+---
+
+## Commands
+
+- \`favicli\`: Home screen with interactive menu
+- \`favicli set\`: Generate and inject favicons
+- \`favicli detect\`: Detect project type
+- \`favicli remove\`: Remove generated favicon files
+
+### \`favicli set [image]\`
+
+- Generates favicon files into \`public/\`
+- Auto-injects/replaces references in project files
+
+Options:
+
+- \`-d, --dir <path>\`: Target project directory
+- \`--no-inject\`: Generate files only, skip injection
+
+Examples:
+
+~~~bash
+favicli set
+favicli set logo.png
+favicli set ./assets/icon.png -d ./apps/web
+favicli set logo.png --no-inject
+~~~
+
+### \`favicli detect\`
+
+Detects project type and shows project details.
+
+### \`favicli remove\`
+
+Removes generated favicon files from \`public/\`.
+
+---
+
+## How It Works
+
+1. Detect project type (React/Next.js variant)
+2. Choose a source image (\`.png\`, \`.jpg\`, \`.jpeg\`, \`.webp\`, \`.svg\`)
+3. Generate all required favicon sizes
+4. Inject favicon references into project files
+
+Generated files:
+
+- \`favicon.ico\` (16 + 32 + 48 combined)
+- \`favicon-16x16.png\`
+- \`favicon-32x32.png\`
+- \`favicon-48x48.png\`
+- \`apple-touch-icon.png\`
+- \`android-chrome-192x192.png\`
+- \`android-chrome-512x512.png\`
+- \`site.webmanifest\`
+
+---
+
+## Supported Projects
+
+- React + Vite (injects into root \`index.html\`)
+- Create React App (injects into \`public/index.html\`)
+- Next.js App Router (injects metadata in \`app/layout.tsx\`)
+- Next.js Pages Router (injects in \`pages/_document.tsx\`)
+
+Monorepo support scans root, direct subfolders, \`apps/*\`, and \`packages/*\`.
+
+---
+
+## Notes
+
+- Re-running \`favicli set\` updates existing files
+- Injection is replacement-based and safe to rerun
+- Best source image: square (1:1), at least 512x512
+
+---
+
+## Repository
+
+- **GitHub:** https://github.com/sheikhmuhammadzain/favicli
+- **Issues:** https://github.com/sheikhmuhammadzain/favicli/issues
+
+**MIT License**`,
+  },
+];

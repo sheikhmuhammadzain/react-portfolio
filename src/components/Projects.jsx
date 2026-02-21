@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PROJECTS } from "../constants"; // Assuming PROJECTS array is defined here
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 // Placeholder PROJECTS data structure if needed for testing:
 // const PROJECTS = [
@@ -163,8 +164,17 @@ const Projects = () => {
                      <span className="text-sm">Live Demo</span>
                   </a>
                 )}
+                {project.blogLink && (
+                  <Link
+                    to={project.blogLink}
+                    className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-purple-400"
+                    aria-label={`${project.title} Blog`}
+                  >
+                    <span className="text-sm">Read Blog</span>
+                  </Link>
+                )}
                 {/* Optional: Placeholder if no links */}
-                {!project.githubLink && !project.liveLink && (
+                {!project.githubLink && !project.liveLink && !project.blogLink && (
                     <span className="text-xs text-neutral-600 italic">No links available</span>
                 )}
               </div>
