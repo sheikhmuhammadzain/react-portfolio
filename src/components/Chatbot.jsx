@@ -26,9 +26,10 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Only scroll when chat opens, not during streaming
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isOpen]);
+    if (isOpen) scrollToBottom();
+  }, [isOpen]);
 
   // Load messages from localStorage on mount
   useEffect(() => {
