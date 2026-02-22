@@ -20,8 +20,8 @@ export const handleChat = async (req, res) => {
 
   try {
     const client = new OpenAI({
-      baseURL: "https://openrouter.ai/api/v1",
-      apiKey: process.env.VITE_OPENROUTER_API_KEY,
+      baseURL: "https://api.cerebras.ai/v1",
+      apiKey: process.env.CEREBRAS_API_KEY,
     })
 
     const systemPrompt = `
@@ -50,7 +50,7 @@ export const handleChat = async (req, res) => {
     `
 
     const completion = await client.chat.completions.create({
-      model: "stepfun/step-3.5-flash:free",
+      model: "gpt-oss-120b",
       messages: [{role: "system", content: systemPrompt}, ...messages],
       stream: true,
     })
