@@ -6,6 +6,7 @@ import chatIcon from "../assets/chat_icon.png";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 const Chatbot = ({ isOpen, setIsOpen }) => {
   // const [isOpen, setIsOpen] = useState(false); // State lifted to App.jsx
@@ -220,8 +221,9 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     >
                       {msg.role === "assistant" ? (
                         <div className="prose prose-sm prose-invert max-w-none text-neutral-200">
-                          <ReactMarkdown 
+                          <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeRaw]}
                             components={{
                               a: (props) => (
                                 <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-white underline" />
@@ -230,7 +232,18 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                               ul: (props) => <ul {...props} className="list-disc ml-4 mb-2" />,
                               ol: (props) => <ol {...props} className="list-decimal ml-4 mb-2" />,
                               li: (props) => <li {...props} className="mb-1" />,
-                              strong: (props) => <strong {...props} className="font-semibold text-white" />
+                              strong: (props) => <strong {...props} className="font-semibold text-white" />,
+                              table: (props) => (
+                                <div className="overflow-x-auto my-2 rounded-lg border border-neutral-700">
+                                  <table {...props} className="min-w-full text-xs border-collapse" />
+                                </div>
+                              ),
+                              th: (props) => (
+                                <th {...props} className="bg-neutral-700 text-neutral-100 font-semibold px-3 py-2 text-left border-b border-neutral-600 whitespace-nowrap" />
+                              ),
+                              td: (props) => (
+                                <td {...props} className="px-3 py-2 border-b border-neutral-700/50 text-neutral-300 align-top" />
+                              ),
                             }}
                           >
                             {msg.content}
