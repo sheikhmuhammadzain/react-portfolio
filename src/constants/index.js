@@ -8,6 +8,7 @@ import aiimage from '../assets/projects/aiimage.png'
 import uolchat from '../assets/projects/uolchat.png'
 import zainco from '../assets/projects/zainco.png'
 import chatgptclone from '../assets/projects/chatgptclone.png'
+import macos from '../assets/projects/macos.png'
 const favicliImage = `${import.meta.env.BASE_URL}favicli.png`;
 export const HERO_CONTENT = `Full Stack Gen AI Developer specializing in production-ready AI SaaS products from concept to deployment. I build intelligent data analysis tools, AI-powered web applications, and enterprise solutions using Next.js, MongoDB, and modern AI APIs, with strong focus on UX, performance, and rapid iteration.`;
 
@@ -113,6 +114,22 @@ export const PROJECTS = [
     githubLink: "https://github.com/sheikhmuhammadzain/favicli",
     liveLink: null,
     blogLink: "/blogs/favicli",
+  },
+  {
+    title: "Zain OS",
+    image: macos,
+    description:
+      "A browser-based macOS-inspired operating system experience with desktop-style navigation, app-like windows, and polished UI interactions. Built to simulate core OS quality and feel directly in the web browser.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "JavaScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "OS Simulation"
+    ],
+    githubLink: "https://github.com/sheikhmuhammadzain",
+    liveLink: "https://os.zainafzal.dev/",
   },
   {
     title: "PaperPilot - AI Data Analysis SaaS",
