@@ -50,7 +50,7 @@ export const handleChat = async (req, res) => {
     `
 
     const completion = await client.chat.completions.create({
-      model: "gpt-oss-120b",
+      model: "qwen-3-235b-a22b-instruct-2507",
       messages: [{role: "system", content: systemPrompt}, ...messages],
       stream: true,
     })
