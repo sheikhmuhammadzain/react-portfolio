@@ -6,8 +6,6 @@ import drawmath from '../assets/projects/drawmath.png'
 import paperpilot from '../assets/projects/paperpilot.png'
 import aiimage from '../assets/projects/aiimage.png'
 import uolchat from '../assets/projects/uolchat.png'
-import zainco from '../assets/projects/zainco.png'
-import chatgptclone from '../assets/projects/chatgptclone.png'
 import macos from '../assets/projects/macos.png'
 const favicliImage = `${import.meta.env.BASE_URL}favicli.png`;
 export const HERO_CONTENT = `Full Stack Gen AI Developer specializing in production-ready AI SaaS products from concept to deployment. I build intelligent data analysis tools, AI-powered web applications, and enterprise solutions using Next.js, MongoDB, and modern AI APIs, with strong focus on UX, performance, and rapid iteration.`;
@@ -98,22 +96,20 @@ export const EXPERIENCES = [
 
 export const PROJECTS = [
   {
-    title: "favicli",
-    image: favicliImage,
-    imageFit: "contain",
+    title: "PaperPilot - AI Data Analysis SaaS",
+    image: paperpilot,
     description:
-      "One command to set up favicons for React and Next.js projects. Detects project type, lets you choose a source image, generates all required favicon assets, and injects references automatically.",
+      "Production AI SaaS platform that lets users upload CSV, Excel, or PDF files and analyze them using natural language. Includes ReAct agent reasoning, automatic Python code generation, in-browser execution via Pyodide, auto-visualization, and privacy-focused PDF chat.",
     technologies: [
-      "Node.js",
-      "JavaScript",
-      "CLI",
-      "React",
       "Next.js",
-      "Favicon Automation"
+      "TypeScript",
+      "Python",
+      "Gemini API",
+      "Pyodide",
+      "WebAssembly"
     ],
-    githubLink: "https://github.com/sheikhmuhammadzain/favicli",
-    liveLink: null,
-    blogLink: "/blogs/favicli",
+    githubLink: "https://github.com/sheikhmuhammadzain",
+    liveLink: "https://www.paperpilot.site",
   },
   {
     title: "Zain OS",
@@ -132,21 +128,24 @@ export const PROJECTS = [
     liveLink: "https://os.zainafzal.dev/",
   },
   {
-    title: "PaperPilot - AI Data Analysis SaaS",
-    image: paperpilot,
+    title: "favicli",
+    image: favicliImage,
+    imageFit: "contain",
     description:
-      "Production AI SaaS platform that lets users upload CSV, Excel, or PDF files and analyze them using natural language. Includes ReAct agent reasoning, automatic Python code generation, in-browser execution via Pyodide, auto-visualization, and privacy-focused PDF chat.",
+      "One command to set up favicons for React and Next.js projects. Detects project type, lets you choose a source image, generates all required favicon assets, and injects references automatically.",
     technologies: [
+      "Node.js",
+      "JavaScript",
+      "CLI",
+      "React",
       "Next.js",
-      "TypeScript",
-      "Python",
-      "Gemini API",
-      "Pyodide",
-      "WebAssembly"
+      "Favicon Automation"
     ],
-    githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://www.paperpilot.site",
+    githubLink: "https://github.com/sheikhmuhammadzain/favicli",
+    liveLink: null,
+    blogLink: "/blogs/favicli",
   },
+
    {
     title: "UOL AI Powered CHAT APP",
     image: uolchat,
@@ -165,25 +164,6 @@ export const PROJECTS = [
     githubLink: "https://github.com/sheikhmuhammadzain/uolgpacalculator",
     liveLink: "https://uolgpacalculator.netlify.app/",
   },
-  {
-    title: "Zain & CO",
-    image: zainco,
-    description:
-      "Zain & CO is a Luxury Ecommerce Website for a Luxury Brand. It is a full responsive website that is built using React, TypeScript, Vite, Tailwind CSS, and Framer Motion. ",
-    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
-    githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://afzal-elegance-commerce.vercel.app/",
-  },
-  {
-    title: "Chatgpt Clone",
-    image: chatgptclone,
-    description:
-      "Chatgpt Clone is a web application that allows users to chat with a chatbot using AI. The application uses a custom model to generate responses based on the user's input.",
-    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "OpenAI", "AI"],
-    githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://grey-ghost-chat.vercel.app/",
-  },
-  
   {
     title: "Studdy Buddy ChatBot",
     image: chatbotimg,
