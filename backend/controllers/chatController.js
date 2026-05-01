@@ -101,20 +101,92 @@ export const handleChat = async (req, res) => {
       res.write(JSON.stringify({ t: type, d: delta }) + "\n")
     }
 
+    // Some open-source reasoning models (Nemotron, R1-style) emit their CoT
+    // inline inside `content` wrapped in <think>...</think> rather than in a
+    // separate `reasoning` field. We split it on the fly: text inside the tags
+    // is routed to the reasoning stream, text outside to content.
+    let inThink = false
+    let pending = "" // buffer for partial tag matches across chunks
+    const THINK_OPEN = "<think>"
+    const THINK_CLOSE = "</think>"
+
+    const routeContentChunk = (text) => {
+      pending += text
+      while (pending.length) {
+        if (inThink) {
+          const idx = pending.indexOf(THINK_CLOSE)
+          if (idx === -1) {
+            // keep last (THINK_CLOSE.length - 1) chars in case a tag is split
+            const keep = THINK_CLOSE.length - 1
+            if (pending.length > keep) {
+              send("r", pending.slice(0, pending.length - keep))
+              pending = pending.slice(pending.length - keep)
+            }
+            return
+          }
+          if (idx > 0) send("r", pending.slice(0, idx))
+          pending = pending.slice(idx + THINK_CLOSE.length)
+          inThink = false
+        } else {
+          const idx = pending.indexOf(THINK_OPEN)
+          if (idx === -1) {
+            const keep = THINK_OPEN.length - 1
+            if (pending.length > keep) {
+              send("c", pending.slice(0, pending.length - keep))
+              pending = pending.slice(pending.length - keep)
+            }
+            return
+          }
+          if (idx > 0) send("c", pending.slice(0, idx))
+          pending = pending.slice(idx + THINK_OPEN.length)
+          inThink = true
+        }
+      }
+    }
+
+    let sawReasoning = false
+    let sawContent = false
+    let firstChunkLogged = false
+
     for await (const chunk of completion) {
       const delta = chunk.choices?.[0]?.delta
       if (!delta) continue
-      // OpenRouter exposes reasoning either as a flat `reasoning` string delta
-      // or inside `reasoning_details[].text`. Handle both shapes.
-      if (typeof delta.reasoning === "string") send("r", delta.reasoning)
+      if (!firstChunkLogged) {
+        console.log("[chat] first delta keys:", Object.keys(delta), "sample:", JSON.stringify(delta).slice(0, 400))
+        firstChunkLogged = true
+      }
+
+      // 1. Native reasoning fields (OpenRouter unified shape)
+      if (typeof delta.reasoning === "string" && delta.reasoning) {
+        sawReasoning = true
+        send("r", delta.reasoning)
+      }
+      if (typeof delta.reasoning_content === "string" && delta.reasoning_content) {
+        sawReasoning = true
+        send("r", delta.reasoning_content)
+      }
       if (Array.isArray(delta.reasoning_details)) {
         for (const det of delta.reasoning_details) {
-          if (det?.type === "reasoning.text" && det.text) send("r", det.text)
-          else if (det?.type === "reasoning.summary" && det.summary) send("r", det.summary)
+          if (det?.type === "reasoning.text" && det.text) { sawReasoning = true; send("r", det.text) }
+          else if (det?.type === "reasoning.summary" && det.summary) { sawReasoning = true; send("r", det.summary) }
         }
       }
-      if (delta.content) send("c", delta.content)
+
+      // 2. Inline <think> tags inside content (R1, some Nemotron, Qwen3 builds)
+      if (delta.content) {
+        sawContent = true
+        routeContentChunk(delta.content)
+      }
     }
+
+    // Flush any trailing buffered text
+    if (pending) {
+      send(inThink ? "r" : "c", pending)
+      if (inThink) sawReasoning = true
+      pending = ""
+    }
+
+    console.log(`[chat] stream done. reasoning=${sawReasoning} content=${sawContent}`)
 
     res.end()
   } catch (error) {
