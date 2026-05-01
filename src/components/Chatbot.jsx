@@ -22,6 +22,44 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
   const messagesEndRef = useRef(null);
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
+  // Resizable window. Anchored bottom-right; the handle sits in the top-left
+  // corner so dragging up/left grows the window. Constrained to viewport.
+  const MIN_W = 320, MIN_H = 360, MAX_W = 900, MAX_H = 900;
+  const [size, setSize] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("chatSize") || "null");
+      if (saved && saved.width && saved.height) return saved;
+    } catch { /* ignore */ }
+    return { width: 448, height: 560 };
+  });
+  useEffect(() => {
+    localStorage.setItem("chatSize", JSON.stringify(size));
+  }, [size]);
+
+  const onResizeStart = (e) => {
+    e.preventDefault();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startW = size.width;
+    const startH = size.height;
+    const onMove = (ev) => {
+      // Window is anchored bottom-right: dragging left/up should grow it.
+      const nextW = Math.min(MAX_W, Math.max(MIN_W, startW + (startX - ev.clientX)));
+      const nextH = Math.min(MAX_H, Math.max(MIN_H, startH + (startY - ev.clientY)));
+      setSize({ width: nextW, height: nextH });
+    };
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+    document.body.style.cursor = "nwse-resize";
+    document.body.style.userSelect = "none";
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -203,8 +241,18 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
-              className="mb-4 w-96 sm:w-[28rem] rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden flex flex-col"
+              style={{ width: size.width, height: size.height }}
+              className="relative mb-4 rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden flex flex-col"
             >
+              {/* Resize handle — top-left corner, drags up/left to grow */}
+              <div
+                onMouseDown={onResizeStart}
+                title="Drag to resize"
+                className="absolute top-0 left-0 z-20 h-4 w-4 cursor-nwse-resize group"
+                aria-label="Resize chat"
+              >
+                <div className="absolute top-1.5 left-1.5 h-2 w-2 border-l-2 border-t-2 border-neutral-600 group-hover:border-purple-400 transition-colors" />
+              </div>
               {/* Header */}
               <div className="flex items-center justify-between border-b border-neutral-800 p-4 bg-neutral-950">
                 <div className="flex items-center gap-3">
@@ -247,7 +295,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
               </div>
 
               {/* Messages */}
-              <div className="h-96 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900/50">
+              <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900/50">
                 {messages.map((msg, index) => (
                   <div
                     key={index}
