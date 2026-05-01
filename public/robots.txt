@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://zainafzal.dev/sitemap.xml 
+Disallow: /api/
+
+Sitemap: https://zainafzal.dev/sitemap.xml
+Host: https://zainafzal.dev

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPaperPlane, FaTimes, FaDownload, FaTrash, FaSearch } from "react-icons/fa";
+import { FaPaperPlane, FaTimes, FaDownload, FaTrash, FaSearch, FaChevronDown, FaBrain } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import chatIcon from "../assets/chat_icon.png";
 import resume from "../assets/resume/my_resume-zain.pdf";
@@ -77,27 +77,69 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
       if (!response.ok) throw new Error('Network response was not ok');
       if (!response.body) throw new Error('ReadableStream not supported');
 
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "", reasoning: "" }]);
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let fullResponse = "";
+      let content = "";
+      let reasoning = "";
+      let buffer = "";
+
+      // Backwards compat: if the server is the old plain-text streamer (no
+      // newlines, no JSON), we just append everything to content.
+      let isNdjson = null;
+
+      const flushAssistant = () => {
+        setMessages((prev) => {
+          const next = [...prev];
+          next[next.length - 1] = {
+            role: "assistant",
+            content,
+            reasoning,
+          };
+          return next;
+        });
+      };
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
         const chunk = decoder.decode(value, { stream: true });
-        fullResponse += chunk;
-        
-        setMessages((prev) => {
-          const newMessages = [...prev];
-          newMessages[newMessages.length - 1] = {
-            role: "assistant",
-            content: fullResponse,
-          };
-          return newMessages;
-        });
+
+        if (isNdjson === null) {
+          isNdjson = chunk.startsWith("{");
+        }
+
+        if (!isNdjson) {
+          content += chunk;
+          flushAssistant();
+          continue;
+        }
+
+        buffer += chunk;
+        let nl;
+        while ((nl = buffer.indexOf("\n")) !== -1) {
+          const line = buffer.slice(0, nl).trim();
+          buffer = buffer.slice(nl + 1);
+          if (!line) continue;
+          try {
+            const evt = JSON.parse(line);
+            if (evt.t === "c") content += evt.d;
+            else if (evt.t === "r") reasoning += evt.d;
+          } catch {
+            // Tolerate malformed lines (e.g. server warning in stream)
+          }
+        }
+        flushAssistant();
+      }
+      // Drain any trailing partial line
+      if (buffer.trim() && isNdjson) {
+        try {
+          const evt = JSON.parse(buffer.trim());
+          if (evt.t === "c") content += evt.d;
+          else if (evt.t === "r") reasoning += evt.d;
+          flushAssistant();
+        } catch { /* ignore */ }
       }
     } catch (error) {
       console.error("Chat error:", error);
@@ -222,6 +264,20 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     >
                       {msg.role === "assistant" ? (
                         <div className="prose prose-sm prose-invert max-w-none text-neutral-200">
+                          {msg.reasoning && msg.reasoning.trim() && (
+                            <details className="not-prose mb-2 rounded-lg border border-neutral-700/60 bg-neutral-900/60 group">
+                              <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-2 text-xs text-neutral-400 hover:text-neutral-200 transition-colors select-none">
+                                <FaBrain className="text-purple-400/80 text-[11px]" />
+                                <span className="font-medium">
+                                  {msg.content ? "Reasoning" : "Thinking…"}
+                                </span>
+                                <FaChevronDown className="ml-auto text-[10px] text-neutral-500 transition-transform group-open:rotate-180" />
+                              </summary>
+                              <div className="px-3 pb-3 pt-1 border-t border-neutral-800/80 text-[12px] leading-relaxed text-neutral-400 whitespace-pre-wrap font-mono max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+                                {msg.reasoning}
+                              </div>
+                            </details>
+                          )}
                           <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[rehypeRaw]}

@@ -1,16 +1,31 @@
 {
   "name": "Muhammad Zain Afzal | Full Stack Gen AI Developer",
-  "short_name": "Zain",
+  "short_name": "Zain Afzal",
+  "description": "Portfolio of Muhammad Zain Afzal — Full Stack Gen AI Developer building AI SaaS, RAG pipelines, and agentic applications.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
+  "lang": "en-US",
   "icons": [
     {
       "src": "/favicon.png",
-      "sizes": "any",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

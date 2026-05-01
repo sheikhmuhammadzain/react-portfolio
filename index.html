@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Muhammad Zain Afzal | Full Stack Gen AI Developer</title>
     <meta name="description" content="Muhammad Zain Afzal is a Full Stack Gen AI Developer building production-ready AI SaaS products, RAG pipelines, and agentic applications using Next.js, TypeScript, MongoDB, LangChain, ChromaDB, and modern AI APIs." />
-    <meta name="keywords" content="Muhammad Zain Afzal, Full Stack Gen AI Developer, AI SaaS, Next.js, TypeScript, MongoDB, FastAPI, LangChain, ChromaDB, RAG pipeline, ReAct agents, Gemini API, OpenAI API, document Q&A, AI data analysis, Lahore Pakistan" />
-    <meta name="author" content="Muhammad Zain" />
+    <meta name="author" content="Muhammad Zain Afzal" />
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="theme-color" content="#0a0a0a" />
@@ -16,19 +15,20 @@
     <link rel="apple-touch-icon" href="/favicon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="canonical" href="https://zainafzal.dev/" />
-    <!-- Preconnect to external domains -->
+    <!-- Preconnect to font origins (used on first paint) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://learn.deeplearning.ai" />
-    <!-- Load Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <!-- Inter: only the weights actually used by the UI, with font-display swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://zainafzal.dev/" />
     <meta property="og:title" content="Muhammad Zain Afzal | Full Stack Gen AI Developer" />
     <meta property="og:description" content="Full Stack Gen AI Developer building AI SaaS products, RAG pipelines, and agentic applications with Next.js, MongoDB, LangChain, and modern AI APIs." />
-    <meta property="og:image" content="https://zainafzal.dev/favicon.png" />
-    <meta property="og:image:alt" content="Muhammad Zain Afzal — Portfolio" />
+    <meta property="og:image" content="https://zainafzal.dev/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Muhammad Zain Afzal — Full Stack Gen AI Developer" />
     <meta property="og:site_name" content="Muhammad Zain Afzal" />
     <meta property="og:locale" content="en_US" />
     <!-- Twitter -->
@@ -36,8 +36,8 @@
     <meta name="twitter:url" content="https://zainafzal.dev/" />
     <meta name="twitter:title" content="Muhammad Zain Afzal | Full Stack Gen AI Developer" />
     <meta name="twitter:description" content="Full Stack Gen AI Developer building AI SaaS products, RAG pipelines, and agentic applications with Next.js, MongoDB, LangChain, and modern AI APIs." />
-    <meta name="twitter:image" content="https://zainafzal.dev/favicon.png" />
-    <meta name="twitter:image:alt" content="Muhammad Zain Afzal — Portfolio" />
+    <meta name="twitter:image" content="https://zainafzal.dev/og.png" />
+    <meta name="twitter:image:alt" content="Muhammad Zain Afzal — Full Stack Gen AI Developer" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -59,7 +59,7 @@
             "email": "zain@zainafzal.dev",
             "telephone": "+92 303 2224501",
             "url": "https://zainafzal.dev/",
-            "image": "https://zainafzal.dev/favicon.png",
+            "image": "https://zainafzal.dev/zainimage.jpeg",
             "sameAs": [
               "https://github.com/sheikhmuhammadzain",
               "https://www.linkedin.com/in/muhammad-zain-afzal/"
@@ -75,7 +75,8 @@
             "url": "https://zainafzal.dev/",
             "name": "Muhammad Zain Afzal",
             "description": "Portfolio of Muhammad Zain Afzal — Full Stack Gen AI Developer.",
-            "publisher": { "@id": "https://zainafzal.dev/#person" }
+            "publisher": { "@id": "https://zainafzal.dev/#person" },
+            "inLanguage": "en-US"
           },
           {
             "@type": "WebPage",
@@ -86,13 +87,20 @@
             "about": { "@id": "https://zainafzal.dev/#person" },
             "primaryImageOfPage": {
               "@type": "ImageObject",
-              "url": "https://zainafzal.dev/favicon.png"
+              "url": "https://zainafzal.dev/og.png"
             }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://zainafzal.dev/#profilepage",
+            "url": "https://zainafzal.dev/",
+            "mainEntity": { "@id": "https://zainafzal.dev/#person" }
           }
         ]
       }
-      </script>
-    <script src="https://js.puter.com/v2/"></script>
+    </script>
+    <!-- Third-party widget loaded non-blocking -->
+    <script src="https://js.puter.com/v2/" defer></script>
   </head>
   <body>
     <div id="root"></div>
