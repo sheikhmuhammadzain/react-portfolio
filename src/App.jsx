@@ -1,20 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import ReactGA from "react-ga4";
-
-// Initialize Google Analytics
-// TODO: Replace "G-XXXXXXXXXX" with your actual Measurement ID from Google Analytics
-ReactGA.initialize("G-E3CMSHL3CZ");
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import PerformanceMonitor from "./components/PerformanceMonitor";
-import Chatbot from "./components/Chatbot";
-import CommandPalette from "./components/CommandPalette";
-import Blogs from "./pages/Blogs";
-import BlogDetail from "./pages/BlogDetail";
-import AdminDashboard from "./pages/AdminDashboard";
-import Login from "./pages/Login";
-import CustomContextMenu from "./components/CustomContextMenu";
 
 // Lazy load components below the fold
 const About = lazy(() => import("./components/About"));
@@ -23,6 +10,32 @@ const Experience = lazy(() => import("./components/Experience"));
 const Projects = lazy(() => import("./components/Projects"));
 const Certificates = lazy(() => import("./components/Certificates"));
 const Contact = lazy(() => import("./components/Contact"));
+const Blogs = lazy(() => import("./pages/Blogs"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const Login = lazy(() => import("./pages/Login"));
+const Chatbot = lazy(() => import("./components/Chatbot"));
+const CommandPalette = lazy(() => import("./components/CommandPalette"));
+const CustomContextMenu = lazy(() => import("./components/CustomContextMenu"));
+
+let isGoogleAnalyticsReady = false;
+
+const runWhenIdle = (callback) => {
+  if ("requestIdleCallback" in window) {
+    return window.requestIdleCallback(callback, { timeout: 2000 });
+  }
+
+  return window.setTimeout(callback, 1000);
+};
+
+const cancelIdleTask = (id) => {
+  if ("cancelIdleCallback" in window) {
+    window.cancelIdleCallback(id);
+    return;
+  }
+
+  window.clearTimeout(id);
+};
 
 const Home = () => {
   return (
@@ -53,15 +66,33 @@ const Home = () => {
 const App = () => {
   const location = useLocation();
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [areInteractiveToolsReady, setAreInteractiveToolsReady] = useState(false);
 
   useEffect(() => {
-    // Track page views
-    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+    const idleId = runWhenIdle(async () => {
+      try {
+        const { default: ReactGA } = await import("react-ga4");
+        if (!isGoogleAnalyticsReady) {
+          ReactGA.initialize("G-E3CMSHL3CZ");
+          isGoogleAnalyticsReady = true;
+        }
+        ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+      } catch (error) {
+        console.error("Google Analytics failed to load:", error);
+      }
+    });
+
+    return () => cancelIdleTask(idleId);
   }, [location]);
+
+  useEffect(() => {
+    const idleId = runWhenIdle(() => setAreInteractiveToolsReady(true));
+
+    return () => cancelIdleTask(idleId);
+  }, []);
 
   return (
     <>
-      <PerformanceMonitor />
       {/* Primary Meta */}
       {/* Keywords that rank in 2025 */}
       {/* Open Graph */}
@@ -72,19 +103,25 @@ const App = () => {
         </div>
 
 
-        <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
-        <CommandPalette openChat={() => setIsChatOpen(true)} />
-        <CustomContextMenu openChat={() => setIsChatOpen(true)} />
+        {areInteractiveToolsReady && (
+          <Suspense fallback={null}>
+            <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+            <CommandPalette openChat={() => setIsChatOpen(true)} />
+            <CustomContextMenu openChat={() => setIsChatOpen(true)} />
+          </Suspense>
+        )}
         
         <div className="container mx-auto px-4 sm:px-8 max-w-full">
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blogs/:id" element={<BlogDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-screen pt-20 text-center text-neutral-500">Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blogs/:id" element={<BlogDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+            </Routes>
+          </Suspense>
         </div>
       </div>
     </>

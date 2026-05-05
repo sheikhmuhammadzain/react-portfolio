@@ -21,15 +21,6 @@ const fadeUp = (delay = 0) => ({
   },
 });
 
-const fadeLeft = {
-  hidden: { opacity: 0, x: 100 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5 },
-  },
-};
-
 const Hero = () => {
   return (
     <div className="border-b border-neutral-900 pb-16 mb-16">
@@ -83,9 +74,11 @@ const Hero = () => {
         >
           <div className="flex justify-center">
             <img  
-              className="rounded mix-blend-difference"
+              className="aspect-[3/4] w-full max-w-[420px] rounded object-cover mix-blend-difference"
               src={profilePic}
               alt="Muhammad Zain"
+              width="3024"
+              height="4032"
               loading="eager"
               decoding="async"
               fetchPriority="high"

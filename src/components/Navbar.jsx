@@ -13,6 +13,8 @@ const Navbar = () => {
             src={logo} 
             alt="Muhammad Zain - Gen-AI Engineer Logo" 
             className="mx-2 w-16 rounded-full cursor-pointer hover:scale-110 transition-transform" 
+            width="1024"
+            height="1024"
             loading="eager"
             decoding="async"
           />

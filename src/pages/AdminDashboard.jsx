@@ -1,10 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+const PUTER_SCRIPT_SRC = 'https://js.puter.com/v2/';
+let puterScriptPromise = null;
+
+const loadPuterScript = () => {
+  if (window.puter) {
+    return Promise.resolve();
+  }
+
+  if (puterScriptPromise) {
+    return puterScriptPromise;
+  }
+
+  puterScriptPromise = new Promise((resolve, reject) => {
+    const existingScript = document.querySelector(`script[src="${PUTER_SCRIPT_SRC}"]`);
+
+    if (existingScript) {
+      existingScript.addEventListener('load', () => resolve(), { once: true });
+      existingScript.addEventListener('error', () => reject(new Error('Failed to load Puter.js')), { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = PUTER_SCRIPT_SRC;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load Puter.js'));
+    document.head.appendChild(script);
+  });
+
+  return puterScriptPromise;
+};
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -32,6 +64,15 @@ const AdminDashboard = () => {
   const [isPublishing, setIsPublishing] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
+
+  const fetchBlogs = useCallback(async () => {
+     try {
+        const res = await axios.get(`${API_URL}/blogs`);
+        setBlogs(res.data);
+     } catch (err) {
+        console.error(err);
+     }
+  }, [API_URL]);
 
   // Auto-Save: Load draft on mount
   useEffect(() => {
@@ -65,16 +106,7 @@ const AdminDashboard = () => {
       }
     };
     checkAuth();
-  }, [navigate]);
-
-  const fetchBlogs = async () => {
-     try {
-        const res = await axios.get(`${API_URL}/blogs`);
-        setBlogs(res.data);
-     } catch (err) {
-        console.error(err);
-     }
-  };
+  }, [navigate, fetchBlogs]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -127,6 +159,8 @@ const AdminDashboard = () => {
     
     setIsGenerating(true);
     try {
+        await loadPuterScript();
+
         if (!window.puter) {
             throw new Error("Puter.js not loaded");
         }
@@ -189,7 +223,6 @@ const AdminDashboard = () => {
     for (let i = 0; i < items.length; i++) {
         if (items[i].type.indexOf('image') !== -1) {
             e.preventDefault();
-            const blob = items[i].getAsFile();
             // In a real app, upload this blob to S3/Cloudinary.
             // Since we don't have file upload, we'll guide the user.
             alert("Image paste detected! Since we don't have a file server, please upload your image to a host (like Imgur) and paste the URL here.");
@@ -206,6 +239,8 @@ const AdminDashboard = () => {
       setGeneratedImage(null);
 
       try {
+          await loadPuterScript();
+
           if (!window.puter) {
              throw new Error("Puter.js not loaded");
           }
@@ -289,7 +324,7 @@ const AdminDashboard = () => {
 
   // Same Markdown components as BlogDetail for consistent preview
   const MarkdownComponents = {
-    code({ node, inline, className, children, ...props }) {
+    code({ inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
       return !inline && match ? (
         <SyntaxHighlighter
