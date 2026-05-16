@@ -111,7 +111,7 @@ const App = () => {
           </Suspense>
         )}
         
-        <div className="container mx-auto px-4 sm:px-8 max-w-full">
+        <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
           <Navbar />
           <Suspense fallback={<div className="min-h-screen pt-20 text-center text-neutral-500">Loading...</div>}>
             <Routes>
