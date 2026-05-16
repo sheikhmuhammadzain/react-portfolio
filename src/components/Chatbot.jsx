@@ -234,68 +234,72 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
         </motion.div>
       )}
 
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+      <div className="fixed bottom-2 right-2 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
         <AnimatePresence>
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
-              style={{ width: size.width, height: size.height }}
-              className="relative mb-4 rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden flex flex-col"
+              style={
+                typeof window !== "undefined" && window.innerWidth >= 640
+                  ? { width: size.width, height: size.height }
+                  : undefined
+              }
+              className="relative mb-3 sm:mb-4 w-[calc(100vw-1rem)] h-[80vh] sm:w-auto sm:h-auto rounded-xl sm:rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden flex flex-col"
             >
-              {/* Resize handle — top-left corner, drags up/left to grow */}
+              {/* Resize handle — desktop only */}
               <div
                 onMouseDown={onResizeStart}
                 title="Drag to resize"
-                className="absolute top-0 left-0 z-20 h-4 w-4 cursor-nwse-resize group"
+                className="hidden sm:block absolute top-0 left-0 z-20 h-4 w-4 cursor-nwse-resize group"
                 aria-label="Resize chat"
               >
                 <div className="absolute top-1.5 left-1.5 h-2 w-2 border-l-2 border-t-2 border-neutral-600 group-hover:border-purple-400 transition-colors" />
               </div>
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-neutral-800 p-4 bg-neutral-950">
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden border border-purple-500/20">
+              <div className="flex items-center justify-between border-b border-neutral-800 px-3 py-2.5 sm:p-4 bg-neutral-950">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                  <div className="relative shrink-0">
+                    <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden border border-purple-500/20">
                         <img src={chatIcon} alt="Chat" className="w-full h-full object-contain p-1" />
                     </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-neutral-100 text-base">Zain&apos;s Assistant</h3>
-                    <p className="text-xs text-neutral-400 flex items-center gap-1">
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-neutral-100 text-sm sm:text-base truncate">Zain&apos;s Assistant</h3>
+                    <p className="text-[10px] sm:text-xs text-neutral-400 flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                         Online
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
                   <button
                     onClick={handleClearChat}
-                    className="rounded-full p-2 text-neutral-400 hover:bg-neutral-800 hover:text-red-400 transition-colors"
+                    className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-red-400 transition-colors"
                     title="Clear Chat History"
                   >
-                    <FaTrash className="text-xs" />
+                    <FaTrash className="text-[11px] sm:text-xs" />
                   </button>
                   <a
                     href={resume}
                     download="Muhammad_Zain_Resume.pdf"
-                    className="rounded-full p-2 text-neutral-400 hover:bg-neutral-800 hover:text-purple-400 transition-colors"
+                    className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-purple-400 transition-colors"
                     title="Download Resume"
                   >
-                    <FaDownload className="text-sm" />
+                    <FaDownload className="text-xs sm:text-sm" />
                   </a>
                   <button
                     onClick={toggleChat}
-                    className="rounded-full p-2 text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors"
+                    className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors"
                   >
-                    <FaTimes />
+                    <FaTimes className="text-sm sm:text-base" />
                   </button>
                 </div>
               </div>
 
               {/* Messages */}
-              <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900/50">
+              <div className="flex-1 min-h-0 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900/50">
                 {messages.map((msg, index) => (
                   <div
                     key={index}
@@ -375,19 +379,19 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
               </div>
 
               {/* Input */}
-              <form onSubmit={handleSubmit} className="border-t border-neutral-800 p-4 bg-neutral-950">
+              <form onSubmit={handleSubmit} className="border-t border-neutral-800 p-2.5 sm:p-4 bg-neutral-950">
                 <div className="flex gap-2 items-center">
                   <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your question..."
-                    className="flex-1 rounded-full bg-neutral-900 border border-neutral-800 px-4 py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                    className="flex-1 min-w-0 rounded-full bg-neutral-900 border border-neutral-800 px-3 sm:px-4 py-2 sm:py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
                   />
                   <button
                     type="submit"
                     disabled={isLoading || !input.trim()}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-600 text-white shadow-lg shadow-purple-900/20 transition-all hover:bg-purple-500 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:bg-purple-600"
+                    className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-purple-600 text-white shadow-lg shadow-purple-900/20 transition-all hover:bg-purple-500 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:bg-purple-600"
                   >
                     <FaPaperPlane className="text-xs" />
                   </button>
