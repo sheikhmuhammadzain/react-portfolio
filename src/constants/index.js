@@ -1,11 +1,8 @@
 import uolgpa from "../assets/projects/uolgpacal.png";
 import chatbotimg from "../assets/projects/chatbot.png";
-import leetcode from '../assets/projects/leetcode.png'
-import sheikhstudy from '../assets/projects/sheikhsutdy.png'
 import drawmath from '../assets/projects/drawmath.png'
 import paperpilot from '../assets/projects/paperpilot.png'
 import aiimage from '../assets/projects/aiimage.png'
-import uolchat from '../assets/projects/uolchat.png'
 import macos from '../assets/projects/macos.png'
 const favicliImage = `${import.meta.env.BASE_URL}favicli.png`;
 export const HERO_CONTENT = `Full Stack Gen AI Developer specializing in production-ready AI SaaS products from concept to deployment. I build intelligent data analysis tools, AI-powered web applications, and enterprise solutions using Next.js, MongoDB, and modern AI APIs, with strong focus on UX, performance, and rapid iteration.`;
@@ -146,15 +143,6 @@ export const PROJECTS = [
     blogLink: "/blogs/favicli",
   },
 
-   {
-    title: "UOL AI Powered CHAT APP",
-    image: uolchat,
-    description:
-      "A modern AI-powered chat application that allows users to communicate with each other in real-time. The application uses AI to enhance the user experience by providing features like Slide to AI Reply, UOL GPT, and more.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", 'Vite', 'Stable Diffusion','framer motion'],
-    githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://uol-chat-app.vercel.app/",
-  },
   {
     title: "University of Lahore GPA Calculator",
     image: uolgpa,
@@ -174,15 +162,6 @@ export const PROJECTS = [
     liveLink: "https://studybuddyai.netlify.app/",
   },
   {
-    title: "IET Study Hub",
-    image: sheikhstudy,
-    description:
-      "Full Stack Web Application for a study hub that allows students to access a wide range of study materials and resources. All subject notes are available in one place.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Supabase", "NLP", "AI",'Gemeni AI'],
-    githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://ietstudyhub.vercel.app/",
-  },
-  {
     title: "Drawing Math Solver",
     image: drawmath,
     description:
@@ -200,16 +179,6 @@ export const PROJECTS = [
     githubLink: "https://github.com/sheikhmuhammadzain",
     liveLink: "https://zainimage.netlify.app/",
   },
-  {
-    title: "LeetCoders Gang",
-    image: leetcode,
-    description:
-      "LeetCoders Gang is an ai powered platform that allows users to create ai powered posts about leetcode problems. The application uses a custom model to generate posts based on the user's prompt.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", 'Vite', 'Gemini','framer motion'],
-    githubLink: "https://github.com/sheikhmuhammadzain",
-    liveLink: "https://leetcodersgang.vercel.app/",
-  }
- 
 ];
 
 export const CONTACT = {
