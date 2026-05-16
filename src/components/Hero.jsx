@@ -58,9 +58,25 @@ const Hero = () => {
               <a
                 href={resume}
                 download="Muhammad_Zain_Resume.pdf"
-                className="flex w-fit items-center gap-2 rounded-full bg-purple-900/30 px-6 py-3 text-sm mb-8 md:mb-0 font-medium text-purple-200 transition-all hover:bg-purple-800/50 hover:text-white hover:scale-105 border border-purple-800/50 shadow-[0_0_15px_rgba(168,85,247,0.15)] hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+                className="group relative inline-flex w-fit items-center rounded-xl p-px text-sm font-medium text-neutral-100 mb-8 md:mb-0 transition-all duration-200 active:scale-[0.98]"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))",
+                  boxShadow:
+                    "0 1px 0 0 rgba(255,255,255,0.08) inset, 0 -1px 0 0 rgba(0,0,0,0.6) inset, 0 1px 2px 0 rgba(0,0,0,0.5)",
+                }}
               >
-                <FaDownload /> Download Resume
+                <span
+                  className="flex items-center gap-2 rounded-[11px] px-6 py-3 transition-colors duration-200 group-hover:brightness-110"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, #1f1f24 0%, #131316 100%)",
+                    boxShadow:
+                      "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 -2px 6px 0 rgba(0,0,0,0.4) inset",
+                  }}
+                >
+                  <FaDownload /> Download Resume
+                </span>
               </a>
             </motion.div>
           </div>

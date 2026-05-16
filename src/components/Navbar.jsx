@@ -22,6 +22,30 @@ const Navbar = () => {
       </div>
 
       <div className="m-8 flex items-center justify-center gap-4 text-2xl">
+        <a
+          href="https://zainshaykh.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative inline-flex items-center rounded-xl p-px text-sm font-medium text-neutral-100 transition-all duration-200 active:scale-[0.98]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))",
+            boxShadow:
+              "0 1px 0 0 rgba(255,255,255,0.08) inset, 0 -1px 0 0 rgba(0,0,0,0.6) inset, 0 1px 2px 0 rgba(0,0,0,0.5)",
+          }}
+        >
+          <span
+            className="rounded-[11px] px-4 py-1.5 transition-colors duration-200 group-hover:brightness-110"
+            style={{
+              background:
+                "linear-gradient(180deg, #1f1f24 0%, #131316 100%)",
+              boxShadow:
+                "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 -2px 6px 0 rgba(0,0,0,0.4) inset",
+            }}
+          >
+            Portfolio 2
+          </span>
+        </a>
         <Link to="/blogs" className="text-lg font-medium hover:text-purple-400 transition-colors mr-4">
           Blogs
         </Link>
