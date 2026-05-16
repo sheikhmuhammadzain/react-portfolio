@@ -29,7 +29,7 @@ const Hero = () => {
           variants={container}
           whileInView="visible"
           initial="hidden"
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="w-full lg:w-1/2"
         >
           <div className="flex flex-col items-center lg:items-start">
@@ -69,12 +69,12 @@ const Hero = () => {
           whileInView={{ opacity: 1, x: 0 }}
           initial={{ opacity: 0, x: 100 }}
           transition={{ duration: 0.5 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="w-full lg:w-1/2 lg:p-8"
         >
           <div className="flex justify-center">
-            <img  
-              className="aspect-[3/4] w-full max-w-[420px] rounded object-cover mix-blend-difference"
+            <img
+              className="w-full max-w-[520px] rounded mix-blend-difference"
               src={profilePic}
               alt="Muhammad Zain"
               width="3024"

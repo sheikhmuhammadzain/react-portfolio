@@ -41,7 +41,7 @@ const Experience = () => {
             variants={listItemVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.3 }} // Trigger animation when 30% is visible
+            viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% is visible
             className="mb-10 flex flex-wrap lg:flex-nowrap justify-start" // Use flex for layout, allow wrapping on small screens
           >
             {/* Left Column: Year */}

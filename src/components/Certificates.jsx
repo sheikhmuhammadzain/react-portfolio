@@ -67,7 +67,7 @@ const Certificates = () => {
         variants={headingVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }} // Trigger when 30% visible
+        viewport={{ once: true, amount: 0.3 }} // Trigger when 30% visible
         className="my-20 text-center text-4xl font-thin tracking-tight text-neutral-100"
       >
         Certificates
@@ -82,14 +82,14 @@ const Certificates = () => {
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.3 }} // Trigger when 30% visible
+            viewport={{ once: true, amount: 0.3 }} // Trigger when 30% visible
             // Optimized Hover effect
             whileHover={{ scale: 1.03, y: -6 }} // Subtle lift/scale
             transition={{ type: "spring", stiffness: 300, damping: 20 }} // Fine-tuned spring
             className="
               group relative flex flex-col overflow-hidden rounded-lg
-              border border-neutral-700/50 bg-neutral-900/40
-              shadow-md backdrop-blur-sm
+              border border-neutral-700/50 bg-neutral-900
+              shadow-md
               hover:shadow-xl hover:shadow-purple-900/20 hover:border-neutral-600
               // --- Optimization: Specific CSS transitions ---
               transition-[border-color,box-shadow] duration-300 ease-in-out

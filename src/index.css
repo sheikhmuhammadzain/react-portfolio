@@ -7,6 +7,11 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* Prevent horizontal scroll without breaking Lenis container detection */
+html, body {
+  overflow-x: clip;
+}
+
 /* Matrix Theme Overrides */
 .matrix-theme {
   --tw-ring-color: #00ff41 !important;

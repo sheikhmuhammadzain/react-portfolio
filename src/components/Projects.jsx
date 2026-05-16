@@ -68,7 +68,7 @@ const Projects = () => {
         variants={headingVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }} // Trigger when 30% visible for heading
+        viewport={{ once: true, amount: 0.3 }}
         className="my-20 text-center text-4xl font-thin tracking-tight text-neutral-100"
       >
         Projects
@@ -83,39 +83,30 @@ const Projects = () => {
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.3 }} // Trigger animation when 30% is visible
-            // Hover effect using Framer Motion spring for smooth, physical feel
-            whileHover={{ scale: 1.03, y: -6 }} // Subtle lift and scale
-            transition={{ type: "spring", stiffness: 300, damping: 20 }} // Fine-tuned spring params
+            viewport={{ once: true, amount: 0.2 }}
+            whileHover={{ scale: 1.03, y: -6 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            style={{ willChange: "transform", transform: "translateZ(0)" }}
             className="
               group relative flex flex-col overflow-hidden rounded-lg
-              border border-neutral-700/50 bg-neutral-900/40
-              shadow-md backdrop-blur-sm
+              border border-neutral-700/50 bg-neutral-900
+              shadow-md
               hover:border-neutral-600 hover:shadow-xl hover:shadow-purple-900/20
-              // --- Optimization: Specific CSS transitions ---
               transition-[border-color,box-shadow] duration-300 ease-in-out
-              // We let Framer Motion handle transform (scale, y) via whileHover
             "
           >
             {/* Image Section */}
             <div className="relative h-48 w-full overflow-hidden">
-              <motion.img // Animate image scale slightly differently if needed, or stick to CSS
-                className={`h-full w-full ${
+              <img
+                className={`h-full w-full transition-transform duration-300 ease-out group-hover:scale-105 ${
                   project.imageFit === "contain"
                     ? "object-contain bg-neutral-950 p-2"
                     : "object-cover"
                 }`}
                 src={project.image}
                 alt={project.title}
-                // --- CSS driven scale on group hover ---
-                // Applying scale via CSS transition on the image itself
-                // Framer motion `whileHover` is on the parent card
-                // This ensures smoothness and leverages CSS efficiency for simple transforms
-                initial={{ scale: 1 }}
-                whileHover={{ scale: 1.05 }} // Can also use FM here if preferred
-                transition={{ duration: 0.3, ease: "easeOut" }} // Match CSS duration
-                // --- OR use pure CSS as before (often simpler for this case): ---
-                // className="h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
               />
                {/* Subtle overlay on hover */}
                {project.imageFit !== "contain" && (
