@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import freecodecampLogo from "../assets/freecodecamp.webp";
 
 // --- Optimized Animation Variants ---
 
@@ -177,7 +178,7 @@ const getLogo = (logo) => {
     case "scrimba": return <img src="https://images.squarespace-cdn.com/content/v1/670e19b4ec92287da728eb2b/861f1806-9999-4aa6-a116-ee67ea1cfce3/Scrimba.png" alt="Scrimba" className="h-full w-auto object-contain filter invert" />;
     case "google": return <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" className="h-10 w-auto object-contain" />;
     case "deeplearning": return <img src="https://learn.deeplearning.ai/assets/dlai-logo.png" alt="DeepLearning.AI" className="h-14 w-auto object-contain" />;
-    case "freecodecamp": return <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/FreeCodeCamp_logo.svg/2560px-FreeCodeCamp_logo.svg.png" alt="freeCodeCamp" className="h-12 w-auto object-contain filter invert" />;
+    case "freecodecamp": return <img src={freecodecampLogo} alt="freeCodeCamp" className="h-12 w-auto object-contain filter invert" />;
     default: return <div className="h-full w-full bg-neutral-700 rounded-sm"></div>; // Added rounding
   }
 };
