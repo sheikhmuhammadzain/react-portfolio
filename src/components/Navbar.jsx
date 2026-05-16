@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="mb-20 flex items-center justify-between py-6">
+    <nav className="mb-10 sm:mb-20 flex items-center justify-between py-4 sm:py-6">
       <div className="flex flex-shrink-0 items-center">
         <Link to="/">
-          <img 
-            src={logo} 
-            alt="Muhammad Zain - Gen-AI Engineer Logo" 
-            className="mx-2 w-16 rounded-full cursor-pointer hover:scale-110 transition-transform" 
+          <img
+            src={logo}
+            alt="Muhammad Zain - Gen-AI Engineer Logo"
+            className="w-10 sm:w-16 rounded-full cursor-pointer hover:scale-110 transition-transform"
             width="1024"
             height="1024"
             loading="eager"
@@ -21,12 +21,12 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="m-8 flex items-center justify-center gap-4 text-2xl">
+      <div className="flex items-center gap-3 sm:gap-4 text-xl sm:text-2xl">
         <a
           href="https://zainshaykh.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative inline-flex items-center rounded-xl p-px text-sm font-medium text-neutral-100 transition-all duration-200 active:scale-[0.98]"
+          className="group relative inline-flex items-center rounded-lg sm:rounded-xl p-px text-xs sm:text-sm font-medium text-neutral-100 transition-all duration-200 active:scale-[0.98]"
           style={{
             background:
               "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))",
@@ -35,7 +35,7 @@ const Navbar = () => {
           }}
         >
           <span
-            className="rounded-[11px] px-4 py-1.5 transition-colors duration-200 group-hover:brightness-110"
+            className="rounded-[7px] sm:rounded-[11px] px-2.5 sm:px-4 py-1 sm:py-1.5 transition-colors duration-200 group-hover:brightness-110"
             style={{
               background:
                 "linear-gradient(180deg, #1f1f24 0%, #131316 100%)",
@@ -46,7 +46,7 @@ const Navbar = () => {
             Portfolio 2
           </span>
         </a>
-        <Link to="/blogs" className="text-lg font-medium hover:text-purple-400 transition-colors mr-4">
+        <Link to="/blogs" className="text-sm sm:text-lg font-medium hover:text-purple-400 transition-colors">
           Blogs
         </Link>
         <a
@@ -56,15 +56,15 @@ const Navbar = () => {
         >
           <FaLinkedin />
         </a>
-        <a 
-          href="https://github.com/sheikhmuhammadzain" 
+        <a
+          href="https://github.com/sheikhmuhammadzain"
           target="_blank"
           aria-label="Visit Muhammad Zain's GitHub profile"
         >
           <FaGithub />
         </a>
-        <a 
-          href="https://www.instagram.com/zainshayykh/" 
+        <a
+          href="https://www.instagram.com/zainshayykh/"
           target="_blank"
           aria-label="Visit Muhammad Zain's Instagram profile"
         >
