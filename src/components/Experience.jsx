@@ -61,7 +61,7 @@ const Experience = () => {
                         src={experience.logo}
                         alt={`${experience.company} logo`}
                         loading="lazy"
-                        className={`h-7 w-auto max-w-[150px] object-contain ${experience.logoLight ? "" : "invert"}`}
+                        className={`w-auto object-contain ${experience.logoClass || "h-7 max-w-[150px]"} ${experience.logoLight ? "" : "invert"}`}
                       />
                     )}
                     {!experience.logoHasText && experience.company}

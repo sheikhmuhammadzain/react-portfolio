@@ -55,6 +55,7 @@ export const EXPERIENCES = [
     company: "Cybergen",
     logo: "/cybergenlogo.png",
     logoHasText: true,
+    logoClass: "h-12 max-w-[200px]",
     description: `Designed, fine-tuned, and deployed LLM and multimodal solutions with low-latency inference and reliable production integrations.`,
     highlights: [
       "Designed, fine-tuned, and deployed LLMs and multimodal models for enterprise use cases including customer support automation.",
@@ -80,6 +81,7 @@ export const EXPERIENCES = [
     role: "Full Stack Developer",
     company: "Tech Wizardz",
     logo: "/techwizardz.png",
+    logoLight: true,
     description: `Led development and maintenance of multiple web applications and backend APIs with a strong focus on performance and delivery.`,
     highlights: [
       "Led development and maintenance of 5+ web applications using React.js, Node.js, and MongoDB.",
