@@ -8,6 +8,7 @@ import { OPEN_CHAT_EVENT } from "./constants";
 const About = lazy(() => import("./components/About"));
 const Technologies = lazy(() => import("./components/Technologies"));
 const Experience = lazy(() => import("./components/Experience"));
+const Education = lazy(() => import("./components/Education"));
 const Projects = lazy(() => import("./components/Projects"));
 const Certificates = lazy(() => import("./components/Certificates"));
 const Contact = lazy(() => import("./components/Contact"));
@@ -50,6 +51,7 @@ const HOME_SECTIONS = [
   ["about", About],
   ["technologies", Technologies],
   ["experience", Experience],
+  ["education", Education],
   ["projects", Projects],
   ["certificates", Certificates],
   ["contact", Contact],
