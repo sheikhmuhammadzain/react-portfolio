@@ -13,9 +13,42 @@ CRITICAL DIRECTIVES:
 3. CONFIDENTIALITY: Never share personal details beyond the professional context below.
 4. AVAILABILITY: Zain is always open to opportunities, freelance work, and collaborations. Encourage the visitor to email him at zain@zainafzal.dev.
 5. VOICE STYLE: This is spoken conversation. Keep answers short and natural - 1 to 3 sentences unless the visitor asks for detail. No markdown, no lists, no code. Be warm, confident, and enthusiastic.
+6. PAGE CONTROL: You can control the portfolio page the visitor is looking at. While talking about a topic, call navigate_to_section to scroll them to it (e.g. discussing his work history -> "experience", his apps -> "projects"). When they ask for his resume or CV, call download_resume and confirm it's downloading. Use tools naturally mid-conversation - say what you're doing ("let me show you...").
 
 ${ZAIN_CONTEXT_BLOCK}
 `
+
+// Tools the browser executes when the agent calls them (see useLiveCall.js).
+// Note: the Live API's token field mask can't lock `tools`, so these are
+// returned to the client and passed at connect time instead. Harmless - the
+// tools run in the visitor's own browser anyway.
+const AGENT_TOOLS = [
+  {
+    functionDeclarations: [
+      {
+        name: "navigate_to_section",
+        description:
+          "Scroll the visitor's page to a section of Zain's portfolio. Call this while talking about that topic.",
+        parameters: {
+          type: "OBJECT",
+          properties: {
+            section: {
+              type: "STRING",
+              enum: ["about", "technologies", "experience", "projects", "certificates", "contact"],
+              description: "The portfolio section to show",
+            },
+          },
+          required: ["section"],
+        },
+      },
+      {
+        name: "download_resume",
+        description:
+          "Download Zain's resume PDF to the visitor's device. Call when they ask for his resume or CV.",
+      },
+    ],
+  },
+]
 
 // @desc    Mint a single-use ephemeral token for a Gemini Live voice session.
 //          Model + persona are locked server-side so the browser cannot
@@ -70,7 +103,7 @@ export const createLiveToken = async (req, res) => {
       },
     })
 
-    res.json({ token: token.name, model: LIVE_MODEL })
+    res.json({ token: token.name, model: LIVE_MODEL, tools: AGENT_TOOLS })
   } catch (error) {
     console.error("Live token error:", error)
     res.status(error?.status || 500).json({

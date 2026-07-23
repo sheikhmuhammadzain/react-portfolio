@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import resume from "../assets/resume/my_resume-zain.pdf";
+
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 const MIC_RATE = 16000; // Gemini Live input: 16-bit PCM @ 16kHz
 const SPEAKER_RATE = 24000; // Gemini Live output: 16-bit PCM @ 24kHz
@@ -14,6 +16,24 @@ const floatToPcm16Base64 = (float32) => {
   let binary = "";
   for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
   return btoa(binary);
+};
+
+// Browser-side implementations of the tools declared in backend/controllers/liveController.js.
+// The agent calls these mid-conversation ("let me show you his projects...").
+const TOOL_HANDLERS = {
+  navigate_to_section: ({ section }) => {
+    const el = document.getElementById(section);
+    if (!el) return { ok: false, error: `Section "${section}" not found on this page` };
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    return { ok: true, shown: section };
+  },
+  download_resume: () => {
+    const a = document.createElement("a");
+    a.href = resume;
+    a.download = "Muhammad_Zain_Resume.pdf";
+    a.click();
+    return { ok: true };
+  },
 };
 
 const base64ToFloat32 = (b64) => {
@@ -84,7 +104,7 @@ export default function useLiveCall() {
         const body = await resp.json().catch(() => null);
         throw new Error(body?.message || `Token request failed (${resp.status})`);
       }
-      const { token, model } = await resp.json();
+      const { token, model, tools } = await resp.json();
 
       // Dynamic import keeps the Gemini SDK out of the page bundle until a call starts.
       const [{ GoogleGenAI, Modality }, stream] = await Promise.all([
@@ -119,9 +139,21 @@ export default function useLiveCall() {
       const ai = new GoogleGenAI({ apiKey: token, httpOptions: { apiVersion: "v1alpha" } });
       const session = await ai.live.connect({
         model,
-        config: { responseModalities: [Modality.AUDIO] },
+        // tools can't be locked into the ephemeral token (API limitation), so
+        // they're passed here; persona/model stay locked server-side.
+        config: { responseModalities: [Modality.AUDIO], tools },
         callbacks: {
           onmessage: (msg) => {
+            // Agent invoked a page tool: run it and report the result back.
+            if (msg.toolCall?.functionCalls?.length) {
+              const functionResponses = msg.toolCall.functionCalls.map((fc) => ({
+                id: fc.id,
+                name: fc.name,
+                response:
+                  TOOL_HANDLERS[fc.name]?.(fc.args || {}) ?? { ok: false, error: `Unknown tool: ${fc.name}` },
+              }));
+              session.sendToolResponse({ functionResponses });
+            }
             // Barge-in: user spoke over the model, drop queued audio.
             if (msg.serverContent?.interrupted) {
               stopPlayback();

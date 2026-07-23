@@ -37,28 +37,34 @@ const cancelIdleTask = (id) => {
   window.clearTimeout(id);
 };
 
+const SectionFallback = () => (
+  <div className="h-96 flex items-center justify-center">
+    <div className="animate-pulse text-neutral-500">Loading...</div>
+  </div>
+);
+
+// id anchors are used by the voice agent's navigate_to_section tool and the
+// ⌘K palette / context menu scroll actions.
+const HOME_SECTIONS = [
+  ["about", About],
+  ["technologies", Technologies],
+  ["experience", Experience],
+  ["projects", Projects],
+  ["certificates", Certificates],
+  ["contact", Contact],
+];
+
 const Home = () => {
   return (
     <>
       <Hero />
-      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-        <About />
-      </Suspense>
-      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-        <Technologies />
-      </Suspense>
-      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-        <Experience />
-      </Suspense>
-      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-        <Projects />
-      </Suspense>
-      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-        <Certificates />
-      </Suspense>
-      <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-neutral-500">Loading...</div></div>}>
-        <Contact />
-      </Suspense>
+      {HOME_SECTIONS.map(([id, Section]) => (
+        <section key={id} id={id} className="scroll-mt-20">
+          <Suspense fallback={<SectionFallback />}>
+            <Section />
+          </Suspense>
+        </section>
+      ))}
     </>
   );
 };
