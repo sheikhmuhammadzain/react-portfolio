@@ -1,10 +1,11 @@
-/* Google Fonts loaded via preconnect in index.html */
+/* Geist self-hosted via @fontsource-variable (same-origin, cacheable, no render-blocking third-party request) */
+@import '@fontsource-variable/geist';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 :root{
-  font-family: 'Geist', sans-serif;
+  font-family: 'Geist Variable', sans-serif;
   letter-spacing: -0.02em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
