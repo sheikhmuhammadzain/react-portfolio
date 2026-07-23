@@ -1,4 +1,5 @@
 import { HERO_CONTENT, LIVE_CALL_EVENT, RESUME_FILENAME } from "../constants";
+import { downloadResume } from "../utils/downloadResume";
 import profilePic from "../assets/winterdp.jpg";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -50,6 +51,7 @@ const Hero = () => {
                 <a
                   href={resume}
                   download={RESUME_FILENAME}
+                  onClick={(e) => { e.preventDefault(); downloadResume(); }}
                   className={BUTTON_SHELL_CLASS}
                   style={BUTTON_SHELL_STYLE}
                 >

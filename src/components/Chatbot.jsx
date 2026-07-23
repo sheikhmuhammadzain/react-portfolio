@@ -7,6 +7,7 @@ import chatIcon from "../assets/chat_icon.png";
 import LiveCallBlob from "./LiveCallBlob";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import { RESUME_FILENAME } from "../constants";
+import { downloadResume } from "../utils/downloadResume";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -293,6 +294,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                   <a
                     href={resume}
                     download={RESUME_FILENAME}
+                    onClick={(e) => { e.preventDefault(); downloadResume(); }}
                     className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-purple-400 transition-colors"
                     title="Download Resume"
                   >
