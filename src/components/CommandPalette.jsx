@@ -3,7 +3,7 @@ import { Command } from "cmdk";
 import { useNavigate } from "react-router-dom";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { CommandIcon, Home01Icon, File01Icon, GithubIcon, Mail01Icon, Download04Icon, Message01Icon, MatrixIcon, SiriNewIcon } from "@hugeicons/core-free-icons";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import { LIVE_CALL_EVENT } from "../constants";
 import { scrollToHomeSection } from "../utils/scrollToHomeSection";

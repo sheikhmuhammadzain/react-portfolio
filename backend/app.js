@@ -26,7 +26,8 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/live', liveRoutes);
 
 // Error Handler
-app.use((err, req, res, next) => {
+// eslint: `_next` is unused but Express needs the 4-arg signature to treat this as an error handler
+app.use((err, req, res, _next) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
   res.status(statusCode);
   res.json({

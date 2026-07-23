@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -6,13 +6,12 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Search01Icon } from "@hugeicons/core-free-icons";
 import { STATIC_BLOGS } from '../constants';
 
+const API_URL = import.meta.env.VITE_API_URL || '/api';
+
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Determine API base URL
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     const mergeBlogs = (apiBlogs = []) => {
