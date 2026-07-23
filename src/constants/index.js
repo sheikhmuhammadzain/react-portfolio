@@ -337,4 +337,4 @@ export const LIVE_CALL_EVENT = "zain:live-call";
 export const OPEN_CHAT_EVENT = "zain:open-chat";
 
 // Filename used for every resume download link.
-export const RESUME_FILENAME = "zain-resume.pdf";
+export const RESUME_FILENAME = "Muhammad_Zain_Resume.pdf";
