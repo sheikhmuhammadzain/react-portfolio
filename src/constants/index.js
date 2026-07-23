@@ -335,3 +335,6 @@ export const LIVE_CALL_EVENT = "zain:live-call";
 
 // Fired by the voice agent's open_chat tool; App listens and opens the chatbot.
 export const OPEN_CHAT_EVENT = "zain:open-chat";
+
+// Filename used for every resume download link.
+export const RESUME_FILENAME = "zain-resume.pdf";

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import resume from "../assets/resume/my_resume-zain.pdf";
 import { CONTACT, OPEN_CHAT_EVENT, PROJECTS } from "../constants";
+import { downloadResume } from "../utils/downloadResume";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 const MIC_RATE = 16000; // Gemini Live input: 16-bit PCM @ 16kHz
@@ -29,10 +29,7 @@ const TOOL_HANDLERS = {
     return { ok: true, shown: section };
   },
   download_resume: () => {
-    const a = document.createElement("a");
-    a.href = resume;
-    a.download = "Muhammad_Zain_Resume.pdf";
-    a.click();
+    downloadResume();
     return { ok: true };
   },
   open_project: ({ name, target }) => {

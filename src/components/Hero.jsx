@@ -1,4 +1,4 @@
-import { HERO_CONTENT, LIVE_CALL_EVENT } from "../constants";
+import { HERO_CONTENT, LIVE_CALL_EVENT, RESUME_FILENAME } from "../constants";
 import profilePic from "../assets/winterdp.jpg";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -49,7 +49,7 @@ const Hero = () => {
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 md:mb-0">
                 <a
                   href={resume}
-                  download="Muhammad_Zain_Resume.pdf"
+                  download={RESUME_FILENAME}
                   className={BUTTON_SHELL_CLASS}
                   style={BUTTON_SHELL_STYLE}
                 >

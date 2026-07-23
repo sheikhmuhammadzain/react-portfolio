@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { CommandIcon, Home01Icon, File01Icon, GithubIcon, Mail01Icon, Download04Icon, Message01Icon, MatrixIcon, SiriNewIcon } from "@hugeicons/core-free-icons";
 import { motion } from "framer-motion";
-import resume from "../assets/resume/my_resume-zain.pdf";
 import { LIVE_CALL_EVENT } from "../constants";
+import { downloadResume } from "../utils/downloadResume";
 import { scrollToHomeSection } from "../utils/scrollToHomeSection";
 
 const CommandPalette = ({ openChat }) => {
@@ -165,7 +165,7 @@ const CommandPalette = ({ openChat }) => {
           <Command.Group heading="Utility" className="text-[11px] font-medium text-neutral-500 px-2 py-1.5 mb-2 mt-2 uppercase tracking-wider">
              <Command.Item
                 value="resume"
-                onSelect={() => runCommand(() => window.open(resume, '_blank'))}
+                onSelect={() => runCommand(downloadResume)}
                 className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
                 <HugeiconsIcon icon={Download04Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
