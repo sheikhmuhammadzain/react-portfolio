@@ -222,6 +222,19 @@ body:hover::-webkit-scrollbar {
   animation: hero-fade-left 0.5s ease-out both;
 }
 
+/* 3D tilt cards (Projects): transform is set from JS per pointer-move; the
+   transition here damps it into a smooth glide and eases the snap-back. */
+.tilt-card {
+  transition: transform 0.2s ease-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Slower snap-back when the pointer leaves */
+.tilt-card:not(:hover) {
+  transition: transform 0.45s ease-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
 /* Siri-style live-call blob: three drifting gradient layers inside a circle */
 .siri-blob {
   background: #131316;

@@ -3,6 +3,7 @@ import { PROJECTS } from "../constants"; // Assuming PROJECTS array is defined h
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon, LinkSquare02Icon } from "@hugeicons/core-free-icons";
 import { Link } from "react-router-dom";
+import TiltCard from "./TiltCard";
 
 // Placeholder PROJECTS data structure if needed for testing:
 // const PROJECTS = [
@@ -85,15 +86,14 @@ const Projects = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            whileHover={{ scale: 1.03, y: -6 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            style={{ willChange: "transform", transform: "translateZ(0)" }}
+          >
+          {/* Tilt lives on a child of the motion.div so the two never fight over `transform` */}
+          <TiltCard
             className="
-              group relative flex flex-col overflow-hidden rounded-lg
+              group relative flex h-full flex-col overflow-hidden rounded-lg
               border border-neutral-700/50 bg-neutral-900
               shadow-md
               hover:border-neutral-600 hover:shadow-xl hover:shadow-purple-900/20
-              transition-[border-color,box-shadow] duration-300 ease-in-out
             "
           >
             {/* Image Section */}
@@ -177,6 +177,7 @@ const Projects = () => {
                 )}
               </div>
             </div>
+          </TiltCard>
           </motion.div>
         ))}
       </div>
