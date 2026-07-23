@@ -6,6 +6,7 @@ import { CommandIcon, Home01Icon, File01Icon, GithubIcon, Mail01Icon, Download04
 import { motion, AnimatePresence } from "framer-motion";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import { LIVE_CALL_EVENT } from "../constants";
+import { scrollToHomeSection } from "../utils/scrollToHomeSection";
 
 const CommandPalette = ({ openChat }) => {
   const [open, setOpen] = useState(false);
@@ -151,7 +152,7 @@ const CommandPalette = ({ openChat }) => {
             </Command.Item>
             <Command.Item
                value="contact"
-              onSelect={() => runCommand(() => document.getElementById("contact")?.scrollIntoView({ behavior: 'smooth' }))}
+              onSelect={() => runCommand(() => scrollToHomeSection(navigate, "contact"))}
               className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
               <HugeiconsIcon icon={Mail01Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Home01Icon, File01Icon, Message01Icon, Mail01Icon, Download04Icon, GithubIcon, MatrixIcon } from "@hugeicons/core-free-icons";
 import resume from "../assets/resume/my_resume-zain.pdf";
+import { scrollToHomeSection } from "../utils/scrollToHomeSection";
 
 const CustomContextMenu = ({ openChat }) => {
   const [visible, setVisible] = useState(false);
@@ -116,10 +117,7 @@ const CustomContextMenu = ({ openChat }) => {
             <ContextMenuItem 
                 icon={<HugeiconsIcon icon={Mail01Icon} size={16} strokeWidth={1.8} className="text-neutral-400" />}
                 label="Contact Me" 
-                onClick={() => handleAction(() => {
-                    navigate("/");
-                    setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: 'smooth' }), 100);
-                })} 
+                onClick={() => handleAction(() => scrollToHomeSection(navigate, "contact"))}
             />
             <ContextMenuItem 
                 icon={<HugeiconsIcon icon={Download04Icon} size={16} strokeWidth={1.8} className="text-neutral-400" />}
