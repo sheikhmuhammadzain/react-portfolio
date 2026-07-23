@@ -41,7 +41,7 @@ const Education = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="mb-10 flex flex-wrap lg:flex-nowrap justify-start"
+            className="mb-10 flex flex-wrap lg:flex-nowrap lg:items-center justify-start"
           >
             {/* Left Column: Period */}
             <div className="w-full lg:w-1/4 mb-4 lg:mb-0 lg:pr-8">
