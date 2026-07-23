@@ -179,3 +179,14 @@ export const CONTACT = {
   phoneNo: "+92 303 2224501 ",
   email: "zain@zainafzal.dev",
 };
+
+// Single source of truth for the "who is Zain" block shared by the text chat
+// and the live voice agent system prompts.
+export const ZAIN_CONTEXT_BLOCK = `
+      Context about Zain:
+      - Role: ${HERO_CONTENT}
+      - About: ${ABOUT_TEXT}
+      - Experience: ${JSON.stringify(EXPERIENCES)}
+      - Projects: ${JSON.stringify(PROJECTS)}
+      - Contact: ${JSON.stringify(CONTACT)}
+`;

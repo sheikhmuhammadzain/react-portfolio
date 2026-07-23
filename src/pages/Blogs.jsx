@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FiSearch } from 'react-icons/fi';
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Search01Icon } from "@hugeicons/core-free-icons";
 import { STATIC_BLOGS } from '../constants';
 
 const Blogs = () => {
@@ -64,7 +65,7 @@ const Blogs = () => {
       >
         <div className="relative w-full max-w-2xl group">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-            <FiSearch className="text-neutral-500 text-xl group-focus-within:text-purple-500 transition-colors" />
+            <HugeiconsIcon icon={Search01Icon} size={20} strokeWidth={1.8} className="text-neutral-500 group-focus-within:text-purple-500 transition-colors" />
           </div>
           <input
             type="text"
@@ -134,7 +135,7 @@ const Blogs = () => {
             className="text-center py-20"
         >
             <div className="inline-block p-4 rounded-full bg-neutral-800/50 mb-4">
-                <FiSearch className="text-4xl text-neutral-600" />
+                <HugeiconsIcon icon={Search01Icon} size={36} strokeWidth={1.8} className="text-neutral-600" />
             </div>
             <h3 className="text-xl font-medium text-neutral-300 mb-2">No results found</h3>
             <p className="text-neutral-500">Try adjusting your search terms</p>

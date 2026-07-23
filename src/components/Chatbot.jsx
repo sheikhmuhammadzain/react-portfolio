@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPaperPlane, FaTimes, FaDownload, FaTrash, FaSearch, FaChevronDown, FaBrain } from "react-icons/fa";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { SentIcon, Cancel01Icon, Download04Icon, Delete02Icon, ArrowDown01Icon, Brain02Icon } from "@hugeicons/core-free-icons";
 import { useLocation } from "react-router-dom";
 import chatIcon from "../assets/chat_icon.png";
+import LiveCallBlob from "./LiveCallBlob";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -20,6 +22,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
   const [floatingInput, setFloatingInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const scrollRef = useRef(null);
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   // Resizable window. Anchored bottom-right; the handle sits in the top-left
@@ -60,14 +63,18 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
     window.addEventListener("mouseup", onUp);
   };
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToBottom = (behavior = "smooth") => {
+    messagesEndRef.current?.scrollIntoView({ behavior });
   };
 
-  // Only scroll when chat opens, not during streaming
+  // Scroll on open, and follow new content while streaming/thinking — but only
+  // if the user is already near the bottom, so scrolling up to read isn't yanked.
   useEffect(() => {
-    if (isOpen) scrollToBottom();
-  }, [isOpen]);
+    if (!isOpen) return;
+    const el = scrollRef.current;
+    const nearBottom = !el || el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+    if (nearBottom) scrollToBottom("auto");
+  }, [isOpen, messages, isLoading]);
 
   // Load messages from localStorage on mount
   useEffect(() => {
@@ -211,24 +218,25 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
            initial={{ opacity: 0, y: 50 }}
            animate={{ opacity: 1, y: 0 }}
            transition={{ delay: 1, duration: 0.8 }}
-           className="fixed bottom-8 left-0 z-50 w-full flex justify-center px-4"
+           className="fixed bottom-4 sm:bottom-8 left-0 z-50 w-full flex justify-center px-3 sm:px-4"
         >
-            <form onSubmit={handleFloatingSubmit} className="w-full flex justify-center px-4">
-                <div className="relative flex items-center w-full max-w-2xl glass-ios-16 rounded-full p-2 transition-all duration-300">
-                    <input 
-                        type="text" 
+            <form onSubmit={handleFloatingSubmit} className="w-full flex justify-center sm:px-4">
+                <div className="relative flex items-center w-full max-w-2xl glass-ios-16 rounded-full p-1.5 sm:p-2 transition-all duration-300">
+                    <input
+                        type="text"
                         value={floatingInput}
                         onChange={(e) => setFloatingInput(e.target.value)}
                         placeholder="Ask anything about Zain..."
-                        className="w-full bg-transparent border-none text-neutral-200 placeholder-neutral-500 px-6 py-3 text-lg focus:outline-none focus:ring-0"
+                        className="w-full min-w-0 bg-transparent border-none text-neutral-200 placeholder-neutral-500 px-4 py-2.5 text-base sm:px-6 sm:py-3 sm:text-lg focus:outline-none focus:ring-0"
                     />
-                    <button 
+                    <button
                         type="submit"
                         disabled={!floatingInput.trim()}
-                        className="p-3 rounded-full bg-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="shrink-0 p-2.5 sm:p-3 rounded-full bg-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <FaPaperPlane size={16} />
+                        <HugeiconsIcon icon={SentIcon} size={18} strokeWidth={1.8} />
                     </button>
+                    <LiveCallBlob />
                 </div>
             </form>
         </motion.div>
@@ -246,7 +254,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                   ? { width: size.width, height: size.height }
                   : undefined
               }
-              className="relative mb-3 sm:mb-4 w-[calc(100vw-1rem)] h-[80vh] sm:w-auto sm:h-auto rounded-xl sm:rounded-2xl border border-neutral-800 bg-neutral-900 shadow-2xl overflow-hidden flex flex-col"
+              className="relative mb-3 sm:mb-4 w-[calc(100vw-1rem)] max-w-[calc(100vw-1rem)] h-[80vh] max-h-[calc(100dvh-6rem)] sm:w-auto sm:h-auto sm:max-h-none sm:max-w-none rounded-2xl sm:rounded-3xl bg-neutral-900 overflow-hidden flex flex-col"
             >
               {/* Resize handle — desktop only */}
               <div
@@ -258,10 +266,10 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                 <div className="absolute top-1.5 left-1.5 h-2 w-2 border-l-2 border-t-2 border-neutral-600 group-hover:border-purple-400 transition-colors" />
               </div>
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-neutral-800 px-3 py-2.5 sm:p-4 bg-neutral-950">
+              <div className="flex items-center justify-between px-3 py-2.5 sm:p-4 bg-neutral-900">
                 <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                   <div className="relative shrink-0">
-                    <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden border border-purple-500/20">
+                    <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden">
                         <img src={chatIcon} alt="Chat" className="w-full h-full object-contain p-1" />
                     </div>
                   </div>
@@ -279,7 +287,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-red-400 transition-colors"
                     title="Clear Chat History"
                   >
-                    <FaTrash className="text-[11px] sm:text-xs" />
+                    <HugeiconsIcon icon={Delete02Icon} size={16} strokeWidth={1.8} />
                   </button>
                   <a
                     href={resume}
@@ -287,19 +295,19 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-purple-400 transition-colors"
                     title="Download Resume"
                   >
-                    <FaDownload className="text-xs sm:text-sm" />
+                    <HugeiconsIcon icon={Download04Icon} size={16} strokeWidth={1.8} />
                   </a>
                   <button
                     onClick={toggleChat}
                     className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors"
                   >
-                    <FaTimes className="text-sm sm:text-base" />
+                    <HugeiconsIcon icon={Cancel01Icon} size={18} strokeWidth={1.8} />
                   </button>
                 </div>
               </div>
 
               {/* Messages */}
-              <div className="flex-1 min-h-0 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900/50">
+              <div ref={scrollRef} data-lenis-prevent className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-3 sm:p-4 space-y-3 sm:space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900">
                 {messages.map((msg, index) => (
                   <div
                     key={index}
@@ -308,24 +316,24 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     }`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
+                      className={`max-w-[85%] min-w-0 break-words overflow-hidden rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-purple-600 text-white rounded-br-none"
-                          : "bg-neutral-800 text-neutral-200 rounded-bl-none border border-neutral-700"
+                          ? "bg-purple-600 text-white rounded-br-md"
+                          : "bg-neutral-800 text-neutral-200 rounded-bl-md"
                       }`}
                     >
                       {msg.role === "assistant" ? (
-                        <div className="prose prose-sm prose-invert max-w-none text-neutral-200">
+                        <div className="prose prose-sm prose-invert max-w-none text-neutral-200 break-words [&_pre]:overflow-x-auto [&_pre]:max-w-full [&_code]:break-words">
                           {msg.reasoning && msg.reasoning.trim() && (
-                            <details className="not-prose mb-2 rounded-lg border border-neutral-700/60 bg-neutral-900/60 group">
+                            <details className="not-prose mb-2 rounded-lg bg-neutral-900/60 group">
                               <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-2 text-xs text-neutral-400 hover:text-neutral-200 transition-colors select-none">
-                                <FaBrain className="text-purple-400/80 text-[11px]" />
+                                <HugeiconsIcon icon={Brain02Icon} className="text-purple-400/80" size={13} strokeWidth={1.8} />
                                 <span className="font-medium">
                                   {msg.content ? "Reasoning" : "Thinking…"}
                                 </span>
-                                <FaChevronDown className="ml-auto text-[10px] text-neutral-500 transition-transform group-open:rotate-180" />
+                                <HugeiconsIcon icon={ArrowDown01Icon} className="ml-auto text-neutral-500 transition-transform group-open:rotate-180" size={14} strokeWidth={1.8} />
                               </summary>
-                              <div className="px-3 pb-3 pt-1 border-t border-neutral-800/80 text-[12px] leading-relaxed text-neutral-400 whitespace-pre-wrap font-mono max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+                              <div data-lenis-prevent className="px-3 pb-3 pt-1 text-[12px] leading-relaxed text-neutral-400 whitespace-pre-wrap font-mono max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent">
                                 {msg.reasoning}
                               </div>
                             </details>
@@ -335,7 +343,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                             rehypePlugins={[rehypeRaw]}
                             components={{
                               a: (props) => (
-                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-white underline" />
+                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-white underline break-all" />
                               ),
                               p: (props) => <p {...props} className="mb-2 leading-relaxed" />,
                               ul: (props) => <ul {...props} className="list-disc ml-4 mb-2" />,
@@ -366,7 +374,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                 ))}
                 {isLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-neutral-800 rounded-2xl rounded-bl-none px-4 py-3 border border-neutral-700">
+                    <div className="bg-neutral-800 rounded-2xl rounded-bl-md px-4 py-3">
                       <div className="flex gap-1">
                         <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></span>
                         <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></span>
@@ -379,21 +387,21 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
               </div>
 
               {/* Input */}
-              <form onSubmit={handleSubmit} className="border-t border-neutral-800 p-2.5 sm:p-4 bg-neutral-950">
+              <form onSubmit={handleSubmit} className="p-2.5 sm:p-4 bg-neutral-900">
                 <div className="flex gap-2 items-center">
                   <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your question..."
-                    className="flex-1 min-w-0 rounded-full bg-neutral-900 border border-neutral-800 px-3 sm:px-4 py-2 sm:py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                    className="flex-1 min-w-0 rounded-full bg-neutral-800 px-3 sm:px-4 py-2 sm:py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-purple-500/40 transition-all"
                   />
                   <button
                     type="submit"
                     disabled={isLoading || !input.trim()}
-                    className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-purple-600 text-white shadow-lg shadow-purple-900/20 transition-all hover:bg-purple-500 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:bg-purple-600"
+                    className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-purple-600 text-white transition-all hover:bg-purple-500 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:bg-purple-600"
                   >
-                    <FaPaperPlane className="text-xs" />
+                    <HugeiconsIcon icon={SentIcon} size={16} strokeWidth={1.8} />
                   </button>
                 </div>
               </form>
@@ -413,7 +421,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
           >
             {isOpen ? (
               <div className="flex h-full w-full items-center justify-center bg-purple-600 rounded-full shadow-[0_0_15px_rgba(147,51,234,0.5)]">
-                <FaTimes className="text-xl text-white" />
+                <HugeiconsIcon icon={Cancel01Icon} className="text-white" size={24} strokeWidth={2} />
               </div>
             ) : (
                 <motion.img 

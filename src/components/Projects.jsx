@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PROJECTS } from "../constants"; // Assuming PROJECTS array is defined here
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { GithubIcon, LinkSquare02Icon } from "@hugeicons/core-free-icons";
 import { Link } from "react-router-dom";
 
 // Placeholder PROJECTS data structure if needed for testing:
@@ -145,7 +146,7 @@ const Projects = () => {
                     className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-purple-400"
                     aria-label={`${project.title} GitHub Repository`}
                   >
-                    <FaGithub className="mr-2 h-5 w-5 shrink-0" /> {/* Added shrink-0 */}
+                    <HugeiconsIcon icon={GithubIcon} size={20} strokeWidth={1.8} className="mr-2 shrink-0" />
                     <span className="text-sm">GitHub</span>
                   </a>
                 )}
@@ -157,7 +158,7 @@ const Projects = () => {
                     className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-purple-400"
                      aria-label={`${project.title} Live Demo`}
                   >
-                    <FaExternalLinkAlt className="mr-2 h-4 w-4 shrink-0" /> {/* Added shrink-0 */}
+                    <HugeiconsIcon icon={LinkSquare02Icon} size={16} strokeWidth={1.8} className="mr-2 shrink-0" />
                      <span className="text-sm">Live Demo</span>
                   </a>
                 )}

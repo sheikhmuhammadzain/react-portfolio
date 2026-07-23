@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Command } from "cmdk";
 import { useNavigate } from "react-router-dom";
-import { FiCommand, FiHome, FiFileText, FiGithub, FiMail, FiDownload, FiMessageSquare } from "react-icons/fi";
-import { SiMatrix } from "react-icons/si";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CommandIcon, Home01Icon, File01Icon, GithubIcon, Mail01Icon, Download04Icon, Message01Icon, MatrixIcon } from "@hugeicons/core-free-icons";
 import { motion, AnimatePresence } from "framer-motion";
 import resume from "../assets/resume/my_resume-zain.pdf";
 
@@ -63,7 +63,7 @@ const CommandPalette = ({ openChat }) => {
                     }}
                     transition={{ duration: 0.2 }}
                 >
-                    <FiCommand className="text-2xl text-neutral-400" />
+                    <HugeiconsIcon icon={CommandIcon} size={24} strokeWidth={1.8} className="text-neutral-400" />
                 </motion.div>
 
                 {/* Expanded State: Full Keys */}
@@ -85,7 +85,7 @@ const CommandPalette = ({ openChat }) => {
                         <span className="text-neutral-600 text-[10px] font-medium uppercase tracking-wider px-1">or</span>
 
                         <kbd className="mac-key h-12 w-14 flex-col gap-0.5 pb-1">
-                            <FiCommand className="text-lg" />
+                            <HugeiconsIcon icon={CommandIcon} size={18} strokeWidth={1.8} />
                             <span className="text-[9px] leading-none font-sans opacity-80 font-normal">command</span>
                         </kbd>
                         <span className="text-neutral-600 font-medium pl-1">+</span>
@@ -121,7 +121,7 @@ const CommandPalette = ({ openChat }) => {
               onSelect={() => runCommand(() => navigate("/"))}
               className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
-              <FiHome className="mr-3 h-4 w-4 text-neutral-500" />
+              <HugeiconsIcon icon={Home01Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
               <span>Go to Home</span>
             </Command.Item>
             <Command.Item
@@ -129,7 +129,7 @@ const CommandPalette = ({ openChat }) => {
               onSelect={() => runCommand(() => navigate("/blogs"))}
               className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
-              <FiFileText className="mr-3 h-4 w-4 text-neutral-500" />
+              <HugeiconsIcon icon={File01Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
               <span>Go to Blogs</span>
             </Command.Item>
              <Command.Item
@@ -137,7 +137,7 @@ const CommandPalette = ({ openChat }) => {
               onSelect={() => runCommand(() => openChat && openChat())}
               className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
-              <FiMessageSquare className="mr-3 h-4 w-4 text-neutral-500" />
+              <HugeiconsIcon icon={Message01Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
               <span>Chat with Zain</span>
             </Command.Item>
             <Command.Item
@@ -145,7 +145,7 @@ const CommandPalette = ({ openChat }) => {
               onSelect={() => runCommand(() => document.getElementById("contact")?.scrollIntoView({ behavior: 'smooth' }))}
               className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
-              <FiMail className="mr-3 h-4 w-4 text-neutral-500" />
+              <HugeiconsIcon icon={Mail01Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
               <span>Contact Zain</span>
             </Command.Item>
           </Command.Group>
@@ -158,7 +158,7 @@ const CommandPalette = ({ openChat }) => {
                 onSelect={() => runCommand(() => window.open(resume, '_blank'))}
                 className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
-                <FiDownload className="mr-3 h-4 w-4 text-neutral-500" />
+                <HugeiconsIcon icon={Download04Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
                 <span>Download Resume</span>
             </Command.Item>
              <Command.Item
@@ -166,7 +166,7 @@ const CommandPalette = ({ openChat }) => {
                 onSelect={() => runCommand(() => window.open('https://github.com/sheikhmuhammadzain', '_blank'))}
                 className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
-                <FiGithub className="mr-3 h-4 w-4 text-neutral-500" />
+                <HugeiconsIcon icon={GithubIcon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
                 <span>Open Github</span>
             </Command.Item>
              <Command.Item
@@ -174,7 +174,7 @@ const CommandPalette = ({ openChat }) => {
               onSelect={() => runCommand(handleMatrixTheme)}
               className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
             >
-              <SiMatrix className="mr-3 h-4 w-4 text-neutral-500" />
+              <HugeiconsIcon icon={MatrixIcon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
               <span>Toggle Matrix Theme</span>
             </Command.Item>
           </Command.Group>

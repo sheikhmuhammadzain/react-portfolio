@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiHome, FiFileText, FiMessageSquare, FiMail, FiDownload, FiGithub } from 'react-icons/fi';
-import { SiMatrix } from "react-icons/si";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Home01Icon, File01Icon, Message01Icon, Mail01Icon, Download04Icon, GithubIcon, MatrixIcon } from "@hugeicons/core-free-icons";
 import resume from "../assets/resume/my_resume-zain.pdf";
 
 const CustomContextMenu = ({ openChat }) => {
@@ -91,17 +91,17 @@ const CustomContextMenu = ({ openChat }) => {
 
           <div className="flex flex-col px-1 gap-0.5">
             <ContextMenuItem 
-                icon={<FiHome className="text-neutral-400" />} 
+                icon={<HugeiconsIcon icon={Home01Icon} size={16} strokeWidth={1.8} className="text-neutral-400" />}
                 label="Go to Home" 
                 onClick={() => handleAction(() => navigate("/"))} 
             />
             <ContextMenuItem 
-                icon={<FiFileText className="text-neutral-400" />} 
+                icon={<HugeiconsIcon icon={File01Icon} size={16} strokeWidth={1.8} className="text-neutral-400" />}
                 label="Read Blogs" 
                 onClick={() => handleAction(() => navigate("/blogs"))} 
             />
             <ContextMenuItem 
-                icon={<FiMessageSquare className="text-cyan-400" />} 
+                icon={<HugeiconsIcon icon={Message01Icon} size={16} strokeWidth={1.8} className="text-cyan-400" />}
                 label="Chat with Zain" 
                 onClick={() => handleAction(openChat)} 
                 highlight
@@ -114,7 +114,7 @@ const CustomContextMenu = ({ openChat }) => {
             />
 
             <ContextMenuItem 
-                icon={<FiMail className="text-neutral-400" />} 
+                icon={<HugeiconsIcon icon={Mail01Icon} size={16} strokeWidth={1.8} className="text-neutral-400" />}
                 label="Contact Me" 
                 onClick={() => handleAction(() => {
                     navigate("/");
@@ -122,12 +122,12 @@ const CustomContextMenu = ({ openChat }) => {
                 })} 
             />
             <ContextMenuItem 
-                icon={<FiDownload className="text-neutral-400" />} 
+                icon={<HugeiconsIcon icon={Download04Icon} size={16} strokeWidth={1.8} className="text-neutral-400" />}
                 label="Download Resume" 
                 onClick={() => handleAction(() => window.open(resume, '_blank'))} 
             />
             <ContextMenuItem 
-                icon={<FiGithub className="text-neutral-400" />} 
+                icon={<HugeiconsIcon icon={GithubIcon} size={16} strokeWidth={1.8} className="text-neutral-400" />}
                 label="View Source" 
                 onClick={() => handleAction(() => window.open('https://github.com/sheikhmuhammadzain', '_blank'))} 
             />
@@ -139,7 +139,7 @@ const CustomContextMenu = ({ openChat }) => {
             />
             
             <ContextMenuItem 
-                icon={<SiMatrix className="text-green-500" />} 
+                icon={<HugeiconsIcon icon={MatrixIcon} size={16} strokeWidth={1.8} className="text-green-500" />} 
                 label="Matrix Mode" 
                 onClick={() => handleAction(handleMatrixTheme)} 
             />

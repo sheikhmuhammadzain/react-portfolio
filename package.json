@@ -13,6 +13,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@google/genai": "^2.13.0",
+    "@hugeicons/core-free-icons": "^4.2.3",
+    "@hugeicons/react": "^1.1.9",
     "axios": "^1.15.0",
     "cmdk": "^1.1.1",
     "cors": "^2.8.6",
@@ -33,7 +36,8 @@
     "react-router-dom": "^7.13.0",
     "react-syntax-highlighter": "^16.1.0",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",

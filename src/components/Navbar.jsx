@@ -1,7 +1,6 @@
 import logo from "../assets/zain.jpeg";
-import { FaLinkedin } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Linkedin01Icon, GithubIcon, InstagramIcon } from "@hugeicons/core-free-icons";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -54,21 +53,21 @@ const Navbar = () => {
           href="https://www.linkedin.com/in/muhammad-zain-afzal-649209227/"
           aria-label="Visit Muhammad Zain's LinkedIn profile"
         >
-          <FaLinkedin />
+          <HugeiconsIcon icon={Linkedin01Icon} size={24} strokeWidth={1.8} className="hover:text-purple-400 transition-colors" />
         </a>
         <a
           href="https://github.com/sheikhmuhammadzain"
           target="_blank"
           aria-label="Visit Muhammad Zain's GitHub profile"
         >
-          <FaGithub />
+          <HugeiconsIcon icon={GithubIcon} size={24} strokeWidth={1.8} className="hover:text-purple-400 transition-colors" />
         </a>
         <a
           href="https://www.instagram.com/zainshayykh/"
           target="_blank"
           aria-label="Visit Muhammad Zain's Instagram profile"
         >
-          <FaInstagram />
+          <HugeiconsIcon icon={InstagramIcon} size={24} strokeWidth={1.8} className="hover:text-purple-400 transition-colors" />
         </a>
       </div>
     </nav>
