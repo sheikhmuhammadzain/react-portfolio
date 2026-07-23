@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import resume from "../assets/resume/my_resume-zain.pdf";
+import { CONTACT, OPEN_CHAT_EVENT, PROJECTS } from "../constants";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 const MIC_RATE = 16000; // Gemini Live input: 16-bit PCM @ 16kHz
@@ -32,6 +33,30 @@ const TOOL_HANDLERS = {
     a.href = resume;
     a.download = "Muhammad_Zain_Resume.pdf";
     a.click();
+    return { ok: true };
+  },
+  open_project: ({ name, target }) => {
+    const query = (name || "").toLowerCase();
+    const project = PROJECTS.find((p) => p.title.toLowerCase().includes(query) || query.includes(p.title.toLowerCase()));
+    if (!project) return { ok: false, error: `No project named "${name}"` };
+    const url = target === "github" ? project.githubLink : project.liveLink || project.githubLink;
+    if (!url) return { ok: false, error: `${project.title} has no ${target === "github" ? "GitHub" : "live"} link` };
+    // window.open outside a click gesture can be popup-blocked; report it honestly
+    // so the agent can point the visitor to the project card instead.
+    if (!window.open(url, "_blank", "noopener")) {
+      TOOL_HANDLERS.navigate_to_section({ section: "projects" });
+      return { ok: false, error: "Popup blocked by the browser - scrolled to the projects section instead, tell the visitor to click the card" };
+    }
+    return { ok: true, opened: project.title, url };
+  },
+  copy_email: () => {
+    navigator.clipboard?.writeText(CONTACT.email).catch(() => {});
+    return { ok: true, email: CONTACT.email };
+  },
+  open_chat: () => {
+    // Opening the chat unmounts the call UI, which ends the voice session -
+    // that's the intended hand-off.
+    window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT));
     return { ok: true };
   },
 };

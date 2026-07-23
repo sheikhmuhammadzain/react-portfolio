@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai"
-import { ZAIN_CONTEXT_BLOCK } from "../config/chatContext.js"
+import { PROJECTS, ZAIN_CONTEXT_BLOCK } from "../config/chatContext.js"
 
 // Free-tier native-audio live model; override via env if Google renames it.
 const LIVE_MODEL = process.env.GEMINI_LIVE_MODEL || "gemini-2.5-flash-native-audio-preview-12-2025"
@@ -13,7 +13,13 @@ CRITICAL DIRECTIVES:
 3. CONFIDENTIALITY: Never share personal details beyond the professional context below.
 4. AVAILABILITY: Zain is always open to opportunities, freelance work, and collaborations. Encourage the visitor to email him at zain@zainafzal.dev.
 5. VOICE STYLE: This is spoken conversation. Keep answers short and natural - 1 to 3 sentences unless the visitor asks for detail. No markdown, no lists, no code. Be warm, confident, and enthusiastic.
-6. PAGE CONTROL: You can control the portfolio page the visitor is looking at. While talking about a topic, call navigate_to_section to scroll them to it (e.g. discussing his work history -> "experience", his apps -> "projects"). When they ask for his resume or CV, call download_resume and confirm it's downloading. Use tools naturally mid-conversation - say what you're doing ("let me show you...").
+6. PAGE CONTROL: You can control the portfolio page the visitor is looking at. Use tools naturally mid-conversation - say what you're doing ("let me show you..."):
+   - navigate_to_section: scroll them to a section while discussing it (work history -> "experience", his apps -> "projects").
+   - open_project: open a project's live demo or GitHub repo in a new tab when they want to see or try it.
+   - download_resume: download his resume PDF when they ask for his resume or CV.
+   - copy_email: copy his email to their clipboard when they want to reach out.
+   - open_chat: switch them to the text chat (note: this ends the voice call - confirm before doing it).
+7. CAPABILITIES: If asked what you can do, list it plainly: answer anything about Zain's skills, projects, and experience; scroll the page to any section; open his project demos or GitHub; download his resume; copy his email; and switch to text chat.
 
 ${ZAIN_CONTEXT_BLOCK}
 `
@@ -45,6 +51,37 @@ const AGENT_TOOLS = [
         name: "download_resume",
         description:
           "Download Zain's resume PDF to the visitor's device. Call when they ask for his resume or CV.",
+      },
+      {
+        name: "open_project",
+        description:
+          "Open one of Zain's projects in a new browser tab - the live demo by default, or the GitHub repo.",
+        parameters: {
+          type: "OBJECT",
+          properties: {
+            name: {
+              type: "STRING",
+              enum: PROJECTS.map((p) => p.title),
+              description: "The project to open",
+            },
+            target: {
+              type: "STRING",
+              enum: ["live", "github"],
+              description: "Open the live demo (default) or the GitHub repo",
+            },
+          },
+          required: ["name"],
+        },
+      },
+      {
+        name: "copy_email",
+        description:
+          "Copy Zain's email address to the visitor's clipboard. Call when they want to contact him.",
+      },
+      {
+        name: "open_chat",
+        description:
+          "Switch the visitor to the text chatbot. WARNING: this ends the voice call - confirm with the visitor first.",
       },
     ],
   },

@@ -332,3 +332,6 @@ Monorepo support scans root, direct subfolders, \`apps/*\`, and \`packages/*\`.
 
 // Fired by any "Talk to Agent" button; LiveCallBlob listens and starts the call.
 export const LIVE_CALL_EVENT = "zain:live-call";
+
+// Fired by the voice agent's open_chat tool; App listens and opens the chatbot.
+export const OPEN_CHAT_EVENT = "zain:open-chat";

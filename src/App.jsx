@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import { OPEN_CHAT_EVENT } from "./constants";
 
 // Lazy load components below the fold
 const About = lazy(() => import("./components/About"));
@@ -95,6 +96,13 @@ const App = () => {
     const idleId = runWhenIdle(() => setAreInteractiveToolsReady(true));
 
     return () => cancelIdleTask(idleId);
+  }, []);
+
+  // Voice agent's open_chat tool (and anything else) can open the chatbot via this event
+  useEffect(() => {
+    const openChat = () => setIsChatOpen(true);
+    window.addEventListener(OPEN_CHAT_EVENT, openChat);
+    return () => window.removeEventListener(OPEN_CHAT_EVENT, openChat);
   }, []);
 
   return (
