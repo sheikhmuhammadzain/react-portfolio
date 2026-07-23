@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LinkSquare02Icon } from "@hugeicons/core-free-icons";
 import freecodecampLogo from "../assets/freecodecamp.webp";
+import TiltCard from "./TiltCard";
 
 // --- Optimized Animation Variants ---
 
@@ -85,17 +86,14 @@ const Certificates = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }} // Trigger when 30% visible
-            // Optimized Hover effect
-            whileHover={{ scale: 1.03, y: -6 }} // Subtle lift/scale
-            transition={{ type: "spring", stiffness: 300, damping: 20 }} // Fine-tuned spring
+          >
+          {/* Tilt on a child of motion.div so the two never fight over `transform` */}
+          <TiltCard
             className="
-              group relative flex flex-col overflow-hidden rounded-lg
+              group relative flex h-full flex-col overflow-hidden rounded-lg
               border border-neutral-700/50 bg-neutral-900
               shadow-md
               hover:shadow-xl hover:shadow-purple-900/20 hover:border-neutral-600
-              // --- Optimization: Specific CSS transitions ---
-              transition-[border-color,box-shadow] duration-300 ease-in-out
-              // Framer Motion handles transform (scale, y) via whileHover
             "
           >
             {/* Logo Section */}
@@ -166,6 +164,7 @@ const Certificates = () => {
                  )}
               </div>
             </div>
+          </TiltCard>
           </motion.div>
         ))}
       </div>
