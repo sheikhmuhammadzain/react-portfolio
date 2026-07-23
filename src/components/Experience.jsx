@@ -53,10 +53,18 @@ const Experience = () => {
 
             {/* Right Column: Details */}
             <div className="w-full lg:w-3/4 lg:pl-4 border-l border-neutral-700/50 lg:border-l-0 lg:pl-0"> {/* Optional: Add border only on small screens */}
-                <h3 className="mb-1 text-lg font-semibold text-neutral-100">
-                    {experience.role} -{" "}
-                    <span className="text-base font-medium text-purple-300/90"> {/* Slightly dimmed purple */}
-                    {experience.company}
+                <h3 className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-semibold text-neutral-100">
+                    <span>{experience.role} -</span>
+                    <span className="inline-flex items-center gap-2 text-base font-medium text-purple-300/90"> {/* Slightly dimmed purple */}
+                    {experience.logo && (
+                      <img
+                        src={experience.logo}
+                        alt={`${experience.company} logo`}
+                        loading="lazy"
+                        className={`h-7 w-auto max-w-[150px] object-contain ${experience.logoLight ? "" : "invert"}`}
+                      />
+                    )}
+                    {!experience.logoHasText && experience.company}
                     </span>
                 </h3>
                 <p className="mb-4 text-sm leading-relaxed text-neutral-300">

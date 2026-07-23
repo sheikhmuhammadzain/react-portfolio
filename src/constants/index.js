@@ -22,6 +22,9 @@ export const EXPERIENCES = [
     year: "Oct 2025 - Present",
     role: "Full Stack Gen AI Developer",
     company: "Qubit Dynamics",
+    logo: "/qbitlogo.png",
+    logoHasText: true,
+    logoLight: true,
     description: `Architect and develop end-to-end AI SaaS products from concept to deployment with focus on UX, optimization, and rapid iteration.`,
     highlights: [
       "Architect and develop end-to-end AI SaaS products using Next.js, MongoDB, and TypeScript, delivering production-ready applications from concept to deployment.",
@@ -50,6 +53,8 @@ export const EXPERIENCES = [
     year: "Jan 2025 - Oct 2025",
     role: "Junior AI Engineer",
     company: "Cybergen",
+    logo: "/cybergenlogo.png",
+    logoHasText: true,
     description: `Designed, fine-tuned, and deployed LLM and multimodal solutions with low-latency inference and reliable production integrations.`,
     highlights: [
       "Designed, fine-tuned, and deployed LLMs and multimodal models for enterprise use cases including customer support automation.",
@@ -74,6 +79,7 @@ export const EXPERIENCES = [
     year: "Mar 2024 - Dec 2024",
     role: "Full Stack Developer",
     company: "Tech Wizardz",
+    logo: "/techwizardz.png",
     description: `Led development and maintenance of multiple web applications and backend APIs with a strong focus on performance and delivery.`,
     highlights: [
       "Led development and maintenance of 5+ web applications using React.js, Node.js, and MongoDB.",
