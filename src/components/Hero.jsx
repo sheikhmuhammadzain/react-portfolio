@@ -1,8 +1,23 @@
-import { HERO_CONTENT } from "../constants";
+import { HERO_CONTENT, LIVE_CALL_EVENT } from "../constants";
 import profilePic from "../assets/winterdp.jpg";
 import resume from "../assets/resume/my_resume-zain.pdf";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Download04Icon } from "@hugeicons/core-free-icons";
+
+// Skeuomorphic pill button, shared by both hero CTAs
+const BUTTON_SHELL_CLASS =
+  "group relative inline-flex w-fit items-center rounded-xl p-px text-sm font-medium text-neutral-100 transition-all duration-200 active:scale-[0.98]";
+const BUTTON_SHELL_STYLE = {
+  background: "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))",
+  boxShadow:
+    "0 1px 0 0 rgba(255,255,255,0.08) inset, 0 -1px 0 0 rgba(0,0,0,0.6) inset, 0 1px 2px 0 rgba(0,0,0,0.5)",
+};
+const BUTTON_INNER_CLASS =
+  "flex items-center gap-2 rounded-[11px] px-6 py-3 transition-colors duration-200 group-hover:brightness-110";
+const BUTTON_INNER_STYLE = {
+  background: "linear-gradient(180deg, #1f1f24 0%, #131316 100%)",
+  boxShadow: "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 -2px 6px 0 rgba(0,0,0,0.4) inset",
+};
 
 const Hero = () => {
   return (
@@ -31,29 +46,32 @@ const Hero = () => {
               <p className="my-2 max-w-xl py-6 font-light tracking-tighter">
                 {HERO_CONTENT}
               </p>
-              <a
-                href={resume}
-                download="Muhammad_Zain_Resume.pdf"
-                className="group relative inline-flex w-fit items-center rounded-xl p-px text-sm font-medium text-neutral-100 mb-8 md:mb-0 transition-all duration-200 active:scale-[0.98]"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))",
-                  boxShadow:
-                    "0 1px 0 0 rgba(255,255,255,0.08) inset, 0 -1px 0 0 rgba(0,0,0,0.6) inset, 0 1px 2px 0 rgba(0,0,0,0.5)",
-                }}
-              >
-                <span
-                  className="flex items-center gap-2 rounded-[11px] px-6 py-3 transition-colors duration-200 group-hover:brightness-110"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #1f1f24 0%, #131316 100%)",
-                    boxShadow:
-                      "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 -2px 6px 0 rgba(0,0,0,0.4) inset",
-                  }}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 md:mb-0">
+                <a
+                  href={resume}
+                  download="Muhammad_Zain_Resume.pdf"
+                  className={BUTTON_SHELL_CLASS}
+                  style={BUTTON_SHELL_STYLE}
                 >
-                  <HugeiconsIcon icon={Download04Icon} size={18} strokeWidth={1.8} /> Download Resume
-                </span>
-              </a>
+                  <span className={BUTTON_INNER_CLASS} style={BUTTON_INNER_STYLE}>
+                    <HugeiconsIcon icon={Download04Icon} size={18} strokeWidth={1.8} /> Download Resume
+                  </span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent(LIVE_CALL_EVENT))}
+                  className={BUTTON_SHELL_CLASS}
+                  style={BUTTON_SHELL_STYLE}
+                >
+                  <span className={BUTTON_INNER_CLASS} style={BUTTON_INNER_STYLE}>
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-500" />
+                    </span>
+                    Talk to My Agent
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -67,7 +85,7 @@ const Hero = () => {
               height="1387"
               loading="eager"
               decoding="async"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
         </div>

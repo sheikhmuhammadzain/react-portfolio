@@ -329,3 +329,6 @@ Monorepo support scans root, direct subfolders, \`apps/*\`, and \`packages/*\`.
 **MIT License**`,
   },
 ];
+
+// Fired by any "Talk to Agent" button; LiveCallBlob listens and starts the call.
+export const LIVE_CALL_EVENT = "zain:live-call";

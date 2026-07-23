@@ -1,7 +1,8 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import useLiveCall from "../hooks/useLiveCall";
+import { LIVE_CALL_EVENT } from "../constants";
 
 // three.js loads only when a call actually starts
 const AbstractBall = lazy(() => import("./AbstractBall"));
@@ -21,6 +22,16 @@ const LiveCallBlob = () => {
   const isLive = status === "live";
   const showBall = isLive || status === "connecting";
   const title = TITLES[status];
+
+  // Let the Hero button, ⌘K palette, or anything else start a call by dispatching LIVE_CALL_EVENT.
+  // ponytail: only fires while this blob is mounted (home page, chat closed).
+  useEffect(() => {
+    const onStart = () => {
+      if (status !== "live" && status !== "connecting") startCall();
+    };
+    window.addEventListener(LIVE_CALL_EVENT, onStart);
+    return () => window.removeEventListener(LIVE_CALL_EVENT, onStart);
+  }, [status, startCall]);
 
   return (
     <>

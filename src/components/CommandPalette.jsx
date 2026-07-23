@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Command } from "cmdk";
 import { useNavigate } from "react-router-dom";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { CommandIcon, Home01Icon, File01Icon, GithubIcon, Mail01Icon, Download04Icon, Message01Icon, MatrixIcon } from "@hugeicons/core-free-icons";
+import { CommandIcon, Home01Icon, File01Icon, GithubIcon, Mail01Icon, Download04Icon, Message01Icon, MatrixIcon, SiriNewIcon } from "@hugeicons/core-free-icons";
 import { motion, AnimatePresence } from "framer-motion";
 import resume from "../assets/resume/my_resume-zain.pdf";
+import { LIVE_CALL_EVENT } from "../constants";
 
 const CommandPalette = ({ openChat }) => {
   const [open, setOpen] = useState(false);
@@ -139,6 +140,14 @@ const CommandPalette = ({ openChat }) => {
             >
               <HugeiconsIcon icon={Message01Icon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
               <span>Chat with Zain</span>
+            </Command.Item>
+            <Command.Item
+               value="talk-to-siri"
+              onSelect={() => runCommand(() => window.dispatchEvent(new CustomEvent(LIVE_CALL_EVENT)))}
+              className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-[14px] text-neutral-300 outline-none data-[selected=true]:bg-[#333] data-[selected=true]:text-white transition-colors cursor-pointer mb-1"
+            >
+              <HugeiconsIcon icon={SiriNewIcon} size={16} strokeWidth={1.8} className="mr-3 text-neutral-500" />
+              <span>Talk to Zain&apos;s Agent</span>
             </Command.Item>
             <Command.Item
                value="contact"
