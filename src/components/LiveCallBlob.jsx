@@ -23,6 +23,13 @@ const LiveCallBlob = () => {
   const showBall = isLive || status === "connecting";
   const title = TITLES[status];
 
+  // Warm the Gemini SDK chunk after load so the first call doesn't pay its
+  // download cost right when the visitor wants to talk.
+  useEffect(() => {
+    const id = window.setTimeout(() => import("@google/genai"), 2500);
+    return () => window.clearTimeout(id);
+  }, []);
+
   // Let the Hero button, ⌘K palette, or anything else start a call by dispatching LIVE_CALL_EVENT.
   // ponytail: only fires while this blob is mounted (home page, chat closed).
   useEffect(() => {

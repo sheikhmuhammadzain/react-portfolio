@@ -132,22 +132,25 @@ export default function useLiveCall() {
     if (callRef.current.session) return;
     setStatus("connecting");
     try {
-      const resp = await fetch(`${API_URL}/live/token`, { method: "POST" });
+      // Everything that can run in parallel does: token mint, SDK chunk
+      // (dynamic import keeps it out of the page bundle), and mic permission.
+      const [{ GoogleGenAI, Modality }, stream, resp] = await Promise.all([
+        import("@google/genai"),
+        navigator.mediaDevices.getUserMedia({
+          audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
+        }),
+        fetch(`${API_URL}/live/token`, { method: "POST" }),
+      ]);
       if (!resp.ok) {
         const body = await resp.json().catch(() => null);
         throw new Error(body?.message || `Token request failed (${resp.status})`);
       }
       const { token, model, tools } = await resp.json();
 
-      // Dynamic import keeps the Gemini SDK out of the page bundle until a call starts.
-      const [{ GoogleGenAI, Modality }, stream] = await Promise.all([
-        import("@google/genai"),
-        navigator.mediaDevices.getUserMedia({
-          audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
-        }),
-      ]);
-
       const outCtx = new AudioContext({ sampleRate: SPEAKER_RATE });
+      // Contexts created after awaits may start "suspended" (the click gesture
+      // has expired by then) - resume explicitly or the first call hears nothing.
+      outCtx.resume().catch(() => {});
       // Agent audio routes through an analyser so the visualizer can read its level.
       const analyser = outCtx.createAnalyser();
       analyser.fftSize = 256;
@@ -226,6 +229,7 @@ export default function useLiveCall() {
 
       // Mic -> 16kHz PCM16 -> Gemini.
       const inCtx = new AudioContext({ sampleRate: MIC_RATE });
+      inCtx.resume().catch(() => {});
       const source = inCtx.createMediaStreamSource(stream);
       // ponytail: ScriptProcessor is deprecated but tiny; swap for an AudioWorklet if audio ever glitches
       // 1024 samples @16kHz = 64ms chunks -> mic audio reaches Gemini ~4x sooner than 4096
