@@ -27,11 +27,12 @@ const AbstractBall = ({ getLevel }) => {
 
     const uniforms = {
       time: { value: 0 },
-      // Low, close-together channel frequencies give a smooth cohesive blend
-      // (the original Skiper values) instead of a clashing rainbow.
-      RGBr: { value: 0.75 },
-      RGBg: { value: 0.5 },
-      RGBb: { value: 0.7 },
+      // Siri-like pink / teal / blue triad with a bright core. These are the
+      // curated default frequencies from the original component (distinct enough
+      // for the three colour zones, harmonious rather than a random rainbow).
+      RGBr: { value: 7.5 },
+      RGBg: { value: 5.0 },
+      RGBb: { value: 7.0 },
       RGBn: { value: 0.01 },
       RGBm: { value: 1 },
       morph: { value: BASE_MORPH },
