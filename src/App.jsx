@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import SectionNav from "./components/SectionNav";
+import ScrollToTop from "./components/ScrollToTop";
 import { OPEN_CHAT_EVENT, SECTIONS } from "./constants";
 
 // Lazy load components below the fold
@@ -132,6 +133,7 @@ const App = () => {
         )}
         
         {location.pathname === "/" && <SectionNav />}
+        <ScrollToTop />
 
         <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
           <Navbar />
