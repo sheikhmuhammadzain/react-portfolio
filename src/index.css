@@ -222,6 +222,70 @@ body:hover::-webkit-scrollbar {
   animation: hero-fade-left 0.5s ease-out both;
 }
 
+/* Sticky right-edge section nav with native CSS scroll-spy.
+   scroll-target-group makes the browser apply :target-current to the link whose
+   section is scrolled into view - zero JS. Unsupported browsers still get a
+   working nav (links scroll); they just don't get the active highlight. */
+.section-nav {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  flex-direction: column;
+  gap: 0.85rem;
+  scroll-target-group: auto;
+}
+
+.section-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.section-nav__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: #a3a3a3;
+  opacity: 0;
+  transform: translateX(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.section-nav__dash {
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: #525252;
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+/* Reveal every label while hovering the nav */
+.section-nav:hover .section-nav__label {
+  opacity: 1;
+  transform: none;
+}
+
+/* Emphasize the link the pointer is on */
+.section-nav__link:hover .section-nav__dash {
+  width: 28px;
+  background: #a3a3a3;
+}
+
+/* Active section (Chrome scroll-spy) */
+.section-nav__link:target-current .section-nav__dash {
+  width: 34px;
+  background: #c084fc;
+}
+
+.section-nav__link:target-current .section-nav__label {
+  opacity: 1;
+  transform: none;
+  color: #e5e5e5;
+}
+
 /* 3D tilt cards (Projects): transform is set from JS per pointer-move; the
    transition here damps it into a smooth glide and eases the snap-back. */
 .tilt-card {

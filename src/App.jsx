@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import { OPEN_CHAT_EVENT } from "./constants";
+import SectionNav from "./components/SectionNav";
+import { OPEN_CHAT_EVENT, SECTIONS } from "./constants";
 
 // Lazy load components below the fold
 const About = lazy(() => import("./components/About"));
@@ -45,29 +46,32 @@ const SectionFallback = () => (
   </div>
 );
 
-// id anchors are used by the voice agent's navigate_to_section tool and the
-// ⌘K palette / context menu scroll actions.
-const HOME_SECTIONS = [
-  ["about", About],
-  ["technologies", Technologies],
-  ["experience", Experience],
-  ["education", Education],
-  ["projects", Projects],
-  ["certificates", Certificates],
-  ["contact", Contact],
-];
+// id anchors (order/ids from SECTIONS) are used by the SectionNav scroll-spy,
+// the voice agent's navigate_to_section tool, and the ⌘K / context-menu scrolls.
+const SECTION_COMPONENTS = {
+  about: About,
+  technologies: Technologies,
+  experience: Experience,
+  education: Education,
+  projects: Projects,
+  certificates: Certificates,
+  contact: Contact,
+};
 
 const Home = () => {
   return (
     <>
       <Hero />
-      {HOME_SECTIONS.map(([id, Section]) => (
-        <section key={id} id={id} className="scroll-mt-20">
-          <Suspense fallback={<SectionFallback />}>
-            <Section />
-          </Suspense>
-        </section>
-      ))}
+      {SECTIONS.map(({ id }) => {
+        const Section = SECTION_COMPONENTS[id];
+        return (
+          <section key={id} id={id} className="scroll-mt-20">
+            <Suspense fallback={<SectionFallback />}>
+              <Section />
+            </Suspense>
+          </section>
+        );
+      })}
     </>
   );
 };
@@ -127,6 +131,8 @@ const App = () => {
           </Suspense>
         )}
         
+        {location.pathname === "/" && <SectionNav />}
+
         <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
           <Navbar />
           <Suspense fallback={<div className="min-h-screen pt-20 text-center text-neutral-500">Loading...</div>}>

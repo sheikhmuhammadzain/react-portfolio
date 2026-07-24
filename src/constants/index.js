@@ -346,3 +346,15 @@ export const OPEN_CHAT_EVENT = "zain:open-chat";
 
 // Filename used for every resume download link.
 export const RESUME_FILENAME = "Muhammad_Zain_Resume.pdf";
+
+// Home-page sections in scroll order. Single source of truth for the section
+// anchors (App.jsx renders <section id>) and the sticky SectionNav.
+export const SECTIONS = [
+  { id: "about", label: "About" },
+  { id: "technologies", label: "Stack" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "projects", label: "Projects" },
+  { id: "certificates", label: "Certificates" },
+  { id: "contact", label: "Contact" },
+];
