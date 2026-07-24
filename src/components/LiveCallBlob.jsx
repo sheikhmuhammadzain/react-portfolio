@@ -58,6 +58,12 @@ const LiveCallBlob = () => {
 
       {showBall &&
         createPortal(
+          <>
+          {/* Invisible click shield: swallows accidental clicks on page content
+              during the call. Transparent on purpose - the agent scrolls the page
+              to show sections, so nothing may be dimmed or blurred. The input bar
+              (z-50) stays above it, keeping the end-call blob clickable. */}
+          <div className="fixed inset-0 z-40" aria-hidden="true" />
           <div className="pointer-events-none fixed inset-x-0 bottom-16 sm:bottom-24 z-40 flex flex-col items-center gap-1.5 sm:gap-2 px-4">
             {/* min() caps the ball on narrow phones so it never overflows the viewport */}
             <div className="voice-ball-pop h-[min(20rem,85vw)] w-[min(20rem,85vw)] sm:h-[32rem] sm:w-[32rem]">
@@ -68,7 +74,8 @@ const LiveCallBlob = () => {
             <p className="text-xs text-neutral-400 tracking-wide">
               {isLive ? (isSpeaking ? "Zain's Agent is speaking…" : "Listening…") : "Connecting…"}
             </p>
-          </div>,
+          </div>
+          </>,
           document.body,
         )}
     </>
