@@ -124,13 +124,14 @@ export const createLiveToken = async (req, res) => {
             // thinking cuts response latency substantially for chit-chat.
             thinkingConfig: { thinkingBudget: 0 },
             // Snappy turn-taking: detect end of speech aggressively and only
-            // wait 250ms of silence before replying (default is ~1s).
+            // wait 150ms of silence before replying (default is ~1s). If the
+            // agent starts cutting people off mid-pause, raise this first.
             realtimeInputConfig: {
               automaticActivityDetection: {
                 startOfSpeechSensitivity: "START_SENSITIVITY_HIGH",
                 endOfSpeechSensitivity: "END_SENSITIVITY_HIGH",
                 prefixPaddingMs: 20,
-                silenceDurationMs: 250,
+                silenceDurationMs: 150,
               },
             },
           },
