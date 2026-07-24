@@ -115,6 +115,17 @@ export default function useLiveCall() {
     setStatus("idle");
   }, [cleanup]);
 
+  // "Answer now": commit whatever the visitor has said so far so the agent
+  // replies immediately instead of waiting for the VAD silence window. The mic
+  // keeps streaming, which automatically reopens the audio stream after.
+  const forceReply = useCallback(() => {
+    try {
+      callRef.current.session?.sendRealtimeInput({ audioStreamEnd: true });
+    } catch {
+      /* session closing - ignore */
+    }
+  }, []);
+
   useEffect(() => cleanup, [cleanup]); // release mic on unmount
 
   const startCall = useCallback(async () => {
@@ -243,5 +254,5 @@ export default function useLiveCall() {
     }
   }, [cleanup]);
 
-  return { status, isSpeaking, startCall, endCall, getLevel };
+  return { status, isSpeaking, startCall, endCall, forceReply, getLevel };
 }

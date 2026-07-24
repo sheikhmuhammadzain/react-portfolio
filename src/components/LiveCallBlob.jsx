@@ -18,7 +18,7 @@ const TITLES = {
 // active, a large morphing 3D ball pops up above the input bar and reacts to
 // whoever is talking (visitor mic or agent audio).
 const LiveCallBlob = () => {
-  const { status, isSpeaking, startCall, endCall, getLevel } = useLiveCall();
+  const { status, isSpeaking, startCall, endCall, forceReply, getLevel } = useLiveCall();
   const isLive = status === "live";
   const showBall = isLive || status === "connecting";
   const title = TITLES[status];
@@ -66,13 +66,20 @@ const LiveCallBlob = () => {
           <div className="fixed inset-0 z-40" aria-hidden="true" />
           <div className="pointer-events-none fixed inset-x-0 bottom-16 sm:bottom-24 z-40 flex flex-col items-center gap-1.5 sm:gap-2 px-4">
             {/* min() caps the ball on narrow phones so it never overflows the viewport */}
-            <div className="voice-ball-pop h-[min(20rem,85vw)] w-[min(20rem,85vw)] sm:h-[32rem] sm:w-[32rem]">
+            {/* Tapping the ball commits the visitor's speech so the agent answers instantly */}
+            <button
+              type="button"
+              onClick={isLive ? forceReply : undefined}
+              title="Tap to make the agent answer now"
+              aria-label="Make the agent answer now"
+              className="voice-ball-pop pointer-events-auto h-[min(20rem,85vw)] w-[min(20rem,85vw)] sm:h-[32rem] sm:w-[32rem] cursor-pointer outline-none"
+            >
               <Suspense fallback={null}>
                 <AbstractBall getLevel={getLevel} />
               </Suspense>
-            </div>
+            </button>
             <p className="text-xs text-neutral-400 tracking-wide">
-              {isLive ? (isSpeaking ? "Zain's Agent is speaking…" : "Listening…") : "Connecting…"}
+              {isLive ? (isSpeaking ? "Zain's Agent is speaking…" : "Listening… tap the orb to get an answer") : "Connecting…"}
             </p>
           </div>
           </>,
