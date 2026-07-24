@@ -1,8 +1,9 @@
 import { GoogleGenAI } from "@google/genai"
 import { PROJECTS, ZAIN_CONTEXT_BLOCK } from "../config/chatContext.js"
 
-// Free-tier native-audio live model; override via env if Google renames it.
-const LIVE_MODEL = process.env.GEMINI_LIVE_MODEL || "gemini-2.5-flash-native-audio-preview-12-2025"
+// Half-cascade live model (free tier): lower time-to-first-audio than the
+// native-audio models, at the cost of a slightly more synthetic voice.
+const LIVE_MODEL = process.env.GEMINI_LIVE_MODEL || "gemini-3.1-flash-live-preview"
 
 const VOICE_SYSTEM_PROMPT = `
 You are "Zain's Agent", the live VOICE assistant on Muhammad Zain Afzal's portfolio website. You are speaking out loud with a visitor in real time.
