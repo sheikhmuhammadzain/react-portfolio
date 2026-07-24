@@ -8,7 +8,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LinkSquare02Icon } from "@hugeicons/core-free-icons";
-import freecodecampLogo from "../assets/freecodecamp.webp";
 
 const certificates = [
   { title: "Intro to AI Engineering", organization: "Scrimba", logo: "scrimba", date: "Mar 2025", credentialId: "4LFT2WY1XS0F", skills: [] },
@@ -31,7 +30,7 @@ const getLogo = (logo) => {
     case "scrimba": return <img src="https://images.squarespace-cdn.com/content/v1/670e19b4ec92287da728eb2b/861f1806-9999-4aa6-a116-ee67ea1cfce3/Scrimba.png" alt="Scrimba" className="h-full w-auto object-contain filter invert" />;
     case "google": return <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" className="h-9 w-auto object-contain" />;
     case "deeplearning": return <img src="https://learn.deeplearning.ai/assets/dlai-logo.png" alt="DeepLearning.AI" className="h-12 w-auto object-contain" />;
-    case "freecodecamp": return <img src={freecodecampLogo} alt="freeCodeCamp" className="h-11 w-auto object-contain filter invert" />;
+    case "freecodecamp": return <img src="https://cdn.simpleicons.org/freecodecamp/e5e5e5" alt="freeCodeCamp" className="h-10 w-auto object-contain" />;
     default: return <div className="h-full w-full rounded-sm bg-neutral-700" />;
   }
 };
@@ -84,12 +83,13 @@ const css = `
   .certs-swiper {
     width: 100%;
     padding-bottom: 3.5rem !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
   }
   .certs-swiper .swiper-slide {
     width: 380px;
     max-width: 85vw;
     height: 360px;
-    border-radius: 1.5rem;
     overflow: hidden;
   }
   .certs-swiper .swiper-pagination-bullet {
@@ -99,14 +99,20 @@ const css = `
   .certs-swiper .swiper-pagination-bullet-active {
     background-color: #e5e5e5 !important;
   }
-  .certs-swiper .swiper-button-next,
-  .certs-swiper .swiper-button-prev {
+  .cert-nav {
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    width: 2.75rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
     color: #a3a3a3;
-    transition: color 0.2s ease;
+    background: rgba(255, 255, 255, 0.04);
+    transition: color 0.2s ease, background-color 0.2s ease;
   }
-  .certs-swiper .swiper-button-next:hover,
-  .certs-swiper .swiper-button-prev:hover {
-    color: #e5e5e5;
+  .cert-nav:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.09);
   }
 `;
 
@@ -129,8 +135,13 @@ const Certificates = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="relative mx-auto w-full max-w-6xl px-2 sm:px-5"
+        className="relative mx-auto flex w-full max-w-6xl items-center justify-center gap-1 px-2 sm:gap-4 sm:px-4"
       >
+        {/* Arrows sit outside the deck as flex siblings so they never overlap the cards */}
+        <button type="button" aria-label="Previous certificate" className="cert-prev cert-nav hidden sm:flex">
+          <ChevronLeftIcon className="h-6 w-6" />
+        </button>
+
         <Swiper
           effect="coverflow"
           grabCursor
@@ -140,8 +151,8 @@ const Certificates = () => {
           spaceBetween={0}
           coverflowEffect={{ rotate: 40, stretch: 0, depth: 100, modifier: 1, slideShadows: true }}
           pagination={{ clickable: true }}
-          navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }}
-          className="certs-swiper"
+          navigation={{ nextEl: ".cert-next", prevEl: ".cert-prev" }}
+          className="certs-swiper min-w-0 flex-1"
           modules={[EffectCoverflow, Pagination, Navigation]}
         >
           {certificates.map((cert) => (
@@ -149,13 +160,11 @@ const Certificates = () => {
               <CertificateCard cert={cert} />
             </SwiperSlide>
           ))}
-          <div className="swiper-button-next after:hidden">
-            <ChevronRightIcon className="h-6 w-6" />
-          </div>
-          <div className="swiper-button-prev after:hidden">
-            <ChevronLeftIcon className="h-6 w-6" />
-          </div>
         </Swiper>
+
+        <button type="button" aria-label="Next certificate" className="cert-next cert-nav hidden sm:flex">
+          <ChevronRightIcon className="h-6 w-6" />
+        </button>
       </motion.div>
     </div>
   );
