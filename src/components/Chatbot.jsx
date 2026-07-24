@@ -25,6 +25,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const scrollRef = useRef(null);
+  const lastUserMsgRef = useRef(null);
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   // Resizable window. Anchored bottom-right; the handle sits in the top-left
@@ -69,10 +70,17 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
     messagesEndRef.current?.scrollIntoView({ behavior });
   };
 
-  // Scroll on open, and follow new content while streaming/thinking — but only
-  // if the user is already near the bottom, so scrolling up to read isn't yanked.
+  // When the visitor sends a message, pin it near the top so their question stays
+  // in view while the reply streams below it (ChatGPT-style). Otherwise, follow
+  // new streaming content to the bottom — but only if already near the bottom, so
+  // scrolling up to read isn't yanked.
   useEffect(() => {
     if (!isOpen) return;
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg?.role === "user") {
+      lastUserMsgRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     const el = scrollRef.current;
     const nearBottom = !el || el.scrollHeight - el.scrollTop - el.clientHeight < 120;
     if (nearBottom) scrollToBottom("auto");
@@ -311,10 +319,11 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
 
               {/* Messages */}
               <div ref={scrollRef} data-lenis-prevent className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-3 sm:p-4 space-y-3 sm:space-y-4 scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent bg-neutral-900">
-                {messages.map((msg, index) => (
+                {(() => { const lastUserIdx = messages.map((m) => m.role).lastIndexOf("user"); return messages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`flex ${
+                    ref={msg.role === "user" && index === lastUserIdx ? lastUserMsgRef : null}
+                    className={`flex scroll-mt-3 ${
                       msg.role === "user" ? "justify-end" : "justify-start"
                     }`}
                   >
@@ -374,7 +383,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                       )}
                     </div>
                   </div>
-                ))}
+                )); })()}
                 {isLoading && (
                   <div className="flex justify-start">
                     <div className="bg-neutral-800 rounded-2xl rounded-bl-md px-4 py-3">
