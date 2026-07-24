@@ -27,13 +27,13 @@ const AbstractBall = ({ getLevel }) => {
 
     const uniforms = {
       time: { value: 0 },
-      // Low random frequencies (the original values) - smooth large colour
-      // zones with a different character each call. Higher values speckle.
-      RGBr: { value: Math.random() },
-      RGBg: { value: Math.random() },
-      RGBb: { value: Math.random() },
-      RGBn: { value: Math.random() * 2 },
-      RGBm: { value: Math.random() * 5 },
+      // Mid frequencies fill the surface with colour (too low -> mostly black,
+      // too high -> speckle). Gentle RGBn/RGBm add a soft bright core.
+      RGBr: { value: 2.2 },
+      RGBg: { value: 1.7 },
+      RGBb: { value: 2.0 },
+      RGBn: { value: 0.05 },
+      RGBm: { value: 1.3 },
       morph: { value: BASE_MORPH },
       dnoise: { value: 0 },
       psize: { value: 1 },
