@@ -67,8 +67,8 @@ const Hero = () => {
                 >
                   <span className={BUTTON_INNER_CLASS} style={BUTTON_INNER_STYLE}>
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-neutral-300 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-neutral-400" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                     </span>
                     Talk to My Agent
                   </span>
