@@ -27,12 +27,14 @@ const AbstractBall = ({ getLevel }) => {
 
     const uniforms = {
       time: { value: 0 },
-      // Randomized per call so every conversation gets its own color character
-      RGBr: { value: Math.random() },
-      RGBg: { value: Math.random() },
-      RGBb: { value: Math.random() },
-      RGBn: { value: Math.random() * 2 },
-      RGBm: { value: Math.random() * 5 },
+      // Per-channel frequencies are randomized (and kept distinct) so every call
+      // gets its own vivid colour character. RGBn/RGBm stay small - they feed a
+      // luminance term added equally to R,G,B, so large values wash it to grey.
+      RGBr: { value: 2 + Math.random() * 5 },
+      RGBg: { value: 2 + Math.random() * 5 },
+      RGBb: { value: 2 + Math.random() * 5 },
+      RGBn: { value: 0.02 },
+      RGBm: { value: 1 },
       morph: { value: BASE_MORPH },
       dnoise: { value: 0 },
       psize: { value: 1 },
