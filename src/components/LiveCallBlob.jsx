@@ -56,10 +56,10 @@ const LiveCallBlob = () => {
         <span className="siri-blob-layer siri-blob-b" />
         <span className="siri-blob-layer siri-blob-c" />
         {status === "connecting" && (
-          <span className="absolute inset-0 rounded-full border-2 border-neutral-200/70 border-t-transparent animate-spin" />
+          <span className="absolute inset-0 z-10 rounded-full border-2 border-white/80 border-t-transparent animate-spin" />
         )}
         {status === "error" && (
-          <span className="absolute inset-0 rounded-full ring-2 ring-inset ring-red-500/70" />
+          <span className="absolute inset-0 z-10 rounded-full ring-2 ring-inset ring-red-500/80" />
         )}
       </button>
 

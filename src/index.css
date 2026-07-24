@@ -296,46 +296,76 @@ body:hover::-webkit-scrollbar {
   transition: transform 0.45s ease-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* Siri-style live-call blob: three drifting gradient layers inside a circle */
+/* Glossy 3D Siri-style orb: a shaded glass sphere with iridescent colour
+   blobs drifting inside, a specular highlight, and a coloured rim glow. */
 .siri-blob {
-  background: #131316;
+  /* Sphere body: lit from top-left, shading to near-black at the bottom */
+  background: radial-gradient(circle at 38% 32%, #26262e 0%, #141418 55%, #08080b 100%);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 0 16px rgba(139, 92, 246, 0.4);
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(139, 92, 246, 0.45);
 }
 
 .siri-blob[data-live="true"] {
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.12) inset,
-    0 0 28px rgba(139, 92, 246, 0.7);
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(139, 92, 246, 0.8);
 }
 
+/* Iridescent colour core */
 .siri-blob-layer {
   position: absolute;
-  inset: 8%;
+  inset: 6%;
   border-radius: 50%;
-  filter: blur(5px);
-  opacity: 0.85;
+  filter: blur(6px) saturate(1.6);
+  opacity: 0.9;
   mix-blend-mode: screen;
   animation: blob-drift 5s ease-in-out infinite;
+  z-index: 1;
 }
 
-/* RGB iridescent gradient layers */
 .siri-blob-a {
-  background: radial-gradient(closest-side at 30% 35%, #6366f1, transparent 72%);
+  background: radial-gradient(closest-side at 30% 32%, #6366f1 0%, #3b82f6 45%, transparent 74%);
 }
 
 .siri-blob-b {
-  background: radial-gradient(closest-side at 70% 60%, #ec4899, transparent 72%);
+  background: radial-gradient(closest-side at 72% 58%, #ec4899 0%, #d946ef 45%, transparent 74%);
   animation-duration: 6s;
   animation-delay: -2s;
   animation-direction: reverse;
 }
 
 .siri-blob-c {
-  background: radial-gradient(closest-side at 50% 80%, #22d3ee, transparent 72%);
+  background: radial-gradient(closest-side at 50% 82%, #22d3ee 0%, #2dd4bf 45%, transparent 74%);
   animation-duration: 7s;
   animation-delay: -4s;
+}
+
+/* Inner rim shadow - gives the sphere volume and edge falloff */
+.siri-blob::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 -5px 9px rgba(0, 0, 0, 0.6),
+    inset 0 3px 6px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Specular glass highlight, top-left */
+.siri-blob::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 33% 25%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 38%),
+    radial-gradient(circle at 68% 78%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 30%);
+  z-index: 3;
+  pointer-events: none;
 }
 
 .siri-blob[data-live="true"] .siri-blob-layer {
