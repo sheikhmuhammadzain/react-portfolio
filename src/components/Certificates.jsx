@@ -90,6 +90,7 @@ const css = `
     width: 380px;
     max-width: 85vw;
     height: 360px;
+    border-radius: 1.5rem;
     overflow: hidden;
   }
   .certs-swiper .swiper-pagination-bullet {
