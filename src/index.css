@@ -222,10 +222,8 @@ body:hover::-webkit-scrollbar {
   animation: hero-fade-left 0.5s ease-out both;
 }
 
-/* Sticky right-edge section nav with native CSS scroll-spy.
-   scroll-target-group makes the browser apply :target-current to the link whose
-   section is scrolled into view - zero JS. Unsupported browsers still get a
-   working nav (links scroll); they just don't get the active highlight. */
+/* Sticky right-edge section nav. Active section tracked via IntersectionObserver
+   (SectionNav.jsx), which adds .is-active to the matching link. */
 .section-nav {
   position: fixed;
   right: 1.25rem;
@@ -234,7 +232,6 @@ body:hover::-webkit-scrollbar {
   z-index: 30;
   flex-direction: column;
   gap: 0.85rem;
-  scroll-target-group: auto;
 }
 
 .section-nav__link {
@@ -274,13 +271,13 @@ body:hover::-webkit-scrollbar {
   background: #a3a3a3;
 }
 
-/* Active section (Chrome scroll-spy) */
-.section-nav__link:target-current .section-nav__dash {
+/* Active section */
+.section-nav__link.is-active .section-nav__dash {
   width: 34px;
   background: #c084fc;
 }
 
-.section-nav__link:target-current .section-nav__label {
+.section-nav__link.is-active .section-nav__label {
   opacity: 1;
   transform: none;
   color: #e5e5e5;
