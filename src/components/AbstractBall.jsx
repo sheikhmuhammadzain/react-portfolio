@@ -27,14 +27,13 @@ const AbstractBall = ({ getLevel }) => {
 
     const uniforms = {
       time: { value: 0 },
-      // Siri-like pink / teal / blue triad with a bright core. These are the
-      // curated default frequencies from the original component (distinct enough
-      // for the three colour zones, harmonious rather than a random rainbow).
-      RGBr: { value: 7.5 },
-      RGBg: { value: 5.0 },
-      RGBb: { value: 7.0 },
-      RGBn: { value: 0.01 },
-      RGBm: { value: 1 },
+      // Low random frequencies (the original values) - smooth large colour
+      // zones with a different character each call. Higher values speckle.
+      RGBr: { value: Math.random() },
+      RGBg: { value: Math.random() },
+      RGBb: { value: Math.random() },
+      RGBn: { value: Math.random() * 2 },
+      RGBm: { value: Math.random() * 5 },
       morph: { value: BASE_MORPH },
       dnoise: { value: 0 },
       psize: { value: 1 },

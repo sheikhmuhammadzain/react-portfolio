@@ -1,25 +1,27 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import SectionNav from "./components/SectionNav";
 import ScrollToTop from "./components/ScrollToTop";
+import { lazyWithRetry } from "./utils/lazyWithRetry";
 import { OPEN_CHAT_EVENT, SECTIONS } from "./constants";
 
-// Lazy load components below the fold
-const About = lazy(() => import("./components/About"));
-const Technologies = lazy(() => import("./components/Technologies"));
-const Experience = lazy(() => import("./components/Experience"));
-const Education = lazy(() => import("./components/Education"));
-const Projects = lazy(() => import("./components/Projects"));
-const Certificates = lazy(() => import("./components/Certificates"));
-const Contact = lazy(() => import("./components/Contact"));
-const Blogs = lazy(() => import("./pages/Blogs"));
-const BlogDetail = lazy(() => import("./pages/BlogDetail"));
-const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const Login = lazy(() => import("./pages/Login"));
-const Chatbot = lazy(() => import("./components/Chatbot"));
-const CommandPalette = lazy(() => import("./components/CommandPalette"));
+// Lazy load components below the fold (lazyWithRetry auto-recovers a failed
+// chunk load instead of leaving a blank page - common on mobile / after deploys)
+const About = lazyWithRetry(() => import("./components/About"));
+const Technologies = lazyWithRetry(() => import("./components/Technologies"));
+const Experience = lazyWithRetry(() => import("./components/Experience"));
+const Education = lazyWithRetry(() => import("./components/Education"));
+const Projects = lazyWithRetry(() => import("./components/Projects"));
+const Certificates = lazyWithRetry(() => import("./components/Certificates"));
+const Contact = lazyWithRetry(() => import("./components/Contact"));
+const Blogs = lazyWithRetry(() => import("./pages/Blogs"));
+const BlogDetail = lazyWithRetry(() => import("./pages/BlogDetail"));
+const AdminDashboard = lazyWithRetry(() => import("./pages/AdminDashboard"));
+const Login = lazyWithRetry(() => import("./pages/Login"));
+const Chatbot = lazyWithRetry(() => import("./components/Chatbot"));
+const CommandPalette = lazyWithRetry(() => import("./components/CommandPalette"));
 const CustomContextMenu = lazy(() => import("./components/CustomContextMenu"));
 
 let isGoogleAnalyticsReady = false;
