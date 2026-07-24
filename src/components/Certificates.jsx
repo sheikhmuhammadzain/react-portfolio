@@ -1,21 +1,21 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LinkSquare02Icon } from "@hugeicons/core-free-icons";
 import freecodecampLogo from "../assets/freecodecamp.webp";
-
-const SCALE_STEP = 0.04; // each card buried scales down by this much
-
-const prefersReducedMotion =
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const certificates = [
   { title: "Intro to AI Engineering", organization: "Scrimba", logo: "scrimba", date: "Mar 2025", credentialId: "4LFT2WY1XS0F", skills: [] },
   { title: "Learn AI Agents", organization: "Scrimba", logo: "scrimba", date: "Mar 2025", credentialId: "EJS513JTFG8J", skills: ["AI", "Python"] },
   { title: "Crash Course on Python", organization: "Google", logo: "google", date: "Feb 2025", credentialId: "1L69KG93RRQK", skills: ["Python"] },
   { title: "Generative AI for Software Development", organization: "DeepLearning.AI", logo: "deeplearning", date: "Feb 2025", credentialId: "K1BJJAR8566G", skills: [] },
-  { title: "Introduction to Generative AI for Software Development", organization: "DeepLearning.AI", logo: "deeplearning", date: "Jan 2025", credentialId: "X32R8PPX1S70", skills: ["Python"] },
+  { title: "Intro to Generative AI for Software Dev", organization: "DeepLearning.AI", logo: "deeplearning", date: "Jan 2025", credentialId: "X32R8PPX1S70", skills: ["Python"] },
   { title: "Team Software Engineering with AI", organization: "DeepLearning.AI", logo: "deeplearning", date: "Jan 2025", credentialId: "", skills: ["AI", "Machine Learning"] },
   { title: "Responsive Web Design", organization: "freeCodeCamp", logo: "freecodecamp", date: "Jul 2024", credentialId: "sheikhmuhammadzain-rwd", skills: ["CSS"] },
 ];
@@ -39,26 +39,26 @@ const getLogo = (logo) => {
 const CertificateCard = ({ cert }) => {
   const url = getCredentialUrl(cert.credentialId, cert.organization);
   return (
-    <div className="flex h-[360px] flex-col overflow-hidden rounded-2xl border border-neutral-700/50 bg-neutral-900 shadow-2xl">
-      <div className="flex h-28 shrink-0 items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900 p-6">
-        <div className="h-12 w-auto">{getLogo(cert.logo)}</div>
+    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-700/50 bg-neutral-900">
+      <div className="flex h-24 shrink-0 items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900 p-5">
+        <div className="h-11 w-auto">{getLogo(cert.logo)}</div>
       </div>
-      <div className="flex flex-1 flex-col p-6 sm:p-8">
-        <h3 className="mb-1 text-lg font-semibold text-neutral-100 sm:text-xl">{cert.title}</h3>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="mb-1 text-base font-semibold leading-snug text-neutral-100">{cert.title}</h3>
         <p className="text-sm font-medium text-neutral-300">{cert.organization}</p>
-        <p className="mb-4 text-xs text-neutral-500">Issued {cert.date}</p>
+        <p className="mb-3 text-xs text-neutral-500">Issued {cert.date}</p>
 
         {cert.skills.length > 0 && (
-          <div className="mb-4 flex flex-wrap gap-2">
+          <div className="mb-3 flex flex-wrap gap-2">
             {cert.skills.map((skill) => (
-              <span key={skill} className="rounded-full bg-neutral-800 px-3 py-1 text-xs font-medium text-purple-400">
+              <span key={skill} className="rounded-full bg-neutral-800 px-2.5 py-1 text-xs font-medium text-purple-400">
                 {skill}
               </span>
             ))}
           </div>
         )}
 
-        <div className="mt-auto border-t border-neutral-700/50 pt-4">
+        <div className="mt-auto border-t border-neutral-700/50 pt-3">
           {url !== "#" ? (
             <a
               href={url}
@@ -66,11 +66,11 @@ const CertificateCard = ({ cert }) => {
               rel="noopener noreferrer"
               className="inline-flex items-center text-sm text-neutral-400 transition-colors hover:text-purple-400"
             >
-              <HugeiconsIcon icon={LinkSquare02Icon} size={16} strokeWidth={1.8} className="mr-2 shrink-0" />
+              <HugeiconsIcon icon={LinkSquare02Icon} size={15} strokeWidth={1.8} className="mr-1.5 shrink-0" />
               Show credential
             </a>
           ) : cert.credentialId ? (
-            <p className="text-xs text-neutral-500">Credential ID: {cert.credentialId}</p>
+            <p className="text-xs text-neutral-500">ID: {cert.credentialId}</p>
           ) : (
             <span className="text-xs italic text-neutral-600">No credential link</span>
           )}
@@ -80,33 +80,31 @@ const CertificateCard = ({ cert }) => {
   );
 };
 
-// Sticky card that pins to the top and scales down as the next card scrolls over
-// it, building a stacked deck. Adapted from Skiper UI's StickyCard_003.
-const StickyCard = ({ cert, index, total }) => {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start end", "start start"],
-  });
-  // Cards further down the stack (lower index) end up smaller; the top card stays 1.
-  const targetScale = 1 - (total - 1 - index) * SCALE_STEP;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
-
-  return (
-    <div ref={container} className="sticky top-0 flex h-screen items-center justify-center">
-      <motion.div
-        style={{ scale, top: `calc(-4vh + ${index * 20}px)` }}
-        className="relative w-full max-w-2xl"
-      >
-        <CertificateCard cert={cert} />
-      </motion.div>
-    </div>
-  );
-};
+const css = `
+  .certs-swiper {
+    width: 100%;
+    padding-bottom: 3rem !important;
+  }
+  .certs-swiper .swiper-slide {
+    width: 300px;
+    height: 340px;
+  }
+  .certs-swiper .swiper-pagination-bullet {
+    background-color: #737373 !important;
+  }
+  .certs-swiper .swiper-pagination-bullet-active {
+    background-color: #c084fc !important;
+  }
+  .certs-swiper .swiper-button-next,
+  .certs-swiper .swiper-button-prev {
+    color: #e5e5e5;
+  }
+`;
 
 const Certificates = () => {
   return (
     <div className="border-b border-neutral-800/50 pb-24">
+      <style>{css}</style>
       <motion.h2
         initial={{ opacity: 0, y: -40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -117,20 +115,39 @@ const Certificates = () => {
         Certificates
       </motion.h2>
 
-      {prefersReducedMotion ? (
-        // Static, readable fallback - no scroll-driven motion
-        <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="relative mx-auto w-full max-w-4xl px-5"
+      >
+        <Swiper
+          effect="coverflow"
+          grabCursor
+          centeredSlides
+          loop
+          slidesPerView="auto"
+          spaceBetween={0}
+          coverflowEffect={{ rotate: 40, stretch: 0, depth: 100, modifier: 1, slideShadows: true }}
+          pagination={{ clickable: true }}
+          navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }}
+          className="certs-swiper"
+          modules={[EffectCoverflow, Pagination, Navigation]}
+        >
           {certificates.map((cert) => (
-            <CertificateCard key={cert.title} cert={cert} />
+            <SwiperSlide key={cert.title}>
+              <CertificateCard cert={cert} />
+            </SwiperSlide>
           ))}
-        </div>
-      ) : (
-        <div className="px-4">
-          {certificates.map((cert, index) => (
-            <StickyCard key={cert.title} cert={cert} index={index} total={certificates.length} />
-          ))}
-        </div>
-      )}
+          <div className="swiper-button-next after:hidden">
+            <ChevronRightIcon className="h-6 w-6" />
+          </div>
+          <div className="swiper-button-prev after:hidden">
+            <ChevronLeftIcon className="h-6 w-6" />
+          </div>
+        </Swiper>
+      </motion.div>
     </div>
   );
 };

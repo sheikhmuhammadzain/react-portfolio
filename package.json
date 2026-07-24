@@ -37,6 +37,7 @@
     "react-syntax-highlighter": "^16.1.0",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
+    "swiper": "^14.0.6",
     "three": "^0.185.1"
   },
   "devDependencies": {
