@@ -27,13 +27,12 @@ const AbstractBall = ({ getLevel }) => {
 
     const uniforms = {
       time: { value: 0 },
-      // Per-channel frequencies are randomized (and kept distinct) so every call
-      // gets its own vivid colour character. RGBn/RGBm stay small - they feed a
-      // luminance term added equally to R,G,B, so large values wash it to grey.
-      RGBr: { value: 2 + Math.random() * 5 },
-      RGBg: { value: 2 + Math.random() * 5 },
-      RGBb: { value: 2 + Math.random() * 5 },
-      RGBn: { value: 0.02 },
+      // Low, close-together channel frequencies give a smooth cohesive blend
+      // (the original Skiper values) instead of a clashing rainbow.
+      RGBr: { value: 0.75 },
+      RGBg: { value: 0.5 },
+      RGBb: { value: 0.7 },
+      RGBn: { value: 0.01 },
       RGBm: { value: 1 },
       morph: { value: BASE_MORPH },
       dnoise: { value: 0 },
