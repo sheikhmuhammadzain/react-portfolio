@@ -51,7 +51,7 @@ const CertificateCard = ({ cert }) => {
         {cert.skills.length > 0 && (
           <div className="mb-4 flex flex-wrap gap-2">
             {cert.skills.map((skill) => (
-              <span key={skill} className="rounded-full bg-neutral-800/80 px-3 py-1 text-xs font-medium text-purple-300">
+              <span key={skill} className="rounded-full bg-neutral-800/80 px-3 py-1 text-xs font-medium text-neutral-200">
                 {skill}
               </span>
             ))}
@@ -64,7 +64,7 @@ const CertificateCard = ({ cert }) => {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-sm text-neutral-400 transition-colors hover:text-purple-300"
+              className="inline-flex items-center text-sm text-neutral-400 transition-colors hover:text-neutral-200"
             >
               <HugeiconsIcon icon={LinkSquare02Icon} size={15} strokeWidth={1.8} className="mr-1.5 shrink-0" />
               Show credential
@@ -97,7 +97,7 @@ const css = `
     opacity: 1;
   }
   .certs-swiper .swiper-pagination-bullet-active {
-    background-color: #c084fc !important;
+    background-color: #e5e5e5 !important;
   }
   .certs-swiper .swiper-button-next,
   .certs-swiper .swiper-button-prev {

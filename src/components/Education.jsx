@@ -58,7 +58,7 @@ const Education = () => {
                   loading="lazy"
                   className="h-14 w-auto max-w-[180px] object-contain"
                 />
-                <span className="rounded bg-neutral-800/80 px-2 py-1 text-xs font-medium text-purple-400 shadow-sm">
+                <span className="rounded bg-neutral-800/80 px-2 py-1 text-xs font-medium text-neutral-300 shadow-sm">
                   {item.grade}
                 </span>
               </h3>

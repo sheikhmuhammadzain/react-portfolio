@@ -102,7 +102,7 @@ const CustomContextMenu = ({ openChat }) => {
                 onClick={() => handleAction(() => navigate("/blogs"))} 
             />
             <ContextMenuItem 
-                icon={<HugeiconsIcon icon={Message01Icon} size={16} strokeWidth={1.8} className="text-cyan-400" />}
+                icon={<HugeiconsIcon icon={Message01Icon} size={16} strokeWidth={1.8} className="text-neutral-300" />}
                 label="Chat with Zain" 
                 onClick={() => handleAction(openChat)} 
                 highlight
@@ -163,7 +163,7 @@ const ContextMenuItem = ({ icon, label, onClick, highlight }) => (
     onClick={onClick}
     className={`w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-150 group text-left ${
         highlight 
-        ? 'bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20' 
+        ? 'bg-neutral-400/10 text-neutral-300 hover:bg-neutral-400/20' 
         : 'text-neutral-300 hover:bg-neutral-800 hover:text-white hover:translate-x-1'
     }`}
   >

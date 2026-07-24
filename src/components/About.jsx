@@ -49,7 +49,7 @@ const About = () => {
               <ul className="space-y-1 ml-4">
                 {bulletLines.map((bullet, index) => (
                   <li key={index} className="flex items-start">
-                    <span className="text-purple-400 mr-2 mt-0.5 text-xs">•</span>
+                    <span className="text-neutral-300 mr-2 mt-0.5 text-xs">•</span>
                     <span className="text-sm font-light leading-tight">{bullet}</span>
                   </li>
                 ))}

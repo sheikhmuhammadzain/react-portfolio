@@ -29,7 +29,7 @@ const Login = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded bg-neutral-800 p-2 text-white outline-none focus:ring-1 focus:ring-purple-500"
+              className="w-full rounded bg-neutral-800 p-2 text-white outline-none focus:ring-1 focus:ring-neutral-400"
               required
             />
           </div>
@@ -39,13 +39,13 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded bg-neutral-800 p-2 text-white outline-none focus:ring-1 focus:ring-purple-500"
+              className="w-full rounded bg-neutral-800 p-2 text-white outline-none focus:ring-1 focus:ring-neutral-400"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full rounded bg-purple-600 py-2 font-semibold text-white transition hover:bg-purple-700"
+            className="w-full rounded bg-neutral-700 py-2 font-semibold text-white transition hover:bg-neutral-600"
           >
             Login
           </button>

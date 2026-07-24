@@ -90,10 +90,10 @@ const Projects = () => {
           {/* Tilt lives on a child of the motion.div so the two never fight over `transform` */}
           <TiltCard
             className="
-              group relative flex h-full flex-col overflow-hidden rounded-lg
-              border border-neutral-700/50 bg-neutral-900
-              shadow-md
-              hover:border-neutral-600 hover:shadow-xl hover:shadow-purple-900/20
+              group relative flex h-full flex-col overflow-hidden rounded-2xl
+              bg-neutral-900/90
+              shadow-lg shadow-black/20 transition-shadow duration-300
+              hover:shadow-xl hover:shadow-neutral-800/20
             "
           >
             {/* Image Section */}
@@ -129,7 +129,7 @@ const Projects = () => {
                 {project.technologies.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="rounded-full bg-neutral-800 px-3 py-1 text-xs font-medium text-purple-400 shadow-sm"
+                    className="rounded-full bg-neutral-800/80 px-3 py-1 text-xs font-medium text-neutral-200"
                   >
                     {tech}
                   </span>
@@ -137,13 +137,13 @@ const Projects = () => {
               </div>
 
                {/* Links - Placed at the bottom */}
-              <div className="mt-auto flex items-center justify-start gap-4 border-t border-neutral-700/50 pt-4">
+              <div className="mt-auto flex items-center justify-start gap-4 pt-4">
                 {project.githubLink && (
                   <a
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-purple-400"
+                    className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-neutral-300"
                     aria-label={`${project.title} GitHub Repository`}
                   >
                     <HugeiconsIcon icon={GithubIcon} size={20} strokeWidth={1.8} className="mr-2 shrink-0" />
@@ -155,7 +155,7 @@ const Projects = () => {
                     href={project.liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-purple-400"
+                    className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-neutral-300"
                      aria-label={`${project.title} Live Demo`}
                   >
                     <HugeiconsIcon icon={LinkSquare02Icon} size={16} strokeWidth={1.8} className="mr-2 shrink-0" />
@@ -165,7 +165,7 @@ const Projects = () => {
                 {project.blogLink && (
                   <Link
                     to={project.blogLink}
-                    className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-purple-400"
+                    className="flex items-center text-neutral-400 transition-colors duration-200 hover:text-neutral-300"
                     aria-label={`${project.title} Blog`}
                   >
                     <span className="text-sm">Read Blog</span>

@@ -49,7 +49,7 @@ const BlogDetail = () => {
     return (
       <div className="text-center mt-20">
         <p className="text-neutral-400">Blog not found.</p>
-        <Link to="/blogs" className="text-purple-400 hover:underline">Back to Blogs</Link>
+        <Link to="/blogs" className="text-neutral-300 hover:underline">Back to Blogs</Link>
       </div>
     );
   }
@@ -85,7 +85,7 @@ const BlogDetail = () => {
     ul: (props) => <ul {...props} className="list-disc ml-5 mb-5 text-neutral-400 leading-7 marker:text-neutral-600" />,
     ol: (props) => <ol {...props} className="list-decimal ml-5 mb-5 text-neutral-400 leading-7 marker:text-neutral-600" />,
     li: (props) => <li {...props} className="mb-1.5 pl-1" />,
-    a: (props) => <a {...props} className="text-purple-300 decoration-purple-300/30 underline underline-offset-4 hover:text-purple-200 transition-colors" target="_blank" rel="noopener noreferrer" />,
+    a: (props) => <a {...props} className="text-neutral-200 decoration-neutral-200/30 underline underline-offset-4 hover:text-neutral-200 transition-colors" target="_blank" rel="noopener noreferrer" />,
     blockquote: (props) => <blockquote {...props} className="border-l-2 border-neutral-700 pl-4 my-6 text-neutral-500" />,
     hr: () => <hr className="border-neutral-800 my-10" />,
   };

@@ -273,13 +273,13 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                 className="hidden sm:block absolute top-0 left-0 z-20 h-4 w-4 cursor-nwse-resize group"
                 aria-label="Resize chat"
               >
-                <div className="absolute top-1.5 left-1.5 h-2 w-2 border-l-2 border-t-2 border-neutral-600 group-hover:border-purple-400 transition-colors" />
+                <div className="absolute top-1.5 left-1.5 h-2 w-2 border-l-2 border-t-2 border-neutral-600 group-hover:border-neutral-300 transition-colors" />
               </div>
               {/* Header */}
               <div className="flex items-center justify-between px-3 py-2.5 sm:p-4 bg-neutral-900">
                 <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                   <div className="relative shrink-0">
-                    <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-purple-900/30 text-purple-400 overflow-hidden">
+                    <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-neutral-800/30 text-neutral-300 overflow-hidden">
                         <img src={chatIcon} alt="Chat" className="w-full h-full object-contain p-1" />
                     </div>
                   </div>
@@ -303,7 +303,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     href={resume}
                     download={RESUME_FILENAME}
                     onClick={(e) => { e.preventDefault(); downloadResume(); }}
-                    className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-purple-400 transition-colors"
+                    className="rounded-full p-1.5 sm:p-2 text-neutral-400 hover:bg-neutral-800 hover:text-neutral-300 transition-colors"
                     title="Download Resume"
                   >
                     <HugeiconsIcon icon={Download04Icon} size={16} strokeWidth={1.8} />
@@ -330,7 +330,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     <div
                       className={`max-w-[85%] min-w-0 break-words overflow-hidden rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-purple-600 text-white rounded-br-md"
+                          ? "bg-neutral-700 text-white rounded-br-md"
                           : "bg-neutral-800 text-neutral-200 rounded-bl-md"
                       }`}
                     >
@@ -339,7 +339,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                           {msg.reasoning && msg.reasoning.trim() && (
                             <details className="not-prose mb-2 rounded-lg bg-neutral-900/60 group">
                               <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-2 text-xs text-neutral-400 hover:text-neutral-200 transition-colors select-none">
-                                <HugeiconsIcon icon={Brain02Icon} className="text-purple-400/80" size={13} strokeWidth={1.8} />
+                                <HugeiconsIcon icon={Brain02Icon} className="text-neutral-300/80" size={13} strokeWidth={1.8} />
                                 <span className="font-medium">
                                   {msg.content ? "Reasoning" : "Thinking…"}
                                 </span>
@@ -355,7 +355,7 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                             rehypePlugins={[rehypeRaw]}
                             components={{
                               a: (props) => (
-                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-white underline break-all" />
+                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-neutral-200 hover:text-white underline break-all" />
                               ),
                               p: (props) => <p {...props} className="mb-2 leading-relaxed" />,
                               ul: (props) => <ul {...props} className="list-disc ml-4 mb-2" />,
@@ -406,12 +406,12 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your question..."
-                    className="flex-1 min-w-0 rounded-full bg-neutral-800 px-3 sm:px-4 py-2 sm:py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-purple-500/40 transition-all"
+                    className="flex-1 min-w-0 rounded-full bg-neutral-800 px-3 sm:px-4 py-2 sm:py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-400/40 transition-all"
                   />
                   <button
                     type="submit"
                     disabled={isLoading || !input.trim()}
-                    className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-purple-600 text-white transition-all hover:bg-purple-500 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:bg-purple-600"
+                    className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-neutral-700 text-white transition-all hover:bg-neutral-400 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:bg-neutral-700"
                   >
                     <HugeiconsIcon icon={SentIcon} size={16} strokeWidth={1.8} />
                   </button>
@@ -432,14 +432,14 @@ const Chatbot = ({ isOpen, setIsOpen }) => {
             className="w-full h-full"
           >
             {isOpen ? (
-              <div className="flex h-full w-full items-center justify-center bg-purple-600 rounded-full shadow-[0_0_15px_rgba(147,51,234,0.5)]">
+              <div className="flex h-full w-full items-center justify-center bg-neutral-700 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]">
                 <HugeiconsIcon icon={Cancel01Icon} className="text-white" size={24} strokeWidth={2} />
               </div>
             ) : (
                 <motion.img 
                   src={chatIcon} 
                   alt="Chat" 
-                  className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(168,85,247,0.8)] drop-shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all duration-300 group-hover:drop-shadow-[0_0_40px_rgba(168,85,247,0.8)]" 
+                  className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] drop-shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all duration-300 group-hover:drop-shadow-[0_0_40px_rgba(255,255,255,0.8)]" 
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 />

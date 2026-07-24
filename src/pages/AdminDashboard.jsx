@@ -337,7 +337,7 @@ const AdminDashboard = () => {
           {String(children).replace(/\n$/, '')}
         </SyntaxHighlighter>
       ) : (
-        <code className={`${className} bg-neutral-800 px-1 py-0.5 rounded text-sm text-cyan-300`} {...props}>
+        <code className={`${className} bg-neutral-800 px-1 py-0.5 rounded text-sm text-neutral-200`} {...props}>
           {children}
         </code>
       );
@@ -345,15 +345,15 @@ const AdminDashboard = () => {
     img: (props) => (
         <img {...props} className="rounded-lg shadow-lg my-6 max-h-[400px] w-auto mx-auto border border-neutral-800" />
     ),
-    h1: (props) => <h1 {...props} className="text-3xl font-bold mt-6 mb-4 text-cyan-50" />,
-    h2: (props) => <h2 {...props} className="text-2xl font-semibold mt-5 mb-3 text-cyan-100" />,
-    h3: (props) => <h3 {...props} className="text-xl font-medium mt-4 mb-2 text-cyan-200" />,
+    h1: (props) => <h1 {...props} className="text-3xl font-bold mt-6 mb-4 text-neutral-100" />,
+    h2: (props) => <h2 {...props} className="text-2xl font-semibold mt-5 mb-3 text-neutral-100" />,
+    h3: (props) => <h3 {...props} className="text-xl font-medium mt-4 mb-2 text-neutral-200" />,
     p: (props) => <p {...props} className="mb-4 text-neutral-300 leading-relaxed" />,
     ul: (props) => <ul {...props} className="list-disc ml-6 mb-4 text-neutral-300" />,
     ol: (props) => <ol {...props} className="list-decimal ml-6 mb-4 text-neutral-300" />,
     li: (props) => <li {...props} className="mb-1" />,
-    a: (props) => <a {...props} className="text-cyan-400 hover:text-cyan-300 underline" target="_blank" rel="noopener noreferrer" />,
-    blockquote: (props) => <blockquote {...props} className="border-l-4 border-cyan-500 pl-4 italic my-4 text-neutral-400 bg-neutral-800/50 p-2 rounded-r" />,
+    a: (props) => <a {...props} className="text-neutral-300 hover:text-neutral-200 underline" target="_blank" rel="noopener noreferrer" />,
+    blockquote: (props) => <blockquote {...props} className="border-l-4 border-neutral-400 pl-4 italic my-4 text-neutral-400 bg-neutral-800/50 p-2 rounded-r" />,
   };
 
   if (!isAuthorized) {
@@ -390,13 +390,13 @@ const AdminDashboard = () => {
                         value={aiPrompt}
                         onChange={(e) => setAiPrompt(e.target.value)}
                         placeholder="e.g., 'A guide to using React Server Components for beginners'..."
-                        className="w-full bg-neutral-950 border border-neutral-800 rounded p-4 text-white focus:border-purple-500 focus:outline-none h-32 mb-4 resize-none"
+                        className="w-full bg-neutral-950 border border-neutral-800 rounded p-4 text-white focus:border-neutral-400 focus:outline-none h-32 mb-4 resize-none"
                         autoFocus
                     />
                     <button 
                         type="submit" 
                         disabled={isGenerating}
-                        className="w-full bg-purple-600 text-white font-medium py-3 rounded hover:bg-purple-500 transition-colors disabled:opacity-50 flex justify-center items-center gap-2"
+                        className="w-full bg-neutral-700 text-white font-medium py-3 rounded hover:bg-neutral-400 transition-colors disabled:opacity-50 flex justify-center items-center gap-2"
                     >
                         {isGenerating ? (
                             <>
@@ -435,7 +435,7 @@ const AdminDashboard = () => {
                         value={imgPrompt}
                         onChange={(e) => setImgPrompt(e.target.value)}
                         placeholder="Describe your image (e.g., 'Retro cyberpunk city with neon lights')..."
-                        className="w-full bg-neutral-950 border border-neutral-800 rounded p-4 text-white focus:border-purple-500 focus:outline-none h-24 mb-4 resize-none"
+                        className="w-full bg-neutral-950 border border-neutral-800 rounded p-4 text-white focus:border-neutral-400 focus:outline-none h-24 mb-4 resize-none"
                     />
                     
                     {generatedImage && (
@@ -468,7 +468,7 @@ const AdminDashboard = () => {
                             <button 
                                 type="button"
                                 onClick={confirmImage}
-                                className="flex-1 bg-purple-600 text-white font-medium py-3 rounded hover:bg-purple-500 transition-colors"
+                                className="flex-1 bg-neutral-700 text-white font-medium py-3 rounded hover:bg-neutral-400 transition-colors"
                             >
                                 Use This Image
                             </button>
@@ -491,7 +491,7 @@ const AdminDashboard = () => {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Enter an engaging title..."
-                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-neutral-400 transition-colors"
                 required
               />
             </div>
@@ -504,7 +504,7 @@ const AdminDashboard = () => {
                 value={formData.image}
                 onChange={handleChange}
                 placeholder="https://..."
-                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-neutral-400 transition-colors"
               />
               <button 
                 type="button"
@@ -513,7 +513,7 @@ const AdminDashboard = () => {
                     setShowImgModal(true);
                 }}
                 disabled={isImgGenerating}
-                className="mt-2 text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1"
+                className="mt-2 text-xs text-neutral-300 hover:text-neutral-200 flex items-center gap-1"
               >
                   {isImgGenerating ? (
                       <>Generating Image...</>
@@ -533,7 +533,7 @@ const AdminDashboard = () => {
                     value={formData.tags}
                     onChange={handleChange}
                     placeholder="react, ai, tutorial"
-                    className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-purple-500 transition-colors"
+                    className="w-full bg-neutral-900 border border-neutral-800 text-white p-3 rounded focus:outline-none focus:border-neutral-400 transition-colors"
                 />
             </div>
           </div>
@@ -570,7 +570,7 @@ const AdminDashboard = () => {
                 <button 
                   type="submit" 
                   disabled={isPublishing}
-                  className="bg-purple-600 text-white px-8 py-3 rounded font-medium hover:bg-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="bg-neutral-700 text-white px-8 py-3 rounded font-medium hover:bg-neutral-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {isPublishing && (
                     <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -616,7 +616,7 @@ const AdminDashboard = () => {
                         const url = prompt('Enter image URL:');
                         if(url) insertText(`![Image Description](${url})`, '');
                     }} 
-                    className="p-2 text-purple-400 hover:text-purple-300 hover:bg-purple-900/30 rounded transition flex items-center gap-2" 
+                    className="p-2 text-neutral-300 hover:text-neutral-200 hover:bg-neutral-800/30 rounded transition flex items-center gap-2" 
                     title="Insert Image"
                  >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
@@ -627,15 +627,15 @@ const AdminDashboard = () => {
               <button 
                 type="button" 
                 onClick={() => setShowAIModal(true)}
-                className="bg-neutral-800 text-purple-400 border border-neutral-700 hover:bg-neutral-700 hover:text-purple-300 px-3 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1"
+                className="bg-neutral-800 text-neutral-300 border border-neutral-700 hover:bg-neutral-700 hover:text-neutral-200 px-3 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1"
               >
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
                   Magic AI
               </button>
 
               <div className="flex gap-2">
-                 <button type="button" onClick={() => setIsPreviewMode(false)} className={`text-xs px-3 py-1 rounded ${!isPreviewMode ? 'bg-purple-600 text-white' : 'text-neutral-500 hover:text-white'}`}>Editor</button>
-                 <button type="button" onClick={() => setIsPreviewMode(true)} className={`text-xs px-3 py-1 rounded md:hidden ${isPreviewMode ? 'bg-purple-600 text-white' : 'text-neutral-500 hover:text-white'}`}>Preview</button>
+                 <button type="button" onClick={() => setIsPreviewMode(false)} className={`text-xs px-3 py-1 rounded ${!isPreviewMode ? 'bg-neutral-700 text-white' : 'text-neutral-500 hover:text-white'}`}>Editor</button>
+                 <button type="button" onClick={() => setIsPreviewMode(true)} className={`text-xs px-3 py-1 rounded md:hidden ${isPreviewMode ? 'bg-neutral-700 text-white' : 'text-neutral-500 hover:text-white'}`}>Preview</button>
               </div>
            </div>
 
@@ -686,9 +686,9 @@ Tips:
         <h2 className="text-2xl font-light mb-6 border-b border-neutral-800 pb-2">Recent <span className="text-neutral-500">Posts</span></h2>
         <div className="grid grid-cols-1 gap-4">
             {blogs.map(blog => (
-            <div key={blog._id} className="bg-neutral-900 p-6 rounded-lg border border-neutral-800 flex justify-between items-center group hover:border-purple-900/50 transition-colors">
+            <div key={blog._id} className="bg-neutral-900 p-6 rounded-lg border border-neutral-800 flex justify-between items-center group hover:border-neutral-800/50 transition-colors">
                 <div>
-                <h3 className="text-xl font-bold text-neutral-200 group-hover:text-purple-400 transition-colors">{blog.title}</h3>
+                <h3 className="text-xl font-bold text-neutral-200 group-hover:text-neutral-300 transition-colors">{blog.title}</h3>
                 <span className="text-sm text-neutral-500 font-mono">{new Date(blog.createdAt).toLocaleDateString()} &mdash; {blog.tags ? blog.tags.join(', ') : 'No tags'}</span>
                 </div>
                 <div className="flex gap-3">

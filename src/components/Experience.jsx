@@ -55,7 +55,7 @@ const Experience = () => {
             <div className="w-full lg:w-3/4 lg:pl-4 border-l border-neutral-700/50 lg:border-l-0 lg:pl-0"> {/* Optional: Add border only on small screens */}
                 <h3 className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-semibold text-neutral-100">
                     <span>{experience.role} -</span>
-                    <span className="inline-flex items-center gap-2 text-base font-medium text-purple-300/90"> {/* Slightly dimmed purple */}
+                    <span className="inline-flex items-center gap-2 text-base font-medium text-neutral-200/90"> {/* Slightly dimmed purple */}
                     {experience.logo && (
                       <img
                         src={experience.logo}
@@ -81,7 +81,7 @@ const Experience = () => {
                     {experience.technologies.map((tech, techIndex) => (
                     <span
                         key={techIndex}
-                        className="rounded bg-neutral-800/80 px-2 py-1 text-xs font-medium text-purple-400 shadow-sm" // Slightly adjusted tech tag style
+                        className="rounded bg-neutral-800/80 px-2 py-1 text-xs font-medium text-neutral-300 shadow-sm" // Slightly adjusted tech tag style
                     >
                         {tech}
                     </span>

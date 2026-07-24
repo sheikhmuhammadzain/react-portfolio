@@ -50,9 +50,9 @@ const Blogs = () => {
         whileInView={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -100 }}
         transition={{ duration: 0.5 }}
-        className="my-16 text-center text-5xl font-bold tracking-tight"
+        className="my-16 text-center text-4xl sm:text-5xl font-semibold tracking-tight text-neutral-100"
       >
-        My <span className="text-neutral-500">Blogs</span>
+        My Blogs
       </motion.h1>
 
       {/* Professional Search Bar */}
@@ -64,16 +64,16 @@ const Blogs = () => {
       >
         <div className="relative w-full max-w-2xl group">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-            <HugeiconsIcon icon={Search01Icon} size={20} strokeWidth={1.8} className="text-neutral-500 group-focus-within:text-purple-500 transition-colors" />
+            <HugeiconsIcon icon={Search01Icon} size={20} strokeWidth={1.8} className="text-neutral-500 group-focus-within:text-neutral-400 transition-colors" />
           </div>
           <input
             type="text"
-            className="block w-full pl-12 pr-4 py-4 border border-neutral-800 rounded-full leading-5 bg-neutral-900/50 backdrop-blur-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:bg-neutral-900 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 sm:text-lg transition-all shadow-xl hover:border-neutral-700 hover:bg-neutral-900"
+            className="block w-full pl-12 pr-4 py-4 rounded-full leading-5 bg-neutral-900/80 text-neutral-200 placeholder-neutral-500 focus:outline-none focus:bg-neutral-900 focus:ring-1 focus:ring-neutral-600 sm:text-lg transition-colors hover:bg-neutral-900"
             placeholder="Search topics, tutorials, and insights..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <div className="absolute inset-0 rounded-full bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none blur-xl -z-10"></div>
+          <div className="absolute inset-0 rounded-full bg-neutral-400/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none blur-xl -z-10"></div>
         </div>
       </motion.div>
 
@@ -84,7 +84,7 @@ const Blogs = () => {
             whileInView={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
-            className="bg-neutral-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-neutral-800 hover:border-purple-500/50 hover:shadow-purple-900/20 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full"
+            className="bg-neutral-900/90 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-black/30 transition-shadow duration-300 group flex flex-col h-full"
           >
             {blog.image && (
               <div className="relative overflow-hidden h-56">
@@ -103,10 +103,10 @@ const Blogs = () => {
               </div>
             )}
             <div className={`p-8 flex flex-col flex-grow ${!blog.image ? 'pt-8' : ''}`}>
-              <div className="flex items-center gap-2 mb-4 text-xs font-medium text-purple-400 uppercase tracking-wider">
+              <div className="flex items-center gap-2 mb-4 text-xs font-medium text-neutral-300 uppercase tracking-wider">
                   <span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               </div>
-              <h2 className="text-2xl font-bold mb-3 text-neutral-100 group-hover:text-purple-400 transition-colors line-clamp-2">
+              <h2 className="text-2xl font-bold mb-3 text-neutral-100 group-hover:text-neutral-300 transition-colors line-clamp-2">
                 {blog.title}
               </h2>
               <p className="text-neutral-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">
@@ -118,7 +118,7 @@ const Blogs = () => {
               </p>
               <Link
                 to={`/blogs/${blog._id}`}
-                className="inline-flex items-center justify-center w-full bg-neutral-800 text-neutral-300 border border-neutral-700 px-6 py-3 rounded-xl hover:bg-purple-600 hover:text-white hover:border-purple-500 transition-all duration-300 font-medium group-hover/btn"
+                className="inline-flex items-center justify-center w-full bg-neutral-800/80 text-neutral-300 px-6 py-3 rounded-xl hover:bg-neutral-700 hover:text-white transition-colors duration-300 font-medium"
               >
                 Read Article
               </Link>

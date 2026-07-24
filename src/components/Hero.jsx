@@ -34,7 +34,7 @@ const Hero = () => {
             </h1>
 
             <span
-              className="hero-fade-up bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-3xl tracking-tight text-transparent"
+              className="hero-fade-up bg-gradient-to-r from-white via-neutral-400 to-neutral-600 bg-clip-text text-3xl tracking-tight text-transparent"
               style={{ animationDelay: "0.2s" }}
             >
               Full Stack AI Developer
@@ -67,8 +67,8 @@ const Hero = () => {
                 >
                   <span className={BUTTON_INNER_CLASS} style={BUTTON_INNER_STYLE}>
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-500" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-neutral-300 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-neutral-400" />
                     </span>
                     Talk to My Agent
                   </span>

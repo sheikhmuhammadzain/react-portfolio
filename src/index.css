@@ -34,19 +34,19 @@ html, body {
   background-color: #008f11 !important;
   color: black !important;
 }
-.matrix-theme .text-purple-400, 
-.matrix-theme .text-purple-500,
+.matrix-theme .text-neutral-300, 
+.matrix-theme .text-neutral-400,
 .matrix-theme .text-cyan-400 {
   color: #00ff41 !important;
   text-shadow: 0 0 5px #00ff41;
 }
-.matrix-theme .bg-purple-600, 
+.matrix-theme .bg-neutral-700, 
 .matrix-theme .bg-cyan-500 {
   background-color: #003b00 !important;
   border-color: #00ff41 !important;
   color: #00ff41 !important;
 }
-.matrix-theme .border-purple-500 {
+.matrix-theme .border-neutral-400 {
     border-color: #00ff41 !important;
 }
 
@@ -274,7 +274,7 @@ body:hover::-webkit-scrollbar {
 /* Active section */
 .section-nav__link.is-active .section-nav__dash {
   width: 34px;
-  background: #c084fc;
+  background: #e5e5e5;
 }
 
 .section-nav__link.is-active .section-nav__label {
@@ -301,13 +301,13 @@ body:hover::-webkit-scrollbar {
   background: #131316;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 0 16px rgba(168, 85, 247, 0.35);
+    0 0 16px rgba(139, 92, 246, 0.4);
 }
 
 .siri-blob[data-live="true"] {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.12) inset,
-    0 0 28px rgba(168, 85, 247, 0.65);
+    0 0 28px rgba(139, 92, 246, 0.7);
 }
 
 .siri-blob-layer {
@@ -315,13 +315,14 @@ body:hover::-webkit-scrollbar {
   inset: 8%;
   border-radius: 50%;
   filter: blur(5px);
-  opacity: 0.75;
+  opacity: 0.85;
   mix-blend-mode: screen;
   animation: blob-drift 5s ease-in-out infinite;
 }
 
+/* RGB iridescent gradient layers */
 .siri-blob-a {
-  background: radial-gradient(closest-side at 30% 35%, #a855f7, transparent 72%);
+  background: radial-gradient(closest-side at 30% 35%, #6366f1, transparent 72%);
 }
 
 .siri-blob-b {
@@ -332,7 +333,7 @@ body:hover::-webkit-scrollbar {
 }
 
 .siri-blob-c {
-  background: radial-gradient(closest-side at 50% 80%, #38bdf8, transparent 72%);
+  background: radial-gradient(closest-side at 50% 80%, #22d3ee, transparent 72%);
   animation-duration: 7s;
   animation-delay: -4s;
 }

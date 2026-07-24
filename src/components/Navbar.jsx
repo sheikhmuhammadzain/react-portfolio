@@ -45,7 +45,7 @@ const Navbar = () => {
             Portfolio 2
           </span>
         </a>
-        <Link to="/blogs" className="text-sm sm:text-lg font-medium hover:text-purple-400 transition-colors">
+        <Link to="/blogs" className="text-sm sm:text-lg font-medium hover:text-neutral-300 transition-colors">
           Blogs
         </Link>
         <a
@@ -53,21 +53,21 @@ const Navbar = () => {
           href="https://www.linkedin.com/in/muhammad-zain-afzal-649209227/"
           aria-label="Visit Muhammad Zain's LinkedIn profile"
         >
-          <HugeiconsIcon icon={Linkedin01Icon} size={24} strokeWidth={1.8} className="hover:text-purple-400 transition-colors" />
+          <HugeiconsIcon icon={Linkedin01Icon} size={24} strokeWidth={1.8} className="hover:text-neutral-300 transition-colors" />
         </a>
         <a
           href="https://github.com/sheikhmuhammadzain"
           target="_blank"
           aria-label="Visit Muhammad Zain's GitHub profile"
         >
-          <HugeiconsIcon icon={GithubIcon} size={24} strokeWidth={1.8} className="hover:text-purple-400 transition-colors" />
+          <HugeiconsIcon icon={GithubIcon} size={24} strokeWidth={1.8} className="hover:text-neutral-300 transition-colors" />
         </a>
         <a
           href="https://www.instagram.com/zainshayykh/"
           target="_blank"
           aria-label="Visit Muhammad Zain's Instagram profile"
         >
-          <HugeiconsIcon icon={InstagramIcon} size={24} strokeWidth={1.8} className="hover:text-purple-400 transition-colors" />
+          <HugeiconsIcon icon={InstagramIcon} size={24} strokeWidth={1.8} className="hover:text-neutral-300 transition-colors" />
         </a>
       </div>
     </nav>
