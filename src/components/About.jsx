@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import aboutImg from "../assets/about.jpeg";
+import aboutImg from "/zain-coat.webp";
 import { ABOUT_TEXT } from "../constants";
 const About = () => {
   const aboutLines = ABOUT_TEXT.split("\n").map((line) => line.trim()).filter(Boolean);
