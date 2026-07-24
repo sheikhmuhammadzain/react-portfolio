@@ -22,7 +22,7 @@ const AdminDashboard = lazyWithRetry(() => import("./pages/AdminDashboard"));
 const Login = lazyWithRetry(() => import("./pages/Login"));
 const Chatbot = lazyWithRetry(() => import("./components/Chatbot"));
 const CommandPalette = lazyWithRetry(() => import("./components/CommandPalette"));
-const CustomContextMenu = lazy(() => import("./components/CustomContextMenu"));
+const CustomContextMenu = lazyWithRetry(() => import("./components/CustomContextMenu"));
 
 let isGoogleAnalyticsReady = false;
 
